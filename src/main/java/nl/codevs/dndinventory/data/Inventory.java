@@ -3,7 +3,11 @@ package nl.codevs.dndinventory.data;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public final class Inventory {
@@ -50,6 +54,7 @@ public final class Inventory {
     ) {
         name = inventoryName;
         items = inventoryItems;
+        items.sort(InventoryItem.ITEM_COMPARATOR);
     }
 
     /**
@@ -59,6 +64,15 @@ public final class Inventory {
     public Inventory(final String inventoryName) {
         name = inventoryName;
         items = new ArrayList<>();
+    }
+
+    /**
+     * Create an inventory from a file
+     * @param fromFile The file to use to create the inventory.
+     * @throws FileNotFoundException If the file does not exist
+     */
+    public static Inventory fromJson(File fromFile) throws FileNotFoundException {
+        return GSON.fromJson(new FileReader(fromFile), Inventory.class);
     }
 
     /**
@@ -78,11 +92,22 @@ public final class Inventory {
         return GSON.fromJson(json, Inventory.class);
     }
 
-
     /**
      * Inventory item used for storing items in an inventory.
      * @param item The item type
      * @param amount The amount of the item
      */
-    public static record InventoryItem(Item item, int amount) { }
+    public static record InventoryItem(Item item, int amount) {
+
+        /**
+         * Sorting comparator for items
+         */
+        public static final Comparator<InventoryItem> ITEM_COMPARATOR = (i1, i2) -> {
+            if (i1.item.category().getPos() == i2.item.category().getPos()) {
+                return i2.item.name().compareToIgnoreCase(i1.item.name());
+            }
+            return (i1.item.category().getPos() - i2.item.category().getPos())
+                    / Math.abs(i1.item.category().getPos() - i2.item.category().getPos());
+        };
+    }
 }

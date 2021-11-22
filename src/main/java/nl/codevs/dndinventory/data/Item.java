@@ -1,7 +1,9 @@
 package nl.codevs.dndinventory.data;
 
+import java.util.Comparator;
+
 public record Item(
-        String category,
+        ItemType category,
         String name,
         Value value,
         Double weight,
@@ -10,7 +12,7 @@ public record Item(
 
     @Override
     public String toString() {
-        return name + " (" + category + ")"
+        return name + " (" + category.name() + ")"
                 + " worth " + value.toString()
                 + " weighs " + weight
                 + (stats.isEmpty() ? "" : " stats: " + stats);

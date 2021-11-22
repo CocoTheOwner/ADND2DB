@@ -37,8 +37,8 @@ Weapons	Carrikal	8 gp	6	(SM) 1d6+1 (L) 1d8
 Weapons	Caviler	450 gp	11	(SM) 1d8 (L) 1d8
 Weapons	Cestus	1 gp	2	(SM) 1d4 (L) 1d3
 Weapons	Chain	5 sp	3	(SM) 1d4+1 (L) 1d4
-Weapons	Chakram	1 gp	1/2	(SM) 1d4 (L) 1d3
-Weapons	Chatkcha	1 cp	1/2	(SM) 1d6+2 (L) 1d4+1
+Weapons	Chakram	1 gp	0.5	(SM) 1d4 (L) 1d3
+Weapons	Chatkcha	1 cp	0.5	(SM) 1d6+2 (L) 1d4+1
 Weapons	Club	0 cp	3	(SM) 1d6 (L) 1d3
 Weapons	Club (Datchi)	12 gp	10	(SM) 1d6 (L) 1d4
 Weapons	Club (Great)	8 gp	12	(SM) 2d4 (L) 1d6+1
@@ -54,12 +54,12 @@ Weapons	Dagger (Climbing)	5 gp	1	(SM) 1d3 (L) 1d2
 Weapons	Dagger (Giant-kin)	5 gp	3	(SM) 1d6 (L) 1d8
 Weapons	Dagger (Parrying)	5 gp	1	(SM) 1d3 (L) 1d3
 Weapons	Dagger (Stone)	2 sp	1	(SM) 1d3 (L) 1d2
-Weapons	Dart	5 sp	1/2	(SM) 1d3 (L) 1d2
+Weapons	Dart	5 sp	0.5	(SM) 1d3 (L) 1d2
 Weapons	Dart (Barbed)	0	5	(SM) 1d4 (L) 1d4
 Weapons	Dejada	6 gp	8	(SM) 1d8 (L) 1d6
 Weapons	Dejada Cestus	10 gp	9	(SM) 1d6/1d6 (L) 1d8/1d6
 Weapons	Dirk	2 gp	1	(SM) 1d4 (L) 1d3
-Weapons	Disk (Crossbow)	5 gp	3/10	(SM) 1d6+1 (L) 1d6
+Weapons	Disk (Crossbow)	5 gp	0.3	(SM) 1d6+1 (L) 1d6
 Weapons	Dragon's Paw	15 gp	9	(SM) 1d6 (L) 1d6+1
 Weapons	Flail (Bladeback)	20 gp	25	(SM) 1d8+1 (L) 2d6
 Weapons	Flail (Chain)	1 gp	5	(SM) 1d4+2 (L) 1d4+1
@@ -74,15 +74,15 @@ Weapons	Gouge	6 gp	12	(SM) 1d8 (L) 1d10
 Weapons	Harpoon			(SM)  (L) 
 Weapons	Hatchet	2 gp	3	(SM) 1d4+1 (L) 1d4+1
 Weapons	Hatchet (Hawk)	2 gp	6	(SM) 1d6+1/1d4+1 (L) 1d4/1d4
-Weapons	Hora	1 gp	1/2	(SM) 1d3 (L) 1d3
+Weapons	Hora	1 gp	0.5	(SM) 1d3 (L) 1d3
 Weapons	Impaler	4 cp	5	(SM) 1d8 (L) 1d8
 Weapons	Iuak (Snow Blade)	10 gp	3	(SM) 1d4 (L) 1d6
 Weapons	Jambiya	4 gp	1	(SM) 1d4 (L) 1d4
 Weapons	Katar (Punch Dagger)	3 gp	1	(SM) 1d3+1 (L) 1d3
 Weapons	Kick-slasher	7 gp	3	(SM) 1d4+1 (L) 1d6+1
-Weapons	Knife	5 sp	1/2	(SM) 1d3 (L) 1d2
-Weapons	Knife (Bone)	3 cp	1/2	(SM) 1d2 (L) 1d2
-Weapons	Knife (Stone)	5 cp	1/2	(SM) 1d2 (L) 1d2
+Weapons	Knife	5 sp	0.5	(SM) 1d3 (L) 1d2
+Weapons	Knife (Bone)	3 cp	0.5	(SM) 1d2 (L) 1d2
+Weapons	Knife (Stone)	5 cp	0.5	(SM) 1d2 (L) 1d2
 Weapons	Knife (Throwing)	3 gp	3	(SM) 1d4+1 (L) 1d4+1
 Weapons	Knife (Widow's)	5 gp	4	(SM) 1d4 (L) 1d4
 Weapons	Knobkerrie	10 sp	4	(SM) 1d6 (L) 1d4+1
@@ -117,7 +117,7 @@ Weapons	Pata	30 gp	6	(SM) 1d8 (L) 1d12
 Weapons	Peshkabz	3 gp	1	(SM) 1d4 (L) 1d3
 Weapons	Pick (Footman's)	8 gp	6	(SM) 1d6+1 (L) 2d4
 Weapons	Pick (Horseman's)	7 gp	4	(SM) 1d4+1 (L) 1d4
-Weapons	Pick (Ice)	1 gp	1/2	(SM) 1d4 (L) 1d3
+Weapons	Pick (Ice)	1 gp	0.5	(SM) 1d4 (L) 1d3
 Weapons	Pike (Weighted)	6 gp	15	(SM) 1d6/1d6 (L) 1d12/1d4
 Weapons	Polearm (Awl Pike)	5 gp	12	(SM) 1d6 (L) 1d12
 Weapons	Polearm (Bardiche)	7 gp	12	(SM) 2d4 (L) 2d6
@@ -180,7 +180,7 @@ Weapons	Staff (Hornhead)	5 gp	20	(SM) 2d6 (L) 2d6
 Weapons	Staff (Sling)	2 sp	2	(SM) rock (L) rock
 Weapons	Stick (Goblin)	5 gp	8	(SM) 1d4 (L) 1d6
 Weapons	Sticks (Singing)	5 sp	1	(SM) 1d6 (L) 1d4
-Weapons	Stiletto	5 sp	1/2	(SM) 1d3 (L) 1d2
+Weapons	Stiletto	5 sp	0.5	(SM) 1d3 (L) 1d2
 Weapons	Sword (Bastard)	25 gp	10	(SM) 1H 1d8 / 2H 2d4 (L) 1H 1d12 / 2H 2d8
 Weapons	Sword (Broad)	10 gp	4	(SM) 2d4 (L) 1d6+1
 Weapons	Sword (Claymore)	25 gp	10	(SM) 2d4 (L) 2d8

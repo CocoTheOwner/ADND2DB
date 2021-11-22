@@ -1,5 +1,9 @@
 package nl.codevs.dndinventory.data;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.Locale;
+
 import static nl.codevs.dndinventory.data.Coin.CP;
 import static nl.codevs.dndinventory.data.Coin.SP;
 import static nl.codevs.dndinventory.data.Coin.EP;
@@ -220,9 +224,11 @@ public final class Value {
      */
     public Value(final String value) {
         String cleanValue = value
+                .toLowerCase(Locale.ROOT)
                 .replaceAll(" ", "")
                 .replaceAll("\t", "")
-                .replaceAll(",", ".").strip();
+                .replaceAll(",", ".")
+                .strip();
         if (cleanValue.equals("0")) {
             return;
         }
@@ -239,8 +245,9 @@ public final class Value {
                     + " which is not cp, sp, ep, gp or pp"
             );
         };
-        double amount = Double.parseDouble(value.replaceAll(end, ""));
+        double amount = Double.parseDouble(cleanValue.replace(end, ""));
         addCoin(type, amount);
+        maxTarget();
     }
 
     /**
@@ -273,9 +280,14 @@ public final class Value {
             newAmount = amount;
         }
 
+        // cannot decrease CP
+        if (type.equals(CP)) {
+            throw new RuntimeException("Cannot further decrease remaining cp: " + newAmount);
+        }
+
         // remainder
         int factor = type.decrementFactor();
-        addCoin(type.decrement(), newAmount * factor);
+        addCoin(type.decrement(), Math.round(newAmount * factor * 1000d) / 1000d);
     }
 
     /**
@@ -330,16 +342,36 @@ public final class Value {
      */
     private void maxTarget() {
         int totalCP = getAsCP();
+
+        // Reset value counters (all value is stored in 'totalCP')
         this.cp = 0;
         this.sp = 0;
         this.ep = 0;
         this.gp = 0;
         this.pp = 0;
+
+        // Conversion factors
         final int cpCp = 1;
         final int spCp = SP.decrementFactor() * cpCp;
         final int epCp = EP.decrementFactor() * spCp;
         final int gpCp = GP.decrementFactor() * epCp;
         final int ppCp = PP.decrementFactor() * gpCp;
+
+        /*
+         * It is a bit unclear what happens here
+         * So I will elaborate:
+         *
+         * We loop through all the target coin types
+         * We then find the highest amount of that coin possible,
+         * based on the amount of CP (the total CP in the Value)
+         *
+         * We then add that amount to the corresponding value
+         * And then subtract the CP amount corresponding to that,
+         * from the total remaining CP
+         *
+         * Finally, the remaining CP is stored
+         */
+
         for (Coin t : TARGET) {
             if (totalCP != 0) {
                 switch (t) {

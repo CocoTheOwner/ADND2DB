@@ -1,7 +1,6 @@
 package nl.codevs.dndinventory.data;
 
 import lombok.Getter;
-import org.apache.commons.text.similarity.LevenshteinDetailedDistance;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 
 import java.io.BufferedReader;
@@ -13,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class ItemDatabase {
+public final class ItemDatabase {
 
     /**
      * Separator in database (csv).
@@ -85,7 +84,7 @@ public class ItemDatabase {
                     new ArrayList<>(List.of(line.split(SEPARATOR)));
 
             // Required
-            String category;
+            ItemType category;
             String name;
             Value value = new Value(0);
 
@@ -125,7 +124,7 @@ public class ItemDatabase {
                 }
                 case nameAndCategoryOnly: {
                     name = split.get(nameIndex);
-                    category = split.get(categoryIndex);
+                    category = ItemType.fromString(split.get(categoryIndex));
                     break;
                 }
                 default: {
@@ -176,12 +175,30 @@ public class ItemDatabase {
     }
 
     /**
-     * Find a set of close matching items to a certain string
-     * @param in The input string to find matches with
-     * @return An array of items that match the closest
+     * Get all values in the database,
+     * ordered by how closely they match a certain string.
+     * Uses {@code LevenshteinDistance} from Apache Commons Text.
+     * @param in The input string to match with
+     * @return An array of items sorted by how close they match
      */
-    public static Item[] findCloseMatches(final String in) {
-        int i = new LevenshteinDistance().apply(in, "");
-        return new Item[0];
+    public static List<Item> matchAll(final String in) {
+        List<Item> items = new ArrayList<>(ITEMS);
+        LevenshteinDistance d = new LevenshteinDistance();
+        items.sort((i1, i2) -> {
+
+            // Starts-with priority
+            if (i1.name().startsWith(in)) {
+                if (i2.name().startsWith(in)) {
+                    return Integer.compare(i1.name().length(), i2.name().length());
+                }
+                return -1;
+            } else if (i2.name().startsWith(in)) {
+                return 1;
+            }
+
+            // Levenshtein distance
+            return Integer.compare(d.apply(in, i1.name()), d.apply(in, i2.name()));
+        });
+        return items;
     }
 }

@@ -5,11 +5,11 @@ public enum ItemType {
     ARMOR("Armor", 1),
     CLOTHING("Clothing", 3),
     WEAPONS("Weapons", 0),
-    FOODLODGING("Daily Food and Lodging", ItemType.NON_CARRY),
+    FOOD_LODGING("Daily Food and Lodging", ItemType.NON_CARRY),
     HARNESS("Tack and Harness", 3),
     MAGIC("Magic Items", 2),
     MISC("Miscellaneous Equipment", 3),
-    PROVISIONS("Household Provisions", 5),
+    PROVISIONS("Household Provisioning", 5),
     ;
 
     /**
@@ -46,5 +46,20 @@ public enum ItemType {
     ItemType(String typeName, int position) {
         name = typeName;
         pos = position;
+    }
+
+    /**
+     * Get item type from string
+     * @param in The input string
+     * @return The {@link ItemType} belonging to the input string
+     * @throws RuntimeException When the input string does not match an {@link ItemType}
+     */
+    public static ItemType fromString(String in) throws RuntimeException {
+        for (ItemType value : ItemType.values()) {
+            if (value.name.equals(in) || value.getName().equals(in) || value.toString().equals(in)) {
+                return value;
+            }
+        }
+        throw new RuntimeException("Cannot convert '" + in + "' to valid ItemType");
     }
 }

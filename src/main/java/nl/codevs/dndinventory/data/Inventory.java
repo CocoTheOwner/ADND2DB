@@ -67,11 +67,13 @@ public final class Inventory {
     }
 
     /**
-     * Create an inventory from a file
+     * Create an inventory from a file.
      * @param fromFile The file to use to create the inventory.
+     * @return {@link Inventory} object from json file
      * @throws FileNotFoundException If the file does not exist
      */
-    public static Inventory fromJson(File fromFile) throws FileNotFoundException {
+    public static Inventory fromJson(final File fromFile)
+            throws FileNotFoundException {
         return GSON.fromJson(new FileReader(fromFile), Inventory.class);
     }
 
@@ -100,14 +102,20 @@ public final class Inventory {
     public static record InventoryItem(Item item, int amount) {
 
         /**
-         * Sorting comparator for items
+         * Sorting comparator for items.
          */
-        public static final Comparator<InventoryItem> ITEM_COMPARATOR = (i1, i2) -> {
+        public static final Comparator<InventoryItem>
+                ITEM_COMPARATOR = (i1, i2) -> {
             if (i1.item.category().getPos() == i2.item.category().getPos()) {
                 return i2.item.name().compareToIgnoreCase(i1.item.name());
             }
-            return (i1.item.category().getPos() - i2.item.category().getPos())
-                    / Math.abs(i1.item.category().getPos() - i2.item.category().getPos());
+            return (
+                    i1.item.category().getPos()
+                    - i2.item.category().getPos()
+            ) / Math.abs(
+                    i1.item.category().getPos()
+                    - i2.item.category().getPos()
+            );
         };
     }
 }

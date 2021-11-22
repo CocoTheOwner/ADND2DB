@@ -1,6 +1,5 @@
 package nl.codevs.dndinventory.data;
 
-import lombok.Getter;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 
 import java.io.BufferedReader;
@@ -14,6 +13,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public final class ItemDatabase {
 
+    private ItemDatabase() {
+        // Never called
+    }
+
     /**
      * Separator in database (csv).
      */
@@ -26,7 +29,10 @@ public final class ItemDatabase {
 
     static {
         try {
-            url = new URL("https://raw.githubusercontent.com/CocoTheOwner/ADND2DB/main/fulllist.csv");
+            url = new URL(
+                    "https://raw.githubusercontent.com/"
+                    + "CocoTheOwner/ADND2DB/main/fulllist.csv"
+            );
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -35,13 +41,19 @@ public final class ItemDatabase {
     /**
      * Items in database.
      */
-    @Getter
     private static final List<Item> ITEMS = new ArrayList<>();
+
+    /**
+     * Get all items in the database.
+     * @return Items
+     */
+    public static List<Item> getItems() {
+        return ITEMS;
+    }
 
     /**
      * Items in database, findable by name.
      */
-    @Getter
     private static final ConcurrentHashMap<String, Item>
             ITEMS_BY_NAME = new ConcurrentHashMap<>();
 
@@ -92,9 +104,6 @@ public final class ItemDatabase {
             Double weight = null;
             String stats = "";
 
-            // Note the 'fall-through' behaviour of switches.
-            // On case 5, case 4 and 3 are also ran.
-
             // Case types
             final int allSpecified = 5;
             final int noStats = 4;
@@ -108,6 +117,8 @@ public final class ItemDatabase {
             final int nameIndex = 1;
             final int categoryIndex = 0;
 
+            // Note the 'fall-through' behaviour of switches.
+            // On case 5, case 4 and 3 are also ran.
             switch (split.size()) {
                 case allSpecified: stats = split.get(statIndex);
                 case noStats: {
@@ -189,7 +200,10 @@ public final class ItemDatabase {
             // Starts-with priority
             if (i1.name().startsWith(in)) {
                 if (i2.name().startsWith(in)) {
-                    return Integer.compare(i1.name().length(), i2.name().length());
+                    return Integer.compare(
+                            i1.name().length(),
+                            i2.name().length()
+                    );
                 }
                 return -1;
             } else if (i2.name().startsWith(in)) {
@@ -197,7 +211,10 @@ public final class ItemDatabase {
             }
 
             // Levenshtein distance
-            return Integer.compare(d.apply(in, i1.name()), d.apply(in, i2.name()));
+            return Integer.compare(
+                    d.apply(in, i1.name()),
+                    d.apply(in, i2.name())
+            );
         });
         return items;
     }

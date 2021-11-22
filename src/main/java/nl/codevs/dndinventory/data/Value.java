@@ -1,7 +1,5 @@
 package nl.codevs.dndinventory.data;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.Locale;
 
 import static nl.codevs.dndinventory.data.Coin.CP;
@@ -251,6 +249,11 @@ public final class Value {
     }
 
     /**
+     * The factor to use to fix double division errors.
+     */
+    private static final double ROUND_FACTOR = 1000d;
+
+    /**
      * Add a fractional amount of a coin.
      * @param type The coin type
      * @param amount The amount to add
@@ -282,12 +285,17 @@ public final class Value {
 
         // cannot decrease CP
         if (type.equals(CP)) {
-            throw new RuntimeException("Cannot further decrease remaining cp: " + newAmount);
+            throw new RuntimeException(
+                    "Cannot further decrease remaining cp: " + newAmount
+            );
         }
 
         // remainder
         int factor = type.decrementFactor();
-        addCoin(type.decrement(), Math.round(newAmount * factor * 1000d) / 1000d);
+        addCoin(
+                type.decrement(),
+                Math.round(newAmount * factor * ROUND_FACTOR) / ROUND_FACTOR
+        );
     }
 
     /**

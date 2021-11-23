@@ -253,16 +253,16 @@ FOOD_LODGING,Common wine (pitcher),0.2,null,
 FOOD_LODGING,Egg or fresh vegetables,0.01,null,
 FOOD_LODGING,Grain and stabling for horse,0.5,null,per day
 FOOD_LODGING,Honey,0.5,null,
-FOOD_LODGING,Inn lodging (Common),0.5,null,per day
-FOOD_LODGING,Inn lodging (Common),3.0,null,per week
-FOOD_LODGING,Inn lodging (Poor),0.05,null,per day
-FOOD_LODGING,Inn lodging (Poor),0.2,null,per week
+FOOD_LODGING,Inn lodging (Common; day),0.5,null,
+FOOD_LODGING,Inn lodging (Common; week),3.0,null,
+FOOD_LODGING,Inn lodging (Poor; day),0.05,null,
+FOOD_LODGING,Inn lodging (Poor; week),0.2,null,
 FOOD_LODGING,Meat for one meal,0.1,null,
 FOOD_LODGING,Meals (Poor),0.1,null,per day
 FOOD_LODGING,Meals (Good),0.5,null,per day
 FOOD_LODGING,Meals (Common),0.3,null,per day
-FOOD_LODGING,Separate latrine for rooms,0.1,null,per day
-FOOD_LODGING,Separate latrine for rooms,2.0,null,per month
+FOOD_LODGING,Separate latrine for rooms (day),0.1,null,
+FOOD_LODGING,Separate latrine for rooms (month),2.0,null,
 FOOD_LODGING,Small beer,0.05,null,per gallon
 FOOD_LODGING,Soup,0.05,null,
 PROVISIONS,Barrel of pickled fish,3.0,null,

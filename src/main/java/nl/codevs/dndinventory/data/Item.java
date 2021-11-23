@@ -50,7 +50,7 @@ public record Item(
             for (String item : getRawData()) {
                 Item newItem = fromCSV(item);
                 if (ITEM_MAP.containsKey(newItem.name())) {
-                    System.out.println("Non-unique item name");
+                    System.out.println("Non-unique item name " + item);
                     System.exit(1);
                 }
                 ITEM_LIST.add(newItem);

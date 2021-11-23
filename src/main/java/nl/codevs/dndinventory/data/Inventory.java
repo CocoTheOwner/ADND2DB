@@ -103,12 +103,19 @@ public class Inventory {
 
         /**
          * Sorting comparator for items.
+         * First sorts by category:
+         * If the category pos' are equal, they sort by name
+         * If the category pos' are different, they sort by 'lowest pos to highest pos'
          */
         public static final Comparator<InventoryItem>
                 ITEM_COMPARATOR = (i1, i2) -> {
+
+            // Equal positions
             if (i1.item.category().getPos() == i2.item.category().getPos()) {
                 return i2.item.name().compareToIgnoreCase(i1.item.name());
             }
+
+            // Different positions
             return (
                     i1.item.category().getPos()
                     - i2.item.category().getPos()

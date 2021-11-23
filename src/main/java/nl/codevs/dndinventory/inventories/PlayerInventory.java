@@ -77,8 +77,21 @@ public class PlayerInventory extends Inventory
         return maxWeight;
     }
 
+    /**
+     * Convert the inventory to Json.
+     * @return A json string
+     */
     @Override
     public String toJson() {
         return Inventory.GSON.toJson(this);
+    }
+
+    /**
+     * Get amount of space left.
+     * @return The amount of leftover space. Can be negative (over-encumbered)
+     */
+    @Override
+    public double getRemainingWeight() {
+        return WeightedInventory.super.getRemainingWeight() - money.getWeight();
     }
 }

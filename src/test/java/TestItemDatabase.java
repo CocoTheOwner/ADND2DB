@@ -2,7 +2,10 @@ import nl.codevs.dndinventory.data.Item;
 import nl.codevs.dndinventory.data.Money;
 import org.junit.jupiter.api.Test;
 
+import java.security.InvalidParameterException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 public class TestItemDatabase {
 
@@ -34,5 +37,13 @@ public class TestItemDatabase {
     @Test
     public void testMatchingNonExact() {
         assertEquals(new Money(5000).getAsGP(), Item.Database.matchAll("Hunting cat").get(0).worth().getAsGP());
+    }
+
+    @Test
+    public void testDuplicateItemAdd() {
+        assertThrowsExactly(
+                InvalidParameterException.class,
+                () -> Item.Database.addItem(Item.Database.getItems().get(0))
+        );
     }
 }

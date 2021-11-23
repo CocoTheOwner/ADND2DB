@@ -376,6 +376,14 @@ public final class Money {
     }
 
     /**
+     * Get the weight of this money
+     * @return The weight of the money
+     */
+    public double getWeight() {
+        return (getCP() + getSP() + getEP() + getGP() + getPP()) / 50d;
+    }
+
+    /**
      * Maximizes the amount of currency in a specific coin in this value.<p>
      * Uses the local constant array 'targets' to define order
      */

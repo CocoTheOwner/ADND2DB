@@ -3,6 +3,7 @@ package nl.codevs.dndinventory.data;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 
 import java.io.*;
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -48,6 +49,10 @@ public record Item(
         static {
             for (String item : getRawData()) {
                 Item newItem = fromCSV(item);
+                if (ITEM_MAP.containsKey(newItem.name())) {
+                    System.out.println("Non-unique item name");
+                    System.exit(1);
+                }
                 ITEM_LIST.add(newItem);
                 ITEM_MAP.put(newItem.name(), newItem);
             }
@@ -107,8 +112,13 @@ public record Item(
         /**
          * Add an item to the database. Automatically saves to file.
          * @param item The item to add
+         * @throws InvalidParameterException when item name already exists in DB
          */
-        public static void addItem(final Item item) {
+        public static void addItem(final Item item) throws InvalidParameterException {
+            if (ITEM_MAP.containsKey(item.name())) {
+                throw new InvalidParameterException("Non-unique item name");
+            }
+
             ITEM_LIST.add(item);
             ITEM_MAP.put(item.name(), item);
             try {

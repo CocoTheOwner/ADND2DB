@@ -1,5 +1,5 @@
 import difflib as dl
-data = [line.removesuffix("\n").split("\t") for line in open("./fulllist.csv").readlines()]
+data = [line.removesuffix("\n").split(",") for line in open("./itemdb.csv").readlines()]
 options = [line[1].lower() for line in data]
 inp = input("Enter a query: ")
 

@@ -21,7 +21,7 @@ public class TestInventory {
 
     @Test
     public void testInventorySorting() {
-        assertEquals(SUT.getItems().get(SUT.getItems().size() - 1).item().name(), testItem.name());
+        assertEquals(SUT.getItems().get(SUT.getItems().size() - 1).getItem().name(), testItem.name());
     }
 
     // TODO: TestInventoryItemSorter

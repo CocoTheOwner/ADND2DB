@@ -14,7 +14,7 @@ public interface WeightedInventory extends InventoryInterface {
      */
     default double getRemainingWeight() {
         double weight = inventory().getItems().stream()
-                .mapToDouble(i -> i.amount() * i.item().weight()).sum();
+                .mapToDouble(i -> i.getAmount() * i.getItem().weight()).sum();
         return maxWeight() - weight;
     }
 }

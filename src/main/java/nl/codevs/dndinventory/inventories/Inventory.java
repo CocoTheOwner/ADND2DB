@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import nl.codevs.dndinventory.data.Item;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -113,7 +114,9 @@ public class Inventory {
      * @param inventoryItem The inventory item to add
      */
     public void addItem(final InventoryItem inventoryItem) {
-        addItemsBulk(Collections.singletonList(inventoryItem));
+        List<InventoryItem> i = new ArrayList<>();
+        i.add(inventoryItem);
+        addItemsBulk(i);
     }
 
     /**

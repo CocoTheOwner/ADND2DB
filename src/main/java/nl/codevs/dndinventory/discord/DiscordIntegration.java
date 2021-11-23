@@ -1,14 +1,17 @@
 package nl.codevs.dndinventory.discord;
 
 
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import nl.codevs.dndinventory.DnDInventory;
+import nl.codevs.dndinventory.data.Item;
 import org.jetbrains.annotations.NotNull;
 
 import javax.security.auth.login.LoginException;
@@ -43,7 +46,21 @@ public class DiscordIntegration extends ListenerAdapter
         if (!event.getMessage().getContentStripped().startsWith(PREFIX)) return;
 
         switch (event.getMessage().getContentStripped().substring(1)) {
-            case "inv" -> event.getChannel().sendMessage(DnDInventory.inv.getItems().get(0).getItem().toString()).queue();
+            case "inv", "inventory" -> {
+                StringBuilder b = new StringBuilder();
+                Item.Database.matchAll("Arrow").subList(0, 15).forEach(i -> b.append(i).append("\n"));
+                event.getChannel().sendMessage(b.toString()).queue();
+            }
+            case "test" -> {
+                event.getChannel().sendMessage(
+                        new EmbedBuilder()
+                                .addField("Weapons", "YOU!", true)
+                                .addField("Misc", "YOU!", true)
+                                .addField("Clothing", "YOU!", false)
+                                .addField("HEY!", "YOU!", true)
+                                .build())
+                        .queue();
+            }
         }
     }
 }

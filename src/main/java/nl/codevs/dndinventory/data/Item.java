@@ -188,8 +188,8 @@ public record Item(
                     ItemType.fromString(split[0]),
                     split[1],
                     new Value(Double.parseDouble(split[2])),
-                    Double.parseDouble(split[3]),
-                    split[4]
+                    split[3].equals("null") ? null : Double.parseDouble(split[3]),
+                    split.length < 5 ? "" : split[4]
             );
         }
 

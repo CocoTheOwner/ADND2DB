@@ -37,6 +37,35 @@ public final class Value {
     private int pp;
 
     /**
+     * Create a new worthless value.
+     */
+    public Value() {
+        this(0);
+    }
+
+    /**
+     * Get a new value from an existing value and modifier.
+     * @param value The value to modify
+     * @param modifierFor The factor by which to in-/decrement
+     * @return The new adjusted value
+     */
+    public static Value fromValueAndFactor(
+            final Value value,
+            final double modifierFor
+    ) {
+        return new Value(CP, value.getAsCP() * modifierFor);
+    }
+
+    /**
+     * Subtract a value from this value.
+     * @param value The value to subtract
+     * @return The new value
+     */
+    public Value subtract(final Value value) {
+        return new Value(CP, getAsCP() - value.getAsCP());
+    }
+
+    /**
      * Get the amount of copper pieces.
      * @return Amount of copper pieces
      */
@@ -244,6 +273,7 @@ public final class Value {
             );
         };
         double amount = Double.parseDouble(cleanValue.replace(end, ""));
+        assert amount >= 0;
         addCoin(type, amount);
         maxTarget();
     }
@@ -349,6 +379,11 @@ public final class Value {
      * Uses the local constant array 'targets' to define order
      */
     private void maxTarget() {
+        assert cp >= 0;
+        assert sp >= 0;
+        assert ep >= 0;
+        assert gp >= 0;
+        assert pp >= 0;
         int totalCP = getAsCP();
 
         // Reset value counters (all value is stored in 'totalCP')

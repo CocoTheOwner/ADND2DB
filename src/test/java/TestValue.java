@@ -87,4 +87,9 @@ public class TestValue {
     public void testAsGP() {
         assertEquals(151.51, new Value("15151cp").getAsGP());
     }
+
+    @Test
+    public void testFromValueAndFactor() {
+        assertEquals(15, Value.fromValueAndFactor(new Value(Coin.SP, 2), 0.75).getAsCP());
+    }
 }

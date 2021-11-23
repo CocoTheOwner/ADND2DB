@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public final class Inventory {
+public class Inventory {
     /**
      * Gson used to convert inventories to/from JSON.
      */

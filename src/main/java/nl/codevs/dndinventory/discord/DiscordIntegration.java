@@ -4,29 +4,31 @@ package nl.codevs.dndinventory.discord;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.interaction.SlashCommandEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.security.auth.login.LoginException;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Collections;
 
 public class DiscordIntegration extends ListenerAdapter
 {
-    public static void main(String[] args) throws LoginException, InterruptedException {
-        if (args.length < 1) {
-            System.out.println("You have to provide a token as first argument!");
-            System.exit(1);
-        }
-        // args[0] should be the token
-        // We don't need any intents for this bot. Slash commands work without any intents!
-        JDA jda = JDABuilder.createLight(args[0], Collections.emptyList())
+    public static void main(String[] args) throws LoginException, IOException, InterruptedException {
+        String token = new BufferedReader(new FileReader("./token.txt")).readLine();
+
+        JDA jda = JDABuilder.createLight(token, Collections.emptyList())
                 .addEventListeners(new DiscordIntegration())
                 .setActivity(Activity.playing("Type /ping"))
                 .build();
 
         jda.upsertCommand("ping", "Calculate ping of the bot").queue(); // This can take up to 1 hour to show up in the client
         jda.awaitReady();
-        System.out.println(jda.getGuildById(790135428228448286L).getName());
+        Guild ourGuild = jda.getGuildById(790135428228448286L);
+        assert ourGuild != null;
+        ourGuild.upsertCommand("ping", "Gop").queue();
     }
 
     @Override

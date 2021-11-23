@@ -10,7 +10,7 @@
  * <li>{@link nl.codevs.dndinventory.data.Item}
  * is the class for items (name, weight etc)</li>
  *
- * <li>{@link nl.codevs.dndinventory.data.ItemDatabase}
+ * <li>{@link nl.codevs.dndinventory.data.Item.Database}
  * is the util class with all (known) items</li>
  *
  * <li>{@link nl.codevs.dndinventory.data.ItemType}

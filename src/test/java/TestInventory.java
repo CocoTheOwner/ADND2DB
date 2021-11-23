@@ -12,7 +12,7 @@ public class TestInventory {
 
     @BeforeAll
     static void addItems() {
-        ItemDatabase.getItems().forEach(item -> SUT.getItems().add(
+        Item.Database.getItems().forEach(item -> SUT.getItems().add(
                 new Inventory.InventoryItem(item, 1)
         ));
         SUT.getItems().add(new Inventory.InventoryItem(testItem, 10));

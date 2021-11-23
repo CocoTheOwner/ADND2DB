@@ -198,7 +198,7 @@ public record Item(
         }
     }
 
-    public static enum Type {
+    public enum Type {
         /** Animals. */
         ANIMALS("Animals", 4),
         /** Armor. */

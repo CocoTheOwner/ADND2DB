@@ -59,13 +59,13 @@ public class PlayerInventory extends Inventory
     }
 
     /**
-     * Set money in the inventory.
+     * Set newMoney in the inventory.
      *
-     * @param money The new money value
+     * @param newMoney The new newMoney value
      */
     @Override
-    public void setMoney(final Money money) {
-        this.money = money;
+    public void setMoney(final Money newMoney) {
+        this.money = newMoney;
     }
 
     /**

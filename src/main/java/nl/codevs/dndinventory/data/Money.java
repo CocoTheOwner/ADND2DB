@@ -2,13 +2,14 @@ package nl.codevs.dndinventory.data;
 
 import java.util.Locale;
 
-import static nl.codevs.dndinventory.data.Coin.CP;
-import static nl.codevs.dndinventory.data.Coin.SP;
-import static nl.codevs.dndinventory.data.Coin.EP;
-import static nl.codevs.dndinventory.data.Coin.GP;
-import static nl.codevs.dndinventory.data.Coin.PP;
+import static nl.codevs.dndinventory.data.Money.Coin.CP;
+import static nl.codevs.dndinventory.data.Money.Coin.SP;
+import static nl.codevs.dndinventory.data.Money.Coin.EP;
+import static nl.codevs.dndinventory.data.Money.Coin.GP;
+import static nl.codevs.dndinventory.data.Money.Coin.PP;
 
-public final class Value {
+
+public final class Money {
 
     /**
      * Target these coins (in order) to be maximised in the value.
@@ -39,30 +40,30 @@ public final class Value {
     /**
      * Create a new worthless value.
      */
-    public Value() {
+    public Money() {
         this(0);
     }
 
     /**
      * Get a new value from an existing value and modifier.
-     * @param value The value to modify
+     * @param money The value to modify
      * @param modifierFor The factor by which to in-/decrement
      * @return The new adjusted value
      */
-    public static Value fromValueAndFactor(
-            final Value value,
+    public static Money fromValueAndFactor(
+            final Money money,
             final double modifierFor
     ) {
-        return new Value(CP, value.getAsCP() * modifierFor);
+        return new Money(CP, money.getAsCP() * modifierFor);
     }
 
     /**
      * Subtract a value from this value.
-     * @param value The value to subtract
+     * @param money The value to subtract
      * @return The new value
      */
-    public Value subtract(final Value value) {
-        return new Value(CP, getAsCP() - value.getAsCP());
+    public Money subtract(final Money money) {
+        return new Money(CP, getAsCP() - money.getAsCP());
     }
 
     /**
@@ -109,7 +110,7 @@ public final class Value {
      * Gold pieces only.
      * @param goldPieces The amount of GP
      */
-    public Value(final int goldPieces) {
+    public Money(final int goldPieces) {
         this(0, 0, goldPieces);
     }
 
@@ -117,7 +118,7 @@ public final class Value {
      * Fractional Gold pieces only.
      * @param goldPieces The amount of GP
      */
-    public Value(final double goldPieces) {
+    public Money(final double goldPieces) {
         this(GP, goldPieces);
     }
 
@@ -127,7 +128,7 @@ public final class Value {
      * @param silverPieces The amount of SP
      * @param goldPieces The amount of GP
      */
-    public Value(
+    public Money(
             final int copperPieces,
             final int silverPieces,
             final int goldPieces
@@ -140,7 +141,7 @@ public final class Value {
      * @param type The coin type
      * @param amount The amount
      */
-    public Value(final Coin type, final double amount) {
+    public Money(final Coin type, final double amount) {
         this(type, amount, CP, 0);
     }
 
@@ -151,7 +152,7 @@ public final class Value {
      * @param type2 The second coin type
      * @param amount2 The second coin amount
      */
-    public Value(
+    public Money(
             final Coin type1,
             final double amount1,
             final Coin type2,
@@ -167,7 +168,7 @@ public final class Value {
      * @param type The coin type
      * @param amount The amount
      */
-    public Value(final Coin type, final int amount) {
+    public Money(final Coin type, final int amount) {
         this(type, amount, CP, 0);
     }
 
@@ -178,7 +179,7 @@ public final class Value {
      * @param type2 The second coin type
      * @param amount2 The second coin amount
      */
-    public Value(
+    public Money(
             final Coin type1,
             final int amount1,
             final Coin type2,
@@ -196,7 +197,7 @@ public final class Value {
      * @param type3 The third coin type
      * @param amount3 The third coin amount
      */
-    public Value(
+    public Money(
             final Coin type1,
             final int amount1,
             final Coin type2,
@@ -218,7 +219,7 @@ public final class Value {
      * @param goldPieces Amount of GP
      * @param platinumPieces Amount of PP
      */
-    public Value(
+    public Money(
             final int copperPieces,
             final int silverPieces,
             final int electrumPieces,
@@ -249,7 +250,7 @@ public final class Value {
      * <li>(etc)</li>
      * @param value The string representation of a value
      */
-    public Value(final String value) {
+    public Money(final String value) {
         String cleanValue = value
                 .toLowerCase(Locale.ROOT)
                 .replaceAll(" ", "")
@@ -445,5 +446,76 @@ public final class Value {
                 + " g" + gp
                 + " p" + pp
                 + " totals " + getAsGP() + "gp";
+    }
+
+    public enum Coin {
+        /**
+         * Copper Pieces.
+         */
+        CP,
+        /**
+         * Silver Pieces.
+         */
+        SP,
+        /**
+         * Electrum Pieces.
+         */
+        EP,
+        /**
+         * Gold Pieces.
+         */
+        GP,
+        /**
+         * Platinum Pieces.
+         */
+        PP;
+
+        /**
+         * Decrement the coin type.
+         * @return The next-lower coin type.
+         */
+        public Coin decrement() {
+            return switch (this) {
+                case CP -> throw new RuntimeException("Cannot decrement CP");
+                case SP -> CP;
+                case EP -> SP;
+                case GP -> EP;
+                case PP -> GP;
+            };
+        }
+
+        /**
+         * SP to CP conversion factor.
+         */
+        private static final int S_TO_C = 10;
+
+        /**
+         * EP to SP conversion factor.
+         */
+        private static final int E_TO_S = 5;
+
+        /**
+         * GP to EP conversion factor.
+         */
+        private static final int G_TO_P = 2;
+
+        /**
+         * PP to GP conversion factor.
+         */
+        private static final int P_TO_G = 5;
+
+        /**
+         * Get the decrement factor.
+         * @return The decrement factor.
+         */
+        public int decrementFactor() {
+            return switch (this) {
+                case CP -> throw new RuntimeException("Cannot decrementFactor CP");
+                case SP -> S_TO_C;
+                case EP -> E_TO_S;
+                case GP -> G_TO_P;
+                case PP -> P_TO_G;
+            };
+        }
     }
 }

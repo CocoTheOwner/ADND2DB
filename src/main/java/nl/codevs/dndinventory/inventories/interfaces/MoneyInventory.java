@@ -1,6 +1,6 @@
 package nl.codevs.dndinventory.inventories.interfaces;
 
-import nl.codevs.dndinventory.data.Value;
+import nl.codevs.dndinventory.data.Money;
 
 public interface MoneyInventory extends InventoryInterface {
 
@@ -8,21 +8,21 @@ public interface MoneyInventory extends InventoryInterface {
      * The amount of money the inventory possesses.
      * @return The Value
      */
-    Value money();
+    Money money();
 
     /**
      * Set money in the inventory.
-     * @param value The new money value
+     * @param money The new money value
      */
-    void setMoney(Value value);
+    void setMoney(Money money);
 
     /**
      * Whether this inventory can afford a value.
-     * @param value The Value requested
+     * @param money The Value requested
      * @return True if it can, false if not
      */
-    default boolean canAfford(Value value) {
-        return value.getAsCP() <= money().getAsCP();
+    default boolean canAfford(Money money) {
+        return money.getAsCP() <= money().getAsCP();
     }
 
     /**
@@ -30,7 +30,7 @@ public interface MoneyInventory extends InventoryInterface {
      * @param amount The amount to pay
      * @throws TooPoorException When you have insufficient value
      */
-    default void pay(Value amount) throws TooPoorException {
+    default void pay(Money amount) throws TooPoorException {
         if (canAfford(amount)) {
             setMoney(money().subtract(amount));
         } else {
@@ -47,7 +47,7 @@ public interface MoneyInventory extends InventoryInterface {
          * Exception thrown when something is too expensive.
          * @param remaining The remaining value
          */
-        public TooPoorException(final Value remaining) {
+        public TooPoorException(final Money remaining) {
             super("You need " + remaining + " gp more!");
         }
     }

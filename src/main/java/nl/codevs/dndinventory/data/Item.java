@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public record Item(
-        ItemType category,
+        Type category,
         String name,
-        Value value,
+        Money money,
         Double weight,
         String stats
 ) {
@@ -18,7 +18,7 @@ public record Item(
     @Override
     public String toString() {
         return name + " (" + category.getName() + ")"
-                + " worth " + value.toString()
+                + " worth " + money.toString()
                 + " weighs " + weight
                 + (stats.isEmpty() ? "" : " stats: " + stats);
     }
@@ -131,7 +131,7 @@ public record Item(
             for (Item item : getItems()) {
                 out.append(item.category()).append(",")
                         .append(item.name()).append(",")
-                        .append(item.value().getAsGP()).append(",")
+                        .append(item.money().getAsGP()).append(",")
                         .append(item.weight()).append(",")
                         .append(item.stats()).append("\n");
             }
@@ -185,9 +185,9 @@ public record Item(
         public static Item fromCSV(final String csv, final String separator) {
             String[] split = csv.split(separator);
             return new Item(
-                    ItemType.fromString(split[0]),
+                    Type.fromString(split[0]),
                     split[1],
-                    new Value(Double.parseDouble(split[2])),
+                    new Money(Double.parseDouble(split[2])),
                     split[3].equals("null") ? null : Double.parseDouble(split[3]),
                     split.length < 5 ? "" : split[4]
             );
@@ -195,6 +195,84 @@ public record Item(
 
         private Database() {
             // Never called
+        }
+    }
+
+    public static enum Type {
+        /** Animals. */
+        ANIMALS("Animals", 4),
+        /** Armor. */
+        ARMOR("Armor", 1),
+        /** Clothing. */
+        CLOTHING("Clothing", 3),
+        /** Weapons. */
+        WEAPONS("Weapons", 0),
+        /** Daily Food and Lodging. */
+        FOOD_LODGING("Daily Food and Lodging", Type.NON_CARRY),
+        /** Tack and Harness. */
+        HARNESS("Tack and Harness", 3),
+        /** Magic Items. */
+        MAGIC("Magic Items", 2),
+        /** Miscellaneous Equipment. */
+        MISC("Miscellaneous Equipment", 3),
+        /** Provisions. */
+        PROVISIONS("Household Provisioning", 5);
+
+        /**
+         * 'Items' that cannot be carried (such as services).
+         */
+        private static final int NON_CARRY = Integer.MAX_VALUE;
+
+        /**
+         * Category name.
+         */
+        private final String name;
+
+        /**
+         * Category position (lower = higher priority in inventory).
+         */
+        private final int pos;
+
+        /**
+         * Get category name.
+         * @return Category name
+         */
+        public String getName() {
+            return name;
+        }
+
+        /**
+         * Get position.
+         * @return Category position
+         */
+        public int getPos() {
+            return pos;
+        }
+
+        Type(final String typeName, final int position) {
+            name = typeName;
+            pos = position;
+        }
+
+        /**
+         * Get item type from string.
+         * @param in The input string
+         * @return The {@link Type} belonging to the input string
+         * @throws RuntimeException When the input string
+         *                          does not match an {@link Type}
+         */
+        public static Type fromString(final String in) throws RuntimeException {
+            for (Type value : Type.values()) {
+                if (value.name.equals(in)
+                        || value.getName().equals(in)
+                        || value.toString().equals(in)
+                ) {
+                    return value;
+                }
+            }
+            throw new RuntimeException(
+                    "Cannot convert '" + in + "' to valid ItemType"
+            );
         }
     }
 }

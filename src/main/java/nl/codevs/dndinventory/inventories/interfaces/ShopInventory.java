@@ -1,8 +1,7 @@
 package nl.codevs.dndinventory.inventories.interfaces;
 
 import nl.codevs.dndinventory.data.Item;
-import nl.codevs.dndinventory.data.ItemType;
-import nl.codevs.dndinventory.data.Value;
+import nl.codevs.dndinventory.data.Money;
 
 public interface ShopInventory extends InventoryInterface {
 
@@ -11,7 +10,7 @@ public interface ShopInventory extends InventoryInterface {
      * @param type The item type (category)
      * @return The modifier for the type
      */
-    double modifierFor(ItemType type);
+    double modifierFor(Item.Type type);
 
     /**
      * Item modified for individual items.
@@ -25,9 +24,9 @@ public interface ShopInventory extends InventoryInterface {
      * @param item The item to get the price for
      * @return The price
      */
-    default Value willPayFor(final Item item) {
-        return Value.fromValueAndFactor(
-                item.value(),
+    default Money willPayFor(final Item item) {
+        return Money.fromValueAndFactor(
+                item.money(),
                 modifierFor(item.category()) * modifierFor(item)
         );
     }

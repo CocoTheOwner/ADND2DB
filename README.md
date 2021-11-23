@@ -11,8 +11,8 @@ Use [Getitem](./getitem.py) for item retrieval from text (does deep matching & a
   - Magic Items (if present)
   - Misc
 - Sorted alphabetically
-- Showing weight, value, on-hover description (?)
-- Random item remover (from mule) or 'mule decider' and 'mule inserter' (item value -> weight)
+- Showing weight, money, on-hover description (?)
+- Random item remover (from mule) or 'mule decider' and 'mule inserter' (item money -> weight)
 - Easy selling
 - Easy buying (i.e. adding)
 - Simplify access to money as much as possible

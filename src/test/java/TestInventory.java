@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestInventory {
 
     private static final Inventory SUT = new Inventory("i");
-    private static final Item testItem = new Item(ItemType.WEAPONS, "Apple", new Value("5gp"), 5d, "Extra info here");
+    private static final Item testItem = new Item(Item.Type.WEAPONS, "Apple", new Money("5gp"), 5d, "Extra info here");
 
     @BeforeAll
     static void addItems() {

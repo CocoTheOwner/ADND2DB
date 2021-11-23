@@ -1,5 +1,5 @@
 import nl.codevs.dndinventory.data.Item;
-import nl.codevs.dndinventory.data.Value;
+import nl.codevs.dndinventory.data.Money;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,7 +13,7 @@ public class TestItemDatabase {
 
     @Test
     public void testDatabaseBasilardValue() {
-        assertEquals(Item.Database.fromName("Basilard").value().getAsGP(), 7);
+        assertEquals(Item.Database.fromName("Basilard").money().getAsGP(), 7);
     }
 
     @Test
@@ -28,11 +28,11 @@ public class TestItemDatabase {
 
     @Test
     public void testMatchingSingle2() {
-        assertEquals(new Value("10gp").getAsGP(), Item.Database.matchAll("Boar").get(0).value().getAsGP());
+        assertEquals(new Money("10gp").getAsGP(), Item.Database.matchAll("Boar").get(0).money().getAsGP());
     }
 
     @Test
     public void testMatchingNonExact() {
-        assertEquals(new Value(5000).getAsGP(), Item.Database.matchAll("Hunting cat").get(0).value().getAsGP());
+        assertEquals(new Money(5000).getAsGP(), Item.Database.matchAll("Hunting cat").get(0).money().getAsGP());
     }
 }

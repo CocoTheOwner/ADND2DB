@@ -1,4 +1,4 @@
-import nl.codevs.dndinventory.data.ItemType;
+import nl.codevs.dndinventory.data.Item;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -7,26 +7,26 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class TestItemType {
     @Test
     public void testFromStringConst() {
-        assertEquals(ItemType.WEAPONS, ItemType.fromString("WEAPONS"));
+        assertEquals(Item.Type.WEAPONS, Item.Type.fromString("WEAPONS"));
     }
     @Test
     public void testFromStringName() {
-        assertEquals(ItemType.WEAPONS, ItemType.fromString("Weapons"));
+        assertEquals(Item.Type.WEAPONS, Item.Type.fromString("Weapons"));
     }
     @Test
     public void testFromStringNonSame() {
-        assertEquals(ItemType.HARNESS, ItemType.fromString("Tack and Harness"));
+        assertEquals(Item.Type.HARNESS, Item.Type.fromString("Tack and Harness"));
     }
     @Test
     public void testFromStringFails() {
-        assertThrows(RuntimeException.class, () -> ItemType.fromString("Fail"));
+        assertThrows(RuntimeException.class, () -> Item.Type.fromString("Fail"));
     }
     @Test
     public void testGetName() {
-        assertEquals(ItemType.WEAPONS.getName(), "Weapons");
+        assertEquals(Item.Type.WEAPONS.getName(), "Weapons");
     }
     @Test
     public void testGetPos() {
-        assertEquals(ItemType.ANIMALS.getPos(), 4);
+        assertEquals(Item.Type.ANIMALS.getPos(), 4);
     }
 }

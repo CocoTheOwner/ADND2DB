@@ -1,7 +1,7 @@
 package nl.codevs.dndinventory.inventories;
 
 import nl.codevs.dndinventory.data.Inventory;
-import nl.codevs.dndinventory.data.Value;
+import nl.codevs.dndinventory.data.Money;
 import nl.codevs.dndinventory.inventories.interfaces.MoneyInventory;
 import nl.codevs.dndinventory.inventories.interfaces.WeightedInventory;
 
@@ -11,9 +11,9 @@ public class PlayerInventory extends Inventory
         implements MoneyInventory, WeightedInventory {
 
     /**
-     * The amount of money in the inventory {@link Value}.
+     * The amount of money in the inventory {@link Money}.
      */
-    private Value money;
+    private Money money;
 
     /**
      * The maximal carry weight for this inventory.
@@ -30,7 +30,7 @@ public class PlayerInventory extends Inventory
     public PlayerInventory(
             final String inventoryName,
             final List<InventoryItem> startingItems,
-            final Value startingMoney,
+            final Money startingMoney,
             final double maximalEncumbrance
     ) {
         super(inventoryName, startingItems);
@@ -54,18 +54,18 @@ public class PlayerInventory extends Inventory
      * @return The Value
      */
     @Override
-    public Value money() {
+    public Money money() {
         return money;
     }
 
     /**
      * Set money in the inventory.
      *
-     * @param value The new money value
+     * @param money The new money value
      */
     @Override
-    public void setMoney(final Value value) {
-        money = value;
+    public void setMoney(final Money money) {
+        this.money = money;
     }
 
     /**

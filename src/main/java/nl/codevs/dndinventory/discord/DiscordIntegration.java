@@ -51,16 +51,9 @@ public class DiscordIntegration extends ListenerAdapter
                 Item.Database.matchAll("Arrow").subList(0, 15).forEach(i -> b.append(i).append("\n"));
                 event.getChannel().sendMessage(b.toString()).queue();
             }
-            case "test" -> {
-                event.getChannel().sendMessage(
-                        new EmbedBuilder()
-                                .addField("Weapons", "YOU!", true)
-                                .addField("Misc", "YOU!", true)
-                                .addField("Clothing", "YOU!", false)
-                                .addField("HEY!", "YOU!", true)
-                                .build())
-                        .queue();
-            }
+            case "test" -> event.getMessage().getChannel().sendMessage(
+                    "```asciidoc\n= Blue? =\n```"
+            ).queue();
         }
     }
 }

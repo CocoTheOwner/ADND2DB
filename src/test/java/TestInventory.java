@@ -1,4 +1,5 @@
 import nl.codevs.dndinventory.data.*;
+import nl.codevs.dndinventory.inventories.Inventory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 

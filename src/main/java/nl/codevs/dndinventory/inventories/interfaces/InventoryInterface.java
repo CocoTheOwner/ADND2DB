@@ -1,6 +1,6 @@
 package nl.codevs.dndinventory.inventories.interfaces;
 
-import nl.codevs.dndinventory.data.Inventory;
+import nl.codevs.dndinventory.inventories.Inventory;
 
 /**
  * Parent interface for all inventory interfaces to use.

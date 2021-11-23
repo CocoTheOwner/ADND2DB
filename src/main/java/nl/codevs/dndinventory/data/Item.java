@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public record Item(
         Type category,
         String name,
-        Money money,
+        Money worth,
         Double weight,
         String stats
 ) {
@@ -18,7 +18,7 @@ public record Item(
     @Override
     public String toString() {
         return name + " (" + category.getName() + ")"
-                + " worth " + money.toString()
+                + " worth " + worth.toString()
                 + " weighs " + weight
                 + (stats.isEmpty() ? "" : " stats: " + stats);
     }
@@ -131,7 +131,7 @@ public record Item(
             for (Item item : getItems()) {
                 out.append(item.category()).append(",")
                         .append(item.name()).append(",")
-                        .append(item.money().getAsGP()).append(",")
+                        .append(item.worth().getAsGP()).append(",")
                         .append(item.weight()).append(",")
                         .append(item.stats()).append("\n");
             }

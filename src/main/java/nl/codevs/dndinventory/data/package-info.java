@@ -1,7 +1,7 @@
 /**
  * Data structures for inventory handling.
  *
- * <li>{@link nl.codevs.dndinventory.data.Inventory}
+ * <li>{@link nl.codevs.dndinventory.inventories.Inventory}
  * is the class representing a full inventory (Items, amount of items etc)</li>
  *
  * <li>{@link nl.codevs.dndinventory.data.Item}

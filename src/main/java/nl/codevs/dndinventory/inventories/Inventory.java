@@ -1,7 +1,8 @@
-package nl.codevs.dndinventory.data;
+package nl.codevs.dndinventory.inventories;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import nl.codevs.dndinventory.data.Item;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,8 +15,13 @@ public class Inventory {
     /**
      * Gson used to convert inventories to/from JSON.
      */
-    private static final Gson GSON = new GsonBuilder()
+    public static final Gson GSON = new GsonBuilder()
             .setPrettyPrinting().serializeNulls().create();
+
+    /**
+     * List of loaded (created) inventories
+     */
+    public static final List<Inventory> loadedInventories = new ArrayList<>();
 
     /**
      * Items in inventory.
@@ -55,6 +61,7 @@ public class Inventory {
         name = inventoryName;
         items = inventoryItems;
         items.sort(InventoryItem.ITEM_COMPARATOR);
+        loadedInventories.add(this);
     }
 
     /**
@@ -62,8 +69,7 @@ public class Inventory {
      * @param inventoryName The inventory name
      */
     public Inventory(final String inventoryName) {
-        name = inventoryName;
-        items = new ArrayList<>();
+        this(inventoryName, new ArrayList<>());
     }
 
     /**
@@ -93,6 +99,24 @@ public class Inventory {
     public static Inventory fromJson(final String json) {
         return GSON.fromJson(json, Inventory.class);
     }
+
+    /**
+     * Add an item to this inventory
+     * @param item The item to add
+     * @param amount The amount of this item to add
+     */
+    public void addItem(Item item, int amount) {
+        addItem(new InventoryItem(item, amount));
+    }
+
+    /**
+     * Add an inventory item to this inventory
+     * @param inventoryItem The inventory item to add
+     */
+    public void addItem(InventoryItem inventoryItem) {
+        getItems().add(inventoryItem);
+    }
+
 
     /**
      * Inventory item used for storing items in an inventory.

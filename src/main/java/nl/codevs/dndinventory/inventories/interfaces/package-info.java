@@ -4,7 +4,7 @@
  * The parent interface which gives access to the inventory</li>
  *
  * <li>{@link nl.codevs.dndinventory.inventories.interfaces.MoneyInventory}
- * An inventory with a value as money</li>
+ * An inventory with a value as worth</li>
  *
  * <li>{@link nl.codevs.dndinventory.inventories.interfaces.ShopInventory}
  * An inventory with specific wants for item categories or individual items</li>

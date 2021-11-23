@@ -13,7 +13,7 @@ public class TestItemDatabase {
 
     @Test
     public void testDatabaseBasilardValue() {
-        assertEquals(Item.Database.fromName("Basilard").money().getAsGP(), 7);
+        assertEquals(Item.Database.fromName("Basilard").worth().getAsGP(), 7);
     }
 
     @Test
@@ -28,11 +28,11 @@ public class TestItemDatabase {
 
     @Test
     public void testMatchingSingle2() {
-        assertEquals(new Money("10gp").getAsGP(), Item.Database.matchAll("Boar").get(0).money().getAsGP());
+        assertEquals(new Money("10gp").getAsGP(), Item.Database.matchAll("Boar").get(0).worth().getAsGP());
     }
 
     @Test
     public void testMatchingNonExact() {
-        assertEquals(new Money(5000).getAsGP(), Item.Database.matchAll("Hunting cat").get(0).money().getAsGP());
+        assertEquals(new Money(5000).getAsGP(), Item.Database.matchAll("Hunting cat").get(0).worth().getAsGP());
     }
 }

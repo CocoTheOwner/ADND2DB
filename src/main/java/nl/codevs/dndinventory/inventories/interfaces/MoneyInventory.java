@@ -5,14 +5,14 @@ import nl.codevs.dndinventory.data.Money;
 public interface MoneyInventory extends InventoryInterface {
 
     /**
-     * The amount of money the inventory possesses.
+     * The amount of worth the inventory possesses.
      * @return The Value
      */
     Money money();
 
     /**
-     * Set money in the inventory.
-     * @param money The new money value
+     * Set worth in the inventory.
+     * @param money The new worth value
      */
     void setMoney(Money money);
 

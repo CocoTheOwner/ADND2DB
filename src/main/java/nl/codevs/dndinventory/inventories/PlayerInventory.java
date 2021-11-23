@@ -1,6 +1,5 @@
 package nl.codevs.dndinventory.inventories;
 
-import nl.codevs.dndinventory.data.Inventory;
 import nl.codevs.dndinventory.data.Money;
 import nl.codevs.dndinventory.inventories.interfaces.MoneyInventory;
 import nl.codevs.dndinventory.inventories.interfaces.WeightedInventory;
@@ -11,7 +10,7 @@ public class PlayerInventory extends Inventory
         implements MoneyInventory, WeightedInventory {
 
     /**
-     * The amount of money in the inventory {@link Money}.
+     * The amount of worth in the inventory {@link Money}.
      */
     private Money money;
 
@@ -49,7 +48,7 @@ public class PlayerInventory extends Inventory
     }
 
     /**
-     * The amount of money the inventory possesses.
+     * The amount of worth the inventory possesses.
      *
      * @return The Value
      */
@@ -76,5 +75,10 @@ public class PlayerInventory extends Inventory
     @Override
     public double maxWeight() {
         return maxWeight;
+    }
+
+    @Override
+    public String toJson() {
+        return Inventory.GSON.toJson(this);
     }
 }

@@ -449,12 +449,12 @@ public final class Money {
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
-        if (cp != 0) { res.append(cp).append("c"); }
-        if (sp != 0) { res.append(sp).append(" s"); }
-        if (ep != 0) { res.append(ep).append(" e"); }
-        if (gp != 0) { res.append(gp).append(" g"); }
-        if (pp != 0) { res.append(pp).append(" p"); }
-        res.append(" = ").append(getAsGP()).append("gp");
+        if (cp != 0) { res.append(cp).append("c "); }
+        if (sp != 0) { res.append(sp).append("s "); }
+        if (ep != 0) { res.append(ep).append("e "); }
+        if (gp != 0) { res.append(gp).append("g "); }
+        if (pp != 0) { res.append(pp).append("p "); }
+        res.append("= ").append(getAsGP()).append("gp");
         return res.toString();
     }
 

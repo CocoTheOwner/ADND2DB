@@ -251,23 +251,25 @@ public class Inventory {
     public String toString() {
         List<String[]> rawData = inventoryData();
         List<String[]> paddedData = padTable(rawData);
-        String stringTable = "``` \r\n";
-        final String SpaceCharacters = "   ";
-        for(int i = 0; i < paddedData.size(); i++){
-            for(int j = 0; j < paddedData.get(i).length; j++){
-                stringTable += paddedData.get(i)[j] + SpaceCharacters;
+        StringBuilder stringTable = new StringBuilder("``` \r\n");
+        final String SpaceCharacters = "\t";
+        for (String[] paddedDatum : paddedData) {
+            for (String s : paddedDatum) {
+                stringTable.append(s).append(SpaceCharacters);
             }
-            stringTable += "\r\n";
+            stringTable.append("\r\n");
         }
-        stringTable += "```";
-        return stringTable;
+        stringTable.append("```");
+        return stringTable.toString();
     }
 
     private List<String[]> padTable(List<String[]> l){
         int[] maxLengths = maxColumnLengths(l);
         for(int i = 0; i < maxLengths.length; i++){
-            for(int j = 0; j < l.size(); j++){
-                while(l.get(j)[i].length() < maxLengths[i]){ l.get(j)[i] += " ";};
+            for (String[] strings : l) {
+                while (strings[i].length() < maxLengths[i]) {
+                    strings[i] += " ";
+                }
             }
         }
         return l;
@@ -275,9 +277,9 @@ public class Inventory {
 
     private int[] maxColumnLengths(List<String[]> l){
         int[] maxLengths = new int[l.get(0).length];
-        for(int i = 0; i < maxLengths.length; i++){
-            for(int j = 0; j < l.size(); j++){
-                maxLengths[i] = Math.max(maxLengths[i], l.get(j)[i].length());
+        for (int i = 0; i < maxLengths.length; i++){
+            for (String[] strings : l) {
+                maxLengths[i] = Math.max(maxLengths[i], strings[i].length());
             }
         }
         return maxLengths;
@@ -307,7 +309,7 @@ public class Inventory {
             endRow[1] = item.category().getName();
             endRow[2] = item.name();
             endRow[3] = item.worth().toString();
-            endRow[4] = item.weight().toString();
+            endRow[4] = item.weight() == null ? "0" : item.weight().toString();
             endRow[5] = item.stats();
             return endRow;
         }

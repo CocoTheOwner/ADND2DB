@@ -10,7 +10,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
 
-public class Inventory {
+public abstract class Inventory {
     /**
      * Gson used to convert inventories to/from JSON.
      */

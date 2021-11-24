@@ -63,7 +63,7 @@ public class DiscordIntegration extends ListenerAdapter
 
     /**
      * Register a command
-     * @param commandClass The class extending {@link Command} that contains the command code
+     * @param command The {@link Command} that contains the command code
      */
     public static void registerCommand(Command command) {
 

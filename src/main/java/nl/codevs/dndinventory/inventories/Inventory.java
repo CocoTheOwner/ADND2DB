@@ -5,12 +5,13 @@ import com.google.gson.GsonBuilder;
 import nl.codevs.dndinventory.data.Item;
 import nl.codevs.dndinventory.data.Money;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
+import java.nio.file.FileAlreadyExistsException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class Inventory {
+
     /**
      * Gson used to convert inventories to/from JSON.
      */
@@ -32,6 +33,15 @@ public abstract class Inventory {
      * Spacing between headers in {@code #toString}.
      */
     private static final String SPACING_CHARACTER = "\t";
+
+    /**
+     * Inventory directory.
+     */
+    public static final File INVENTORY_DIRECTORY = new File("./inventories/");
+
+    static {
+        INVENTORY_DIRECTORY.mkdirs();
+    }
 
     /**
      * Items in inventory.
@@ -91,6 +101,45 @@ public abstract class Inventory {
     public static Inventory fromJson(final File fromFile)
             throws FileNotFoundException {
         return GSON.fromJson(new FileReader(fromFile), Inventory.class);
+    }
+
+    /**
+     * Try loading an inventory by name (using files stored in the directory stored in INVENTORY_DIRECTORY)
+     * @param name the name of the inventory to load
+     * @return an {@link Inventory}
+     * @throws FileNotFoundException if the file does not exist
+     */
+    public static Inventory fromName(final String name) throws FileNotFoundException {
+        return fromJson(new File(name));
+    }
+
+    /**
+     * Instantiate all inventories in the INVENTORY_DIRECTORY
+     * NON-FUNCTIONING. NEEDS TO BE IMPLEMENTED!
+     */
+    public static void instantiateAllInventories() {
+        assert INVENTORY_DIRECTORY.isDirectory();
+        File[] files = INVENTORY_DIRECTORY.listFiles(pathname -> pathname.getPath().endsWith(".json"));
+        assert files != null;
+        for (File inventory : files) {
+            // TODO: Instantiate properly, must somehow save type because cannot be assumed.
+            // Should save to different folders & load back from different folders.
+        }
+    }
+
+    /**
+     * Save the inventory to a file in INVENTORY_DIRECTORY
+     * @throws FileAlreadyExistsException if the inventory already exists
+     */
+    public void save() throws IOException {
+        File target = new File(INVENTORY_DIRECTORY + "/" + getName() + ".json");
+        if (!target.createNewFile()) {
+            System.out.println(toJson());
+            throw new FileAlreadyExistsException("Inventory by name: " + getName() + " already exists");
+        }
+        BufferedWriter bw = new BufferedWriter(new FileWriter(target));
+        bw.write(toJson());
+        bw.close();
     }
 
     /**

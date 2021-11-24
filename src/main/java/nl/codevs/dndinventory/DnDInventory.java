@@ -44,6 +44,7 @@ public final class DnDInventory {
         String token = new BufferedReader(
                 new FileReader("./token.txt")
         ).readLine();
-        DiscordIntegration di = new DiscordIntegration(token);
+        INV.save();
+        // DiscordIntegration di = new DiscordIntegration(token);
     }
 }

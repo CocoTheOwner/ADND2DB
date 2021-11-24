@@ -1,0 +1,30 @@
+{
+  "money": {
+    "cp": 0,
+    "sp": 0,
+    "ep": 0,
+    "gp": 69,
+    "pp": 0
+  },
+  "maxWeight": 75.0,
+  "items": [
+    {
+      "item": {
+        "category": "CLOTHING",
+        "name": "Sandals",
+        "worth": {
+          "cp": 5,
+          "sp": 0,
+          "ep": 0,
+          "gp": 0,
+          "pp": 0
+        },
+        "weight": null,
+        "stats": ""
+      },
+      "amount": 1,
+      "loot": false
+    }
+  ],
+  "name": "Lazerus"
+}

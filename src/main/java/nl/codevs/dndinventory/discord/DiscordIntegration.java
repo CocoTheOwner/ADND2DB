@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import nl.codevs.dndinventory.DnDInventory;
 import nl.codevs.dndinventory.data.Item;
+import nl.codevs.dndinventory.inventories.PlayerInventory;
 import org.jetbrains.annotations.NotNull;
 
 import javax.security.auth.login.LoginException;
@@ -55,6 +56,7 @@ public class DiscordIntegration extends ListenerAdapter
             case "test" -> event.getMessage().getChannel().sendMessage(
                     "```asciidoc\n= Blue? =\n```"
             ).queue();
+            case "display" -> event.getMessage().getChannel().sendMessage("");
             case "r" ->
                     environment.registerChannel("Town square");
             case "shutdown" -> environment.shutDown();

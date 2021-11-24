@@ -297,9 +297,10 @@ public abstract class Inventory {
         // Separator line
         String[] separator = new String[maxLengths.length];
         for (int i = 0; i < separator.length; i++) {
-            separator[i] = "-".repeat(maxLengths[i]);
+            separator[i] = "=".repeat(maxLengths[i]);
         }
         l.add(1, separator);
+        l.add(0, separator);
         l.add(l.size() - 1, separator);
 
         return l;

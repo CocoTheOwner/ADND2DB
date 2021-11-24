@@ -1,8 +1,9 @@
-package nl.codevs.dndinventory.discord.commands;
+package nl.codevs.dndinventory.discord.commands.inventory;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import nl.codevs.dndinventory.data.Item;
 import nl.codevs.dndinventory.data.Money;
+import nl.codevs.dndinventory.discord.commands.Command;
 import nl.codevs.dndinventory.inventories.PlayerInventory;
 
 import java.util.ArrayList;

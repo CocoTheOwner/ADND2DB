@@ -26,8 +26,8 @@ public final class DiscordIntegration extends ListenerAdapter
     @Override
     public Command[] subCommands() {
         return new Command[]{
-                new Display(),
-                new Ping()
+                new Ping(),
+                new InventoryCommand()
         };
     }
 

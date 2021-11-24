@@ -14,4 +14,9 @@ public class TestItem {
         assertEquals(item.toString(),
                 "Apple (Weapons) worth " + new Money("5gp") + " weighs 5.0 stats: Extra info here");
     }
+
+    @Test
+    public void testItemWeight() {
+        assertEquals(5d, item.weight());
+    }
 }

@@ -2,7 +2,7 @@ package nl.codevs.dndinventory.discord.commands;
 
 import nl.codevs.dndinventory.discord.commands.inventory.Display;
 
-public class InventoryCommand implements CommandCategory {
+public final class InventoryCommand implements CommandCategory {
     /**
      * Command strings that point to this command.
      * <p>Make sure to have unique pointers,

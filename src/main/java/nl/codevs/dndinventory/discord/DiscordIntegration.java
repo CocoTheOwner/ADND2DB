@@ -22,6 +22,7 @@ public class DiscordIntegration extends ListenerAdapter
 
     static {
         registerCommand(new Ping());
+        registerCommand(new Display());
     }
 
     private static final String PREFIX = "!";

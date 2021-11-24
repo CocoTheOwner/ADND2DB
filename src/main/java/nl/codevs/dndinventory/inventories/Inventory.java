@@ -22,6 +22,8 @@ public class Inventory {
      */
     public static final List<Inventory> LOADED_INVENTORIES = new ArrayList<>();
 
+    private static final String[] HEADER =  {"AMOUNT", "CATEGORY", "NAME", "VALUE", "WEIGHT", "STATS"};
+
     /**
      * Items in inventory.
      */
@@ -245,6 +247,50 @@ public class Inventory {
         return removed;
     }
 
+    @Override
+    public String toString() {
+        List<String[]> rawData = inventoryData();
+        List<String[]> paddedData = padTable(rawData);
+        String stringTable = "``` \r\n";
+        final String SpaceCharacters = "   ";
+        for(int i = 0; i < paddedData.size(); i++){
+            for(int j = 0; j < paddedData.get(i).length; j++){
+                stringTable += paddedData.get(i)[j] + SpaceCharacters;
+            }
+            stringTable += "\r\n";
+        }
+        stringTable += "```";
+        return stringTable;
+    }
+
+    private List<String[]> padTable(List<String[]> l){
+        int[] maxLengths = maxColumnLengths(l);
+        for(int i = 0; i < maxLengths.length; i++){
+            for(int j = 0; j < l.size(); j++){
+                while(l.get(j)[i].length() < maxLengths[i]){ l.get(j)[i] += " ";};
+            }
+        }
+        return l;
+    }
+
+    private int[] maxColumnLengths(List<String[]> l){
+        int[] maxLengths = new int[l.get(0).length];
+        for(int i = 0; i < maxLengths.length; i++){
+            for(int j = 0; j < l.size(); j++){
+                maxLengths[i] = Math.max(maxLengths[i], l.get(j)[i].length());
+            }
+        }
+        return maxLengths;
+    }
+
+    private List<String[]> inventoryData(){
+        List<String[]> endTable = new ArrayList<>(){};
+        endTable.add(HEADER);
+        for (InventoryItem item : getItems()) {
+            endTable.add(item.itemData());
+        }
+        return endTable;
+    }
     /**
      * Inventory item used for storing items in an inventory.
      */
@@ -255,6 +301,16 @@ public class Inventory {
          */
         private final Item item;
 
+        public String[] itemData(){
+            String[] endRow = new String[HEADER.length];
+            endRow[0] = Integer.toString(amount);
+            endRow[1] = item.category().getName();
+            endRow[2] = item.name();
+            endRow[3] = item.worth().toString();
+            endRow[4] = item.weight().toString();
+            endRow[5] = item.stats();
+            return endRow;
+        }
         /**
          * The amount of items of the `item` type in this inventory item.
          */

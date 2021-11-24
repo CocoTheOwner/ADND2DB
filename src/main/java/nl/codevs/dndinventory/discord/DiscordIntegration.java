@@ -1,7 +1,6 @@
 package nl.codevs.dndinventory.discord;
 
 
-import lombok.SneakyThrows;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.*;
@@ -12,69 +11,78 @@ import nl.codevs.dndinventory.discord.commands.*;
 import org.jetbrains.annotations.NotNull;
 
 import javax.security.auth.login.LoginException;
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.List;
 
-public class DiscordIntegration extends ListenerAdapter
-{
+public final class DiscordIntegration extends ListenerAdapter
+        implements CommandCategory {
 
-    private static final ConcurrentHashMap<String, Command> commands = new ConcurrentHashMap<>();
-
-    static {
-        registerCommand(new Ping());
-        registerCommand(new Display());
+    /**
+     * Commands registered to this category.
+     *
+     * @return An array of registered commands
+     */
+    @Override
+    public Command[] subCommands() {
+        return new Command[]{
+                new Display(),
+                new Ping()
+        };
     }
 
+    /**
+     * Prefix for the bot.
+     */
     private static final String PREFIX = "!";
 
-    private TextChannel channel;
+    /**
+     * Construct a discord integration instance.
+     * @param token The token for the bot
+     * @throws LoginException If the login fails
+     * @throws InterruptedException If waiting for the bot
+     *                  to be ready is interrupted
+     */
+    public DiscordIntegration(final String token)
+            throws LoginException, InterruptedException {
 
-    private Guild ourGuild;
-
-    private JDA jda;
-
-    private Environment environment;
-
-    public DiscordIntegration(String token) throws LoginException, InterruptedException {
-
-        jda = JDABuilder.createLight(token, GatewayIntent.GUILD_MESSAGES)
+        JDA jda = JDABuilder.createLight(token, GatewayIntent.GUILD_MESSAGES)
                 .addEventListeners(this)
                 .setActivity(Activity.playing("Type !ping"))
                 .build();
 
-        jda.upsertCommand("ping", "Calculate ping of the bot").queue(); // This can take up to 1 hour to show up in the client
         jda.awaitReady();
-        ourGuild = jda.getGuildById(790135428228448286L);
+        long guildID = 790135428228448286L;
+        Guild ourGuild = jda.getGuildById(guildID);
         assert ourGuild != null;
 
-        environment = new Environment("Dungeons & Dragons", ourGuild);
+        Environment environment = new Environment(
+                "Dungeons & Dragons",
+                ourGuild
+        );
     }
 
-    @SneakyThrows
     @Override
-    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
-        if (!event.getMessage().getContentStripped().startsWith(PREFIX)) return;
-
-        if (commands.containsKey(event.getMessage().getContentStripped().substring(1))) {
-            commands.get(event.getMessage().getContentStripped().substring(1)).onCommand(event);
-        } else {
-            event.getMessage().reply("Command: `" + event.getMessage().getContentStripped().substring(1) + "` not found").queue();
+    public void onMessageReceived(@NotNull final MessageReceivedEvent event) {
+        if (!event.getMessage().getContentStripped().startsWith(PREFIX)) {
+            return;
         }
+
+        List<String> arguments = new ArrayList<>(Arrays.asList(
+                event.getMessage().getContentStripped().substring(1).split(" ")
+        ));
+        onCommand(arguments, event);
     }
 
     /**
-     * Register a command
-     * @param command The {@link Command} that contains the command code
+     * Command strings that point to this command.
+     * <p>Make sure to have unique pointers,
+     * to avoid unexpected/ambiguous behaviour</p>
+     *
+     * @return The command strings that point here
      */
-    public static void registerCommand(Command command) {
-
-        // Print
-        System.out.println("Registered command class " + command.getClass().getSimpleName() + " with commands: " + Arrays.toString(command.getCommands()));
-
-        // Register this instance by all its commands
-        for (String cmd : command.getCommands()) {
-            commands.put(cmd, command);
-        }
-
+    @Override
+    public String[] getCommands() {
+        return null;
     }
 }

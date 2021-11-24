@@ -87,7 +87,7 @@ public class PlayerInventory extends Inventory
     }
 
     /**
-     * Add any additional stats you want to show in the "stats" column
+     * Add any additional stats you want to show in the "stats" column.
      *
      * @return A string for the stats to display
      */

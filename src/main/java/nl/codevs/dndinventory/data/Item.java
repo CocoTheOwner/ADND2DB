@@ -114,7 +114,8 @@ public record Item(
          * @param item The item to add
          * @throws InvalidParameterException when item name already exists in DB
          */
-        public static void addItem(final Item item) throws InvalidParameterException {
+        public static void addItem(final Item item)
+                throws InvalidParameterException {
             if (ITEM_MAP.containsKey(item.name())) {
                 throw new InvalidParameterException("Non-unique item name");
             }

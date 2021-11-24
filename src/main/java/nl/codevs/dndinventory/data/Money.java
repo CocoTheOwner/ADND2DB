@@ -376,11 +376,12 @@ public final class Money {
     }
 
     /**
-     * Get the weight of this money
+     * Get the weight of this money.
      * @return The weight of the money
      */
     public double getWeight() {
-        return (getCP() + getSP() + getEP() + getGP() + getPP()) / 50d;
+        return (getCP() + getSP() + getEP() + getGP() + getPP())
+                * Coin.COIN_WEIGHT;
     }
 
     /**
@@ -449,11 +450,21 @@ public final class Money {
     @Override
     public String toString() {
         StringBuilder res = new StringBuilder();
-        if (pp != 0) { res.append(pp).append("p "); }
-        if (gp != 0) { res.append(gp).append("g "); }
-        if (ep != 0) { res.append(ep).append("e "); }
-        if (sp != 0) { res.append(sp).append("s "); }
-        if (cp != 0) { res.append(cp).append("c "); }
+        if (pp != 0) {
+            res.append(pp).append("p ");
+        }
+        if (gp != 0) {
+            res.append(gp).append("g ");
+        }
+        if (ep != 0) {
+            res.append(ep).append("e ");
+        }
+        if (sp != 0) {
+            res.append(sp).append("s ");
+        }
+        if (cp != 0) {
+            res.append(cp).append("c ");
+        }
         return res.toString();
     }
 
@@ -478,6 +489,11 @@ public final class Money {
          * Platinum Pieces.
          */
         PP;
+
+        /**
+         * The weight of each coin.
+         */
+        public static final double COIN_WEIGHT = 0.02;
 
         /**
          * Decrement the coin type.
@@ -519,7 +535,9 @@ public final class Money {
          */
         public int decrementFactor() {
             return switch (this) {
-                case CP -> throw new RuntimeException("Cannot decrementFactor CP");
+                case CP -> throw new RuntimeException(
+                        "Cannot decrementFactor CP"
+                );
                 case SP -> S_TO_C;
                 case EP -> E_TO_S;
                 case GP -> G_TO_P;

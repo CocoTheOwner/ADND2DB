@@ -2,9 +2,25 @@ package nl.codevs.dndinventory.discord.commands;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public abstract class Command {
+import java.util.List;
 
-    public abstract String[] getCommands();
+public interface Command {
 
-    public abstract void onCommand(MessageReceivedEvent e);
+    /**
+     * Command strings that point to this command.
+     * <p>Make sure to have unique pointers,
+     * to avoid unexpected/ambiguous behaviour</p>
+     * @return The command strings that point here
+     */
+    String[] getCommands();
+
+    /**
+     * What to do when a command is received.
+     * @param params Remaining parameters
+     * @param e The command event
+     */
+    void onCommand(
+            List<String> params,
+            MessageReceivedEvent e
+    );
 }

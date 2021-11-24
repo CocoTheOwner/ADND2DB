@@ -6,9 +6,10 @@ import nl.codevs.dndinventory.data.Money;
 import nl.codevs.dndinventory.inventories.PlayerInventory;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-public class Display extends Command {
+public final class Display implements Command {
 
     @Override
     public String[] getCommands() {
@@ -16,9 +17,21 @@ public class Display extends Command {
     }
 
     @Override
-    public void onCommand(MessageReceivedEvent e) {
-        PlayerInventory inventory = new PlayerInventory(":)", new ArrayList<>(), new Money(5), 69);
-        inventory.addItem(Item.Database.getItems().get(new Random().nextInt(Item.Database.getItems().size())), 5);
+    public void onCommand(
+            final List<String> params,
+            final MessageReceivedEvent e
+    ) {
+        PlayerInventory inventory = new PlayerInventory(
+                ":)",
+                new ArrayList<>(),
+                new Money(1),
+                2
+        );
+        inventory.addItem(
+                Item.Database.getItems().get(
+                        new Random().nextInt(Item.Database.getItems().size())
+                ), 2
+        );
         e.getMessage().reply(inventory.toString()).queue();
     }
 }

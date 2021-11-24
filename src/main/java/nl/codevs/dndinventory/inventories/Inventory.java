@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import nl.codevs.dndinventory.data.Item;
 import nl.codevs.dndinventory.data.Money;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -23,7 +22,16 @@ public abstract class Inventory {
      */
     public static final List<Inventory> LOADED_INVENTORIES = new ArrayList<>();
 
-    private static final String[] HEADER =  {"AMOUNT", "CATEGORY", "NAME", "VALUE", "WEIGHT", "STATS"};
+    /**
+     * Discord table headers.
+     */
+    private static final String[] HEADER =
+            {"AMOUNT", "CATEGORY", "NAME", "VALUE", "WEIGHT", "STATS"};
+
+    /**
+     * Spacing between headers in {@code #toString}.
+     */
+    private static final String SPACING_CHARACTER = "\t";
 
     /**
      * Items in inventory.
@@ -248,15 +256,18 @@ public abstract class Inventory {
         return removed;
     }
 
+    /**
+     * Convert to string.
+     * @return String representation
+     */
     @Override
     public String toString() {
         List<String[]> rawData = inventoryData();
         List<String[]> paddedData = padTable(rawData);
         StringBuilder stringTable = new StringBuilder("```asciidoc\n");
-        final String SpaceCharacters = "\t";
         for (String[] paddedDatum : paddedData) {
             for (String s : paddedDatum) {
-                stringTable.append(s).append(SpaceCharacters);
+                stringTable.append(s).append(SPACING_CHARACTER);
             }
             stringTable.append("\n");
         }
@@ -264,11 +275,18 @@ public abstract class Inventory {
         return stringTable.toString();
     }
 
-    private List<String[]> padTable(List<String[]> l){
+    /**
+     * Add padding between elements of the table to align the characters.
+     * Assumes characters are of equal size.
+     * <p>Modifies {@code l}</p>
+     * @param l the list of lines to align.
+     * @return Aligned list of characters
+     */
+    private List<String[]> padTable(final List<String[]> l) {
         int[] maxLengths = maxColumnLengths(l);
 
         // Headers + Table elements
-        for(int i = 0; i < maxLengths.length; i++){
+        for (int i = 0; i < maxLengths.length; i++) {
             for (String[] strings : l) {
                 while (strings[i].length() < maxLengths[i]) {
                     strings[i] += " ";
@@ -287,9 +305,9 @@ public abstract class Inventory {
         return l;
     }
 
-    private int[] maxColumnLengths(List<String[]> l){
+    private int[] maxColumnLengths(List<String[]> l) {
         int[] maxLengths = new int[l.get(0).length];
-        for (int i = 0; i < maxLengths.length; i++){
+        for (int i = 0; i < maxLengths.length; i++) {
             for (String[] strings : l) {
                 maxLengths[i] = Math.max(maxLengths[i], strings[i].length());
             }
@@ -297,8 +315,8 @@ public abstract class Inventory {
         return maxLengths;
     }
 
-    private List<String[]> inventoryData(){
-        List<String[]> endTable = new ArrayList<>(){};
+    private List<String[]> inventoryData() {
+        List<String[]> endTable = new ArrayList<>();
         endTable.add(HEADER);
         for (InventoryItem item : getItems()) {
             endTable.add(item.itemData());
@@ -308,7 +326,7 @@ public abstract class Inventory {
     }
 
     /**
-     * Statistics for the inventory (sums for items)
+     * Statistics for the inventory (sums for items).
      * @return String array of stats (equal sized to HEADER)
      */
     private String[] inventoryStats() {
@@ -322,7 +340,7 @@ public abstract class Inventory {
     }
 
     /**
-     * Add any additional stats you want to show in the "stats" column
+     * Add any additional stats to show in the "stats" column.
      * @return A string for the stats to display
      */
     protected abstract String getAdditionalStats();
@@ -337,13 +355,19 @@ public abstract class Inventory {
          */
         private final Item item;
 
-        public String[] itemData(){
+        /**
+         * Item data retrieval.
+         * @return Array of strings
+         */
+        public String[] itemData() {
             String[] endRow = new String[HEADER.length];
             endRow[0] = Integer.toString(amount);
             endRow[1] = item.category().getName();
             endRow[2] = item.name();
-            endRow[3] = new Money(amount * item.worth().getAsGP()) + " (" + amount + "*" + item.worth().getAsGP() + "gp)";
-            endRow[4] = item.weight() == null ? "0" : amount * item.weight() + " (" + amount + "*" + item.weight() + ")";
+            endRow[3] = new Money(amount * item.worth().getAsGP())
+                    + " (" + amount + "*" + item.worth().getAsGP() + "gp)";
+            endRow[4] = item.weight() == null ? "0" : amount * item.weight()
+                    + " (" + amount + "*" + item.weight() + ")";
             endRow[5] = item.stats();
             return endRow;
         }

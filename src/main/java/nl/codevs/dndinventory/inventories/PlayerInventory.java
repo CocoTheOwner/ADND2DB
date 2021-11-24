@@ -87,6 +87,16 @@ public class PlayerInventory extends Inventory
     }
 
     /**
+     * Add any additional stats you want to show in the "stats" column
+     *
+     * @return A string for the stats to display
+     */
+    @Override
+    protected String getAdditionalStats() {
+        return "weight left: " + getRemainingWeight() + " of " + maxWeight();
+    }
+
+    /**
      * Get amount of space left.
      * @return The amount of leftover space. Can be negative (over-encumbered)
      */

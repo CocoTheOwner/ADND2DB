@@ -3,6 +3,7 @@ package nl.codevs.dndinventory.inventories;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import nl.codevs.dndinventory.data.Item;
+import nl.codevs.dndinventory.data.Money;
 
 import java.awt.image.AreaAveragingScaleFilter;
 import java.io.File;
@@ -251,13 +252,13 @@ public abstract class Inventory {
     public String toString() {
         List<String[]> rawData = inventoryData();
         List<String[]> paddedData = padTable(rawData);
-        StringBuilder stringTable = new StringBuilder("``` \r\n");
+        StringBuilder stringTable = new StringBuilder("```asciidoc\n");
         final String SpaceCharacters = "\t";
         for (String[] paddedDatum : paddedData) {
             for (String s : paddedDatum) {
                 stringTable.append(s).append(SpaceCharacters);
             }
-            stringTable.append("\r\n");
+            stringTable.append("\n");
         }
         stringTable.append("```");
         return stringTable.toString();
@@ -265,6 +266,8 @@ public abstract class Inventory {
 
     private List<String[]> padTable(List<String[]> l){
         int[] maxLengths = maxColumnLengths(l);
+
+        // Headers + Table elements
         for(int i = 0; i < maxLengths.length; i++){
             for (String[] strings : l) {
                 while (strings[i].length() < maxLengths[i]) {
@@ -272,6 +275,15 @@ public abstract class Inventory {
                 }
             }
         }
+
+        // Separator line
+        String[] separator = new String[maxLengths.length];
+        for (int i = 0; i < separator.length; i++) {
+            separator[i] = "-".repeat(maxLengths[i]);
+        }
+        l.add(1, separator);
+        l.add(l.size() - 1, separator);
+
         return l;
     }
 
@@ -291,8 +303,30 @@ public abstract class Inventory {
         for (InventoryItem item : getItems()) {
             endTable.add(item.itemData());
         }
+        endTable.add(inventoryStats());
         return endTable;
     }
+
+    /**
+     * Statistics for the inventory (sums for items)
+     * @return String array of stats (equal sized to HEADER)
+     */
+    private String[] inventoryStats() {
+        String amount = String.valueOf(getItems().stream().mapToInt(InventoryItem::getAmount).sum());
+        String category = "TOTALS";
+        String name = "";
+        String value = new Money(getItems().stream().mapToDouble(i -> i.getAmount() * i.getItem().worth().getAsGP()).sum()).toString();
+        String weight = String.valueOf(getItems().stream().mapToDouble(i -> i.getAmount() * (i.getItem().weight() == null ? 0 : i.getItem().weight())).sum());
+        String stats = getAdditionalStats();
+        return new String[]{amount, category, name, value, weight, stats};
+    }
+
+    /**
+     * Add any additional stats you want to show in the "stats" column
+     * @return A string for the stats to display
+     */
+    protected abstract String getAdditionalStats();
+
     /**
      * Inventory item used for storing items in an inventory.
      */
@@ -308,8 +342,8 @@ public abstract class Inventory {
             endRow[0] = Integer.toString(amount);
             endRow[1] = item.category().getName();
             endRow[2] = item.name();
-            endRow[3] = item.worth().toString();
-            endRow[4] = item.weight() == null ? "0" : item.weight().toString();
+            endRow[3] = new Money(amount * item.worth().getAsGP()) + " (" + amount + "*" + item.worth().getAsGP() + "gp)";
+            endRow[4] = item.weight() == null ? "0" : amount * item.weight() + " (" + amount + "*" + item.weight() + ")";
             endRow[5] = item.stats();
             return endRow;
         }

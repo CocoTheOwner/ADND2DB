@@ -10,12 +10,6 @@ import java.util.Random;
 
 public class Display extends Command {
 
-    private static final PlayerInventory inventory = new PlayerInventory(":)", new ArrayList<>(), new Money(5), 69);
-
-    static {
-        inventory.addItem(Item.Database.getItems().get(new Random().nextInt(Item.Database.getItems().size())), 5);
-    }
-
     @Override
     public String[] getCommands() {
         return new String[]{"Display", "display"};
@@ -23,6 +17,8 @@ public class Display extends Command {
 
     @Override
     public void onCommand(MessageReceivedEvent e) {
+        PlayerInventory inventory = new PlayerInventory(":)", new ArrayList<>(), new Money(5), 69);
+        inventory.addItem(Item.Database.getItems().get(new Random().nextInt(Item.Database.getItems().size())), 5);
         e.getMessage().reply(inventory.toString()).queue();
     }
 }

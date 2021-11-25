@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestItem {
 
-    private static final Item item = new Item(Item.Type.WEAPONS, "Apple", new Money("5gp"), 5d, "Extra info here");
+    private static final Item item = Item.makeGetItem(Item.Type.WEAPONS, "Apple", new Money("5gp"), 5d, "Extra info here");
 
     @Test
     public void testItemStat() {
@@ -17,6 +17,6 @@ public class TestItem {
 
     @Test
     public void testItemWeight() {
-        assertEquals(5d, item.weight());
+        assertEquals(5d, item.weight);
     }
 }

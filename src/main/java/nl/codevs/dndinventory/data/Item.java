@@ -5,16 +5,85 @@ import org.apache.commons.text.similarity.LevenshteinDistance;
 import java.io.*;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-public record Item(
-        Type category,
-        String name,
-        Money worth,
-        Double weight,
-        String stats
-) {
+public class Item {
+    public final Type category;
+    public final String name;
+    public final Money worth;
+    public final Double weight;
+    public final String stats;
+
+    /**
+     * Create a new item.
+     * @param categoryName item category
+     * @param itemName item name
+     * @param itemWorth item worth {@link Money}
+     * @param itemWeight item weight
+     * @param itemStats item stats
+     */
+    private Item(
+            final Type categoryName,
+            final String itemName,
+            final Money itemWorth,
+            final Double itemWeight,
+            final String itemStats) {
+        this.category = categoryName;
+        this.name = itemName;
+        this.worth = itemWorth;
+        this.weight = itemWeight;
+        this.stats = itemStats;
+    }
+
+    /**
+     * Create a new or get an existing (exactly equivalent) item.
+     * @param categoryName item category
+     * @param itemName item name
+     * @param itemWorth item worth {@link Money}
+     * @param itemWeight item weight
+     * @param itemStats item stats
+     */
+    public static Item makeGetItem(
+            final Type categoryName,
+            final String itemName,
+            final Money itemWorth,
+            final double itemWeight,
+            final String itemStats
+    ) {
+        return makeGetItem(categoryName, itemName, itemWorth, itemWeight, itemStats, true, true);
+    }
+
+    /**
+     * Create a new or get an existing (exactly equivalent) item.
+     * @param categoryName item category
+     * @param itemName item name
+     * @param itemWorth item worth {@link Money}
+     * @param itemWeight item weight
+     * @param itemStats item stats
+     * @param saveToDatabase false to not save to database
+     * @param checkExists returns an existing item if one exists in the database (recommended)
+     */
+    public static Item makeGetItem(
+            final Type categoryName,
+            final String itemName,
+            final Money itemWorth,
+            final Double itemWeight,
+            final String itemStats,
+            final boolean saveToDatabase,
+            final boolean checkExists
+    ) {
+        int hash = hashCode(categoryName, itemName, itemWorth, itemWeight, itemStats);
+        if (checkExists && Database.ITEM_MAP.containsKey(hash)) {
+            return Database.fromHashCode(hash);
+        }
+        Item result = new Item(categoryName, itemName, itemWorth, itemWeight, itemStats);
+        if (saveToDatabase) {
+            Database.addItem(result);
+        }
+        return result;
+    }
 
     @Override
     public String toString() {
@@ -35,36 +104,39 @@ public record Item(
         private static final File DATABASE_FILE = new File("./itemdb.csv");
 
         /**
-         * List of items currently in database.
+         * Mapping from hashcode to item in database.
+         * Items are the same instances as found in {@code ITEM_LIST}.
          */
-        private static final List<Item> ITEM_LIST = new ArrayList<>();
-
-        /**
-         * Mapping from name to item in database.
-         * Items are the same instance as {@code ITEM_LIST}.
-         */
-        private static final ConcurrentHashMap<String, Item>
+        private static final ConcurrentHashMap<Integer, Item>
                 ITEM_MAP = new ConcurrentHashMap<>();
 
         static {
             for (String item : getRawData()) {
                 Item newItem = fromCSV(item);
-                if (ITEM_MAP.containsKey(newItem.name())) {
-                    System.out.println("Non-unique item name " + item);
-                    System.exit(1);
-                }
-                ITEM_LIST.add(newItem);
-                ITEM_MAP.put(newItem.name(), newItem);
+                addItem(newItem);
             }
         }
 
         /**
          * Get an item from the database based on name.
-         * @param in The input string
-         * @return The item
+         * @param in The input hashcode
+         * @return All items matching the given name
          */
-        public static Item fromName(final String in) {
+        public static Item fromHashCode(final int in) {
             return ITEM_MAP.get(in);
+        }
+
+        /**
+         * Get an item from the database by name (not recommended due to runtime).
+         * Matches the closest matching item, not per-se the best item.
+         * Use {@code #fromHashCode} instead.
+         *
+         * Given the database is non-empty, returns an item.
+         * @param itemName the item name
+         * @return an item in the database
+         */
+        public static Item fromName(final String itemName) {
+            return matchAll(itemName).get(0);
         }
 
         /**
@@ -75,27 +147,27 @@ public record Item(
          * @return An array of items sorted by how close they match
          */
         public static List<Item> matchAll(final String in) {
-            List<Item> items = new ArrayList<>(ITEM_LIST);
+            List<Item> items = getItems();
             LevenshteinDistance d = new LevenshteinDistance();
             items.sort((i1, i2) -> {
 
                 // Starts-with priority
-                if (i1.name().startsWith(in)) {
-                    if (i2.name().startsWith(in)) {
+                if (i1.name.startsWith(in)) {
+                    if (i2.name.startsWith(in)) {
                         return Integer.compare(
-                                i1.name().length(),
-                                i2.name().length()
+                                i1.name.length(),
+                                i2.name.length()
                         );
                     }
                     return -1;
-                } else if (i2.name().startsWith(in)) {
+                } else if (i2.name.startsWith(in)) {
                     return 1;
                 }
 
                 // Levenshtein distance
                 return Integer.compare(
-                        d.apply(in, i1.name()),
-                        d.apply(in, i2.name())
+                        d.apply(in, i1.name),
+                        d.apply(in, i2.name)
                 );
             });
             return items;
@@ -106,7 +178,7 @@ public record Item(
          * @return Items
          */
         public static List<Item> getItems() {
-            return ITEM_LIST;
+            return new ArrayList<>(ITEM_MAP.values());
         }
 
         /**
@@ -116,18 +188,31 @@ public record Item(
          */
         public static void addItem(final Item item)
                 throws InvalidParameterException {
-            if (ITEM_MAP.containsKey(item.name())) {
-                throw new InvalidParameterException("Non-unique item name");
+
+            // Exact copy check
+            if (itemAlreadyExists(item)){
+                throw new InvalidParameterException("An exact copy of this already exists in the database!" + item);
             }
 
-            ITEM_LIST.add(item);
-            ITEM_MAP.put(item.name(), item);
+            ITEM_MAP.put(item.hashCode(), item);
+
+            // Save database
             try {
                 save();
             } catch (IOException e) {
                 e.printStackTrace();
+                System.out.println(item);
                 System.out.println("Failed to save database!");
             }
+        }
+
+        /**
+         * Check if an item already exists
+         * @param item the item to check existence of
+         * @return true if it exists, false if not
+         */
+        public static boolean itemAlreadyExists(Item item) {
+            return ITEM_MAP.containsKey(item.hashCode());
         }
 
         /**
@@ -140,11 +225,11 @@ public record Item(
                     "Category,Name,Value,Weight,Stats\n"
             );
             for (Item item : getItems()) {
-                out.append(item.category()).append(",")
-                        .append(item.name()).append(",")
-                        .append(item.worth().getAsGP()).append(",")
-                        .append(item.weight()).append(",")
-                        .append(item.stats()).append("\n");
+                out.append(item.category).append(",")
+                        .append(item.name).append(",")
+                        .append(item.worth.getAsGP()).append(",")
+                        .append(item.weight).append(",")
+                        .append(item.stats).append("\n");
             }
 
             // Write to file
@@ -195,12 +280,14 @@ public record Item(
          */
         public static Item fromCSV(final String csv, final String separator) {
             String[] split = csv.split(separator);
-            return new Item(
+            return Item.makeGetItem(
                     Type.fromString(split[0]),
                     split[1],
                     new Money(Double.parseDouble(split[2])),
                     split[3].equals("null") ? null : Double.parseDouble(split[3]),
-                    split.length < 5 ? "" : split[4]
+                    split.length < 5 ? "" : split[4],
+                    false,
+                    true
             );
         }
 
@@ -285,5 +372,107 @@ public record Item(
                     "Cannot convert '" + in + "' to valid ItemType"
             );
         }
+    }
+
+    /**
+     * Returns a hash code value for the object. This method is
+     * supported for the benefit of hash tables such as those provided by
+     * {@link HashMap}.
+     * <p>
+     * The general contract of {@code hashCode} is:
+     * <ul>
+     * <li>Whenever it is invoked on the same object more than once during
+     *     an execution of a Java application, the {@code hashCode} method
+     *     must consistently return the same integer, provided no information
+     *     used in {@code equals} comparisons on the object is modified.
+     *     This integer need not remain consistent from one execution of an
+     *     application to another execution of the same application.
+     * <li>If two objects are equal according to the {@code equals(Object)}
+     *     method, then calling the {@code hashCode} method on each of
+     *     the two objects must produce the same integer result.
+     * <li>It is <em>not</em> required that if two objects are unequal
+     *     according to the {@link Object#equals(Object)}
+     *     method, then calling the {@code hashCode} method on each of the
+     *     two objects must produce distinct integer results.  However, the
+     *     programmer should be aware that producing distinct integer results
+     *     for unequal objects may improve the performance of hash tables.
+     * </ul>
+     *
+     * @return a hash code value for this object.
+     * @implSpec As far as is reasonably practical, the {@code hashCode} method defined
+     * by class {@code Object} returns distinct integers for distinct objects.
+     * @see Object#equals(Object)
+     * @see System#identityHashCode
+     */
+    @Override
+    public int hashCode() {
+        return hashCode(category, name, worth, weight, stats);
+    }
+
+    /**
+     * Compute hashcode without instance
+     * @param category item category
+     * @param name item name
+     * @param worth item worth {@link Money}
+     * @param weight item weight
+     * @param stats item stats
+     * @return hashcode based on aforementioned stats
+     */
+    public static int hashCode(Type category, String name, Money worth, Double weight, String stats) {
+        return category.getName().hashCode() + name.hashCode() + worth.hashCode() + ((Double) (weight == null ? 0 : weight)).hashCode() + stats.hashCode();
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     * <p>
+     * The {@code equals} method implements an equivalence relation
+     * on non-null object references:
+     * <ul>
+     * <li>It is <i>reflexive</i>: for any non-null reference value
+     *     {@code x}, {@code x.equals(x)} should return
+     *     {@code true}.
+     * <li>It is <i>symmetric</i>: for any non-null reference values
+     *     {@code x} and {@code y}, {@code x.equals(y)}
+     *     should return {@code true} if and only if
+     *     {@code y.equals(x)} returns {@code true}.
+     * <li>It is <i>transitive</i>: for any non-null reference values
+     *     {@code x}, {@code y}, and {@code z}, if
+     *     {@code x.equals(y)} returns {@code true} and
+     *     {@code y.equals(z)} returns {@code true}, then
+     *     {@code x.equals(z)} should return {@code true}.
+     * <li>It is <i>consistent</i>: for any non-null reference values
+     *     {@code x} and {@code y}, multiple invocations of
+     *     {@code x.equals(y)} consistently return {@code true}
+     *     or consistently return {@code false}, provided no
+     *     information used in {@code equals} comparisons on the
+     *     objects is modified.
+     * <li>For any non-null reference value {@code x},
+     *     {@code x.equals(null)} should return {@code false}.
+     * </ul>
+     * <p>
+     * The {@code equals} method for class {@code Object} implements
+     * the most discriminating possible equivalence relation on objects;
+     * that is, for any non-null reference values {@code x} and
+     * {@code y}, this method returns {@code true} if and only
+     * if {@code x} and {@code y} refer to the same object
+     * ({@code x == y} has the value {@code true}).
+     * <p>
+     * Note that it is generally necessary to override the {@code hashCode}
+     * method whenever this method is overridden, so as to maintain the
+     * general contract for the {@code hashCode} method, which states
+     * that equal objects must have equal hash codes.
+     *
+     * @param obj the reference object with which to compare.
+     * @return {@code true} if this object is the same as the obj
+     * argument; {@code false} otherwise.
+     * @see #hashCode()
+     * @see HashMap
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj.getClass() != getClass()) {
+            return false;
+        }
+        return hashCode() == obj.hashCode();
     }
 }

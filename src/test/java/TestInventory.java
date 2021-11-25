@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestInventory {
 
     private static final Inventory SUT = new PlayerInventory("i", new ArrayList<>(), new Money(), 75);
-    private static final Item testItem = new Item(Item.Type.WEAPONS, "Apple", new Money("5gp"), 5d, "Extra info here");
+    private static final Item testItem = Item.makeGetItem(Item.Type.WEAPONS, "Apple", new Money("5gp"), 5d, "Extra info here");
 
     @BeforeAll
     static void addItems() {
@@ -24,7 +24,7 @@ public class TestInventory {
 
     @Test
     public void testInventorySorting() {
-        assertEquals(SUT.getItems().get(SUT.getItems().size() - 1).getItem().name(), testItem.name());
+        assertEquals(SUT.getItems().get(SUT.getItems().size() - 1).getItem().name, testItem.name);
     }
 
     // TODO: TestInventoryItemSorter

@@ -56,7 +56,7 @@ public final class DiscordIntegration extends ListenerAdapter
         Guild ourGuild = jda.getGuildById(guildID);
         assert ourGuild != null;
 
-        Environment environment = new Environment(
+        new Environment(
                 "Dungeons & Dragons",
                 ourGuild
         );

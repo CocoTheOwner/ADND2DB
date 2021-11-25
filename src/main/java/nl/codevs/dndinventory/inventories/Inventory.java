@@ -6,6 +6,7 @@ import nl.codevs.dndinventory.data.Item;
 import nl.codevs.dndinventory.data.Money;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.nio.file.FileAlreadyExistsException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -114,30 +115,40 @@ public abstract class Inventory {
     }
 
     /**
-     * Instantiate all inventories in the INVENTORY_DIRECTORY
-     * NON-FUNCTIONING. NEEDS TO BE IMPLEMENTED!
+     * Instantiate all inventories in the {@code INVENTORY_DIRECTORY/type#getSimpleName/} folder.
+     * @param type the type to instantiate
+     * @return a list of inventory instances,of the given type,
+     *      for each valid Json in the aforementioned directory.
      */
-    public static void instantiateAllInventories() {
-        assert INVENTORY_DIRECTORY.isDirectory();
-        File[] files = INVENTORY_DIRECTORY.listFiles(pathname -> pathname.getPath().endsWith(".json"));
-        assert files != null;
-        for (File inventory : files) {
-            // TODO: Instantiate properly, must somehow save type because cannot be assumed.
-            // Should save to different folders & load back from different folders.
+    public static List<? extends Inventory> instantiateAllInventories(Class<? extends Inventory> type) throws FileNotFoundException {
+        List<? extends Inventory> inventories = new ArrayList<>();
+        File target = new File(INVENTORY_DIRECTORY + "/" + type.getSimpleName().toLowerCase(Locale.ROOT));
+        if (!target.exists()) {
+            return inventories;
         }
+        File[] files = target.listFiles(file -> file.getPath().endsWith(".json"));
+        assert files != null;
+        for (File inventoryFile : files) {
+            inventories.add(GSON.fromJson(new FileReader(inventoryFile), (Type) type));
+        }
+        return inventories;
     }
 
     /**
      * Save the inventory to a file in INVENTORY_DIRECTORY
+     * @param overwrite set to true to overwrite existing inventory files
      * @throws FileAlreadyExistsException if the inventory already exists
      */
-    public void save() throws IOException {
-        File target = new File(INVENTORY_DIRECTORY + "/" + getName() + ".json");
-        if (!target.createNewFile()) {
+    public void save(boolean overwrite) throws IOException {
+        File targetDir = new File(INVENTORY_DIRECTORY + "/" + getClass().getSimpleName().toLowerCase(Locale.ROOT));
+        File targetFile = new File(targetDir + "/" + getName().toLowerCase(Locale.ROOT) + ".json");
+        targetDir.mkdirs();
+
+        if (!overwrite && targetFile.exists()) {
             System.out.println(toJson());
             throw new FileAlreadyExistsException("Inventory by name: " + getName() + " already exists");
         }
-        BufferedWriter bw = new BufferedWriter(new FileWriter(target));
+        BufferedWriter bw = new BufferedWriter(new FileWriter(targetFile));
         bw.write(toJson());
         bw.close();
     }
@@ -187,7 +198,7 @@ public abstract class Inventory {
 
         // Condensed items
         for (InventoryItem iItem : getItems()) {
-            for (InventoryItem inventoryItem : inventoryItems) {
+            for (InventoryItem inventoryItem : new ArrayList<>(inventoryItems)) {
                 if (iItem.getItem().equals(inventoryItem.getItem())) {
                     iItem.setAmount(iItem.getAmount()
                             + inventoryItem.getAmount()
@@ -278,7 +289,7 @@ public abstract class Inventory {
         Random r = new Random();
 
         emptying: while (removed.stream().mapToDouble(
-                i -> i.getItem().weight() * i.getAmount()
+                i -> i.getItem().weight * i.getAmount()
         ).sum() < targetWeight) {
             if (getItems().isEmpty()) {
                 System.out.println(
@@ -383,8 +394,8 @@ public abstract class Inventory {
         String amount = String.valueOf(getItems().stream().mapToInt(InventoryItem::getAmount).sum());
         String category = "TOTALS";
         String name = "";
-        String value = new Money(getItems().stream().mapToDouble(i -> i.getAmount() * i.getItem().worth().getAsGP()).sum()).toString();
-        String weight = String.valueOf(getItems().stream().mapToDouble(i -> i.getAmount() * (i.getItem().weight() == null ? 0 : i.getItem().weight())).sum());
+        String value = new Money(getItems().stream().mapToDouble(i -> i.getAmount() * i.getItem().worth.getAsGP()).sum()).toString();
+        String weight = String.valueOf(getItems().stream().mapToDouble(i -> i.getAmount() * (i.getItem().weight == null ? 0 : i.getItem().weight)).sum());
         String stats = getAdditionalStats();
         return new String[]{amount, category, name, value, weight, stats};
     }
@@ -412,13 +423,13 @@ public abstract class Inventory {
         public String[] itemData() {
             String[] endRow = new String[HEADER.length];
             endRow[0] = Integer.toString(amount);
-            endRow[1] = item.category().getName();
-            endRow[2] = item.name();
-            endRow[3] = new Money(amount * item.worth().getAsGP())
-                    + " (" + amount + "*" + item.worth().getAsGP() + "gp)";
-            endRow[4] = item.weight() == null ? "0" : amount * item.weight()
-                    + " (" + amount + "*" + item.weight() + ")";
-            endRow[5] = item.stats();
+            endRow[1] = item.category.getName();
+            endRow[2] = item.name;
+            endRow[3] = new Money(amount * item.worth.getAsGP())
+                    + " (" + amount + "*" + item.worth.getAsGP() + "gp)";
+            endRow[4] = item.weight == null ? "0" : amount * item.weight
+                    + " (" + amount + "*" + item.weight + ")";
+            endRow[5] = item.stats;
             return endRow;
         }
         /**
@@ -507,17 +518,17 @@ public abstract class Inventory {
                 ITEM_COMPARATOR = (i1, i2) -> {
 
             // Equal positions
-            if (i1.item.category().getPos() == i2.item.category().getPos()) {
-                return i2.item.name().compareToIgnoreCase(i1.item.name());
+            if (i1.item.category.getPos() == i2.item.category.getPos()) {
+                return i2.item.name.compareToIgnoreCase(i1.item.name);
             }
 
             // Different positions
             return (
-                    i1.item.category().getPos()
-                    - i2.item.category().getPos()
+                    i1.item.category.getPos()
+                    - i2.item.category.getPos()
             ) / Math.abs(
-                    i1.item.category().getPos()
-                    - i2.item.category().getPos()
+                    i1.item.category.getPos()
+                    - i2.item.category.getPos()
             );
         };
     }

@@ -12,7 +12,7 @@ public class TestPlayerInventory {
     private static final PlayerInventory SUT = new PlayerInventory("hi", new ArrayList<>(), new Money(5), 10);
 
     static {
-        SUT.addItem(new Item(Item.Type.WEAPONS, "Sword", new Money(5), 1d, ""), 5);
+        SUT.addItem(Item.makeGetItem(Item.Type.WEAPONS, "Sword", new Money(5), 1d, ""), 5);
     }
 
     @Test

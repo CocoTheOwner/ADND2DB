@@ -26,8 +26,8 @@ public interface ShopInventory extends InventoryInterface {
      */
     default Money willPayFor(final Item item) {
         return Money.fromValueAndFactor(
-                item.worth(),
-                modifierFor(item.category()) * modifierFor(item)
+                item.worth,
+                modifierFor(item.category) * modifierFor(item)
         );
     }
 }

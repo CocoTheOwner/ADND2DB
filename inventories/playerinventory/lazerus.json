@@ -22,7 +22,24 @@
         "weight": null,
         "stats": ""
       },
-      "amount": 1,
+      "amount": 8,
+      "loot": false
+    },
+    {
+      "item": {
+        "category": "WEAPONS",
+        "name": "Gada",
+        "worth": {
+          "cp": 0,
+          "sp": 0,
+          "ep": 0,
+          "gp": 1,
+          "pp": 0
+        },
+        "weight": 6.0,
+        "stats": "(SM) 1d8 (L) 1d4"
+      },
+      "amount": 2,
       "loot": false
     }
   ],

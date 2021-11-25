@@ -62,7 +62,7 @@ public class AddItem implements Command {
             return;
         }
 
-        String stats = params.size() >= 5 ? String.join(" ", params.subList(4, params.size())) : "";
+        String stats = params.size() >= 5 ? String.join(" ", params.subList(4, params.size() - 1)) : "";
 
         Item item = Item.makeGetItem(category, name, worth, weight, stats);
 

@@ -7,7 +7,9 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class Item {
     public final Type category;
@@ -89,7 +91,7 @@ public class Item {
     public String toString() {
         return name + " (" + category.getName() + ")"
                 + " worth " + worth.toString()
-                + " weighs " + weight
+                + (weight == null ? "no weight" : "weighs " + weight)
                 + (stats.isEmpty() ? "" : " stats: " + stats);
     }
 
@@ -146,32 +148,53 @@ public class Item {
          * @param in The input string to match with
          * @return An array of items sorted by how close they match
          */
-        public static List<Item> matchAll(final String in) {
-            List<Item> items = getItems();
+        public static List<Item> matchAll(String in) {
+            return matchAll(null, in);
+        }
+
+        /**
+         * Get all values in the database,
+         * ordered by how closely they match a certain string.
+         * Uses {@code LevenshteinDistance} from Apache Commons Text.
+         * @param in The input string to match with
+         * @param category The category of the item
+         * @return An array of items sorted by how close they match
+         */
+        public static List<Item> matchAll(final Type category, String in) {
+            in = in.toLowerCase(Locale.ROOT);
+            List<Item> items;
+            if (category == null) {
+                items = getItems();
+            } else {
+                items = getItems().stream().filter(i -> i.category.equals(category)).collect(Collectors.toList());
+            };
             LevenshteinDistance d = new LevenshteinDistance();
+            String finalIn = in;
             items.sort((i1, i2) -> {
 
                 // Starts-with priority
-                if (i1.name.startsWith(in)) {
-                    if (i2.name.startsWith(in)) {
+                boolean i2StartsWith = i2.name.toLowerCase(Locale.ROOT).startsWith(finalIn);
+                if (i1.name.toLowerCase(Locale.ROOT).startsWith(finalIn)) {
+                    if (i2StartsWith) {
                         return Integer.compare(
                                 i1.name.length(),
                                 i2.name.length()
                         );
                     }
                     return -1;
-                } else if (i2.name.startsWith(in)) {
+                } else if (i2StartsWith) {
                     return 1;
                 }
 
                 // Levenshtein distance
                 return Integer.compare(
-                        d.apply(in, i1.name),
-                        d.apply(in, i2.name)
+                        d.apply(finalIn, i1.name),
+                        d.apply(finalIn, i2.name)
                 );
             });
             return items;
         }
+
 
         /**
          * Get all items in the database.
@@ -356,19 +379,26 @@ public class Item {
          * Get item type from string.
          * @param in The input string
          * @return The {@link Type} belonging to the input string
-         * @throws IllegalArgumentException When the input string
+         * @throws InvalidParameterException When the input string
          *                          does not match an {@link Type}
          */
-        public static Type fromString(final String in) throws IllegalArgumentException {
+        public static Type fromString(String in) throws IllegalArgumentException {
+            in = in.toLowerCase(Locale.ROOT);
             for (Type value : Type.values()) {
                 if (value.name.equals(in)
                         || value.getName().equals(in)
                         || value.toString().equals(in)
+                        || value.getName().toLowerCase(Locale.ROOT).equals(in)
+                        || value.toString().toLowerCase(Locale.ROOT).equals(in)
+                        || value.getName().toLowerCase(Locale.ROOT).startsWith(in)
+                        || value.toString().toLowerCase(Locale.ROOT).startsWith(in)
+                        || value.getName().toLowerCase(Locale.ROOT).endsWith(in)
+                        || value.toString().toLowerCase(Locale.ROOT).endsWith(in)
                 ) {
                     return value;
                 }
             }
-            throw new IllegalArgumentException(
+            throw new InvalidParameterException(
                     "Cannot convert '" + in + "' to valid ItemType"
             );
         }

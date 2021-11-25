@@ -1,6 +1,7 @@
 package nl.codevs.dndinventory.discord.commands;
 
 import nl.codevs.dndinventory.discord.commands.items.AddItem;
+import nl.codevs.dndinventory.discord.commands.items.FindItem;
 
 public class ItemCommand implements CommandCategory {
 
@@ -8,7 +9,8 @@ public class ItemCommand implements CommandCategory {
      * Commands
      */
     private static final Command[] commands = new Command[]{
-        new AddItem()
+        new AddItem(),
+        new FindItem()
     };
 
     /**

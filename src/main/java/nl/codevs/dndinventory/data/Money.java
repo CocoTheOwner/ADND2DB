@@ -250,8 +250,11 @@ public final class Money {
      * <li>1\tpp</li>
      * <li>(etc)</li>
      * @param value The string representation of a value
+     * @throws IllegalArgumentException when the input has no valid extension
+     * @throws NumberFormatException when the input number has a valid extension,
+     *      but no valid (double-convertible) value
      */
-    public Money(final String value) {
+    public Money(final String value) throws IllegalArgumentException, NumberFormatException {
         String cleanValue = value
                 .toLowerCase(Locale.ROOT)
                 .replaceAll(" ", "")
@@ -268,7 +271,7 @@ public final class Money {
             case "ep" -> EP;
             case "gp" -> GP;
             case "pp" -> PP;
-            default -> throw new RuntimeException(
+            default -> throw new IllegalArgumentException(
                     "Value (" + cleanValue + ")"
                     + " ends with '" + end + "'"
                     + " which is not cp, sp, ep, gp or pp"

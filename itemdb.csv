@@ -7,11 +7,11 @@ WEAPONS,Blunderbus,500.0,12.0,(SM) 1d4 (L) 1d4
 WEAPONS,Knife (Widow's),5.0,4.0,(SM) 1d4 (L) 1d4
 WEAPONS,Hora,1.0,0.5,(SM) 1d3 (L) 1d3
 WEAPONS,Sword (Hook),15.0,4.0,(SM) 1d8+1 (L) 1d8
-WEAPONS,Bow (Short),30.0,2.0,(SM) arrow (L) arrow
 WEAPONS,Axe (Forearm),1.0,4.0,(SM) 1d6 (L) 1d6
+WEAPONS,Bow (Short),30.0,2.0,(SM) arrow (L) arrow
 WEAPONS,Bo Stick,0.02,4.0,(SM) 1d6 (L) 1d4
-WEAPONS,Lasso,0.5,3.0,(SM)  (L) 
 WEAPONS,Spear,0.8,5.0,(SM) 1H 1d6 / 2H 1d8+1 (L) 1H 1d8 / 2H 2d6
+WEAPONS,Lasso,0.5,3.0,(SM)  (L) 
 WEAPONS,Razor,0.4,1.0,(SM) 1d2 (L) 1d2
 WEAPONS,Polearm (Glaive),6.0,8.0,(SM) 1d6 (L) 1d10
 WEAPONS,Dart,0.5,0.5,(SM) 1d3 (L) 1d2
@@ -19,11 +19,12 @@ WEAPONS,Crossbow (Disk),175.0,10.0,(SM) arrow (L) arrow
 WEAPONS,Spike (Head),10.0,10.0,(SM) 1d6 (L) 1d8
 WEAPONS,Punch-cutter,6.0,1.0,(SM) 1d4 (L) 1d3
 WEAPONS,Nyek-ple-nen-toh,40.0,10.0,(SM) 1d8+1 (L) 1d8
+WEAPONS,Apple,1.0,0.5,delicious apple!
 WEAPONS,Flail (Chain),1.0,5.0,(SM) 1d4+2 (L) 1d4+1
 WEAPONS,Bow (Long),75.0,3.0,(SM) arrow (L) arrow
 WEAPONS,Polearm (Spetum),5.0,7.0,(SM) 1d6+1 (L) 2d6
-WEAPONS,Arrow (Flight),0.03,0.1,(SM) 1d6 (L) 1d6
 WEAPONS,Sword (Drusus),50.0,3.0,(SM) 1d6+1 (L) 1d8+1
+WEAPONS,Arrow (Flight),0.03,0.1,(SM) 1d6 (L) 1d6
 WEAPONS,Flindbar,8.0,6.0,(SM) 1d4 (L) 1d4
 WEAPONS,Crossbow (Light),35.0,7.0,(SM) arrow (L) arrow
 WEAPONS,Sword (Short),10.0,3.0,(SM) 1d6 (L) 1d8
@@ -62,8 +63,8 @@ WEAPONS,Knobkerrie,1.0,4.0,(SM) 1d6 (L) 1d4+1
 WEAPONS,Dagger (Stone),0.2,1.0,(SM) 1d3 (L) 1d2
 WEAPONS,Sword (Giant-kin Two-Handed),100.0,35.0,(SM) 1d10x2 (L) 3d6x2
 WEAPONS,Sword (Two-Handed),50.0,15.0,(SM) 1d10 (L) 3d6
-WEAPONS,Axe (Battle),5.0,7.0,(SM) 1d8 (L) 1d8
 WEAPONS,Sword (Mandible),6.0,3.0,(SM) 1d8/1d6 (L) 1d6/1d4
+WEAPONS,Axe (Battle),5.0,7.0,(SM) 1d8 (L) 1d8
 WEAPONS,Mace (Great),20.0,20.0,(SM) 1d8+1 (L) 2d4
 WEAPONS,Polearm (Voulge),5.0,12.0,(SM) 2d4 (L) 2d4
 WEAPONS,Spear (Long),5.0,8.0,(SM) 1H 1d8 / 2H 2d6 (L) 1H 1d8+1 / 2H 3d6
@@ -82,8 +83,8 @@ WEAPONS,Knife,0.5,0.5,(SM) 1d3 (L) 1d2
 WEAPONS,Swordlet,8.0,2.0,(SM) 1d4+1 (L) 1d4+1
 WEAPONS,Flail (Footman's),15.0,15.0,(SM) 1d6+1 (L) 2d4
 WEAPONS,Stick (Goblin),5.0,8.0,(SM) 1d4 (L) 1d6
-WEAPONS,Mancatcher,30.0,8.0,(SM)  (L) 
 WEAPONS,Sling,0.05,0.1,(SM) rock (L) rock
+WEAPONS,Mancatcher,30.0,8.0,(SM)  (L) 
 WEAPONS,Polearm (Quad Fauchard),20.0,20.0,(SM) 1d6 (L) 1d8
 WEAPONS,Spear (Throwing),1.0,3.0,(SM) 1d6 (L) 1d8
 WEAPONS,Puchik,6.0,1.0,(SM) 1d4+1 (L) 1d4+1

@@ -46,6 +46,6 @@ public final class DnDInventory {
                 new FileReader("./token.txt")
         ).readLine();
         INV.save(true);
-        // DiscordIntegration di = new DiscordIntegration(token);
+        DiscordIntegration di = new DiscordIntegration(token);
     }
 }

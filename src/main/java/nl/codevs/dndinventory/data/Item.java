@@ -356,10 +356,10 @@ public class Item {
          * Get item type from string.
          * @param in The input string
          * @return The {@link Type} belonging to the input string
-         * @throws RuntimeException When the input string
+         * @throws IllegalArgumentException When the input string
          *                          does not match an {@link Type}
          */
-        public static Type fromString(final String in) throws RuntimeException {
+        public static Type fromString(final String in) throws IllegalArgumentException {
             for (Type value : Type.values()) {
                 if (value.name.equals(in)
                         || value.getName().equals(in)
@@ -368,7 +368,7 @@ public class Item {
                     return value;
                 }
             }
-            throw new RuntimeException(
+            throw new IllegalArgumentException(
                     "Cannot convert '" + in + "' to valid ItemType"
             );
         }

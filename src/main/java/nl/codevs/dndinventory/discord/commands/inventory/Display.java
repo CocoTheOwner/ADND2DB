@@ -26,8 +26,8 @@ public final class Display implements Command {
                 ":)",
                 new ArrayList<>(),
                 new Money(1),
-                2
-        );
+                2,
+                1, 2, 3, 4, 5, 6, 7, 8);
         inventory.addItem(
                 Item.Database.getItems().get(
                         new Random().nextInt(Item.Database.getItems().size())

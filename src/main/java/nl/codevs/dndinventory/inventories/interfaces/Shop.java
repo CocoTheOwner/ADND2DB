@@ -3,7 +3,7 @@ package nl.codevs.dndinventory.inventories.interfaces;
 import nl.codevs.dndinventory.data.Item;
 import nl.codevs.dndinventory.data.Money;
 
-public interface ShopInventory extends InventoryInterface {
+public interface Shop extends InventoryInterface {
 
     /**
      * Item modifier for a specific category.

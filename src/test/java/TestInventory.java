@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestInventory {
 
-    private static final Inventory SUT = new PlayerInventory("i", new ArrayList<>(), new Money(), 75);
+    private static final Inventory SUT = new PlayerInventory("i", new ArrayList<>(), new Money(), 75, 1, 2, 3, 4, 5, 6, 7, 8);
     private static final Item testItem = Item.makeGetItem(Item.Type.WEAPONS, "Apple", new Money("5gp"), 5d, "Extra info here");
 
     @BeforeAll

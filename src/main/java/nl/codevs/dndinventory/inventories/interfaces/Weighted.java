@@ -1,6 +1,6 @@
 package nl.codevs.dndinventory.inventories.interfaces;
 
-public interface WeightedInventory extends InventoryInterface {
+public interface Weighted extends InventoryInterface {
 
     /**
      * Max weight capacity.

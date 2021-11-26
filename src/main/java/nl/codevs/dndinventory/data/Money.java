@@ -469,7 +469,7 @@ public final class Money {
         if (cp != 0) {
             res.append(cp).append("c ");
         }
-        return res.toString();
+        return res.toString().strip();
     }
 
     /**

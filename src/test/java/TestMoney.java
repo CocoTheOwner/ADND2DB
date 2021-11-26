@@ -58,7 +58,7 @@ public class TestMoney {
 
     @Test
     public void valueToString() {
-        assertEquals(new Money("10gp").toString(), "c0 s0 e0 g10 p0 totals 10.0gp");
+        assertEquals(new Money("10gp").toString(), "10g");
     }
 
     @Test

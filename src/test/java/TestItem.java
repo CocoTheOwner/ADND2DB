@@ -12,7 +12,7 @@ public class TestItem {
     @Test
     public void testItemStat() {
         assertEquals(item.toString(),
-                "Apple (Weapons) worth " + new Money("5gp") + " weighs 5.0 stats: Extra info here");
+                "Apple (Weapons) worth " + new Money("5gp") + "weighs 5.0 stats: Extra info here");
     }
 
     @Test

@@ -3,31 +3,31 @@ package nl.codevs.dndinventory.inventories.interfaces;
 import nl.codevs.dndinventory.data.Item;
 import nl.codevs.dndinventory.data.Money;
 
-public interface Shop extends InventoryInterface {
+public interface IShop extends IInterface {
 
     /**
      * Item modifier for a specific category.
      * @param type The item type (category)
      * @return The modifier for the type
      */
-    double modifierFor(Item.Type type);
+    double getModifierFor(Item.Type type);
 
     /**
      * Item modified for individual items.
      * @param item The item
      * @return The modifier for the item
      */
-    double modifierFor(Item item);
+    double getModifierFor(Item item);
 
     /**
      * The amount the shopkeeper will pay for an item.
      * @param item The item to get the price for
      * @return The price
      */
-    default Money willPayFor(final Item item) {
+    default Money getWouldPay(final Item item) {
         return Money.fromValueAndFactor(
                 item.worth,
-                modifierFor(item.category) * modifierFor(item)
+                getModifierFor(item.category) * getModifierFor(item)
         );
     }
 }

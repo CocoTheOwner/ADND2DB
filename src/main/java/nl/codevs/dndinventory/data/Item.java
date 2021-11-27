@@ -245,7 +245,7 @@ public class Item {
 
             // Convert to CSV
             StringBuilder out = new StringBuilder(
-                    "Category,Name,Value,Weight,Stats\n"
+                    "Category,Name,Value,Weight,IStats\n"
             );
             for (Item item : getItems()) {
                 out.append(item.category).append(",")

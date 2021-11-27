@@ -1,23 +1,21 @@
 package nl.codevs.dndinventory.inventories;
 
-import nl.codevs.dndinventory.inventories.interfaces.MoneyInventory;
-import nl.codevs.dndinventory.inventories.interfaces.Stats;
-import nl.codevs.dndinventory.inventories.interfaces.Weighted;
+import nl.codevs.dndinventory.data.Money;
+import nl.codevs.dndinventory.inventories.interfaces.ILevel;
+import nl.codevs.dndinventory.inventories.interfaces.IMoney;
+import nl.codevs.dndinventory.inventories.interfaces.IStats;
+import nl.codevs.dndinventory.inventories.interfaces.IWeighted;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerInventory extends Inventory
-        implements MoneyInventory, Weighted, Stats {
+        implements IMoney, IWeighted, IStats, ILevel {
 
     /**
      * The amount of worth in the inventory {@link nl.codevs.dndinventory.data.Money}.
      */
-    private nl.codevs.dndinventory.data.Money money;
-
-    /**
-     * The maximal carry weight for this inventory.
-     */
-    private final double maxWeight;
+    private Money money;
     /**
      * Character strength.
      */
@@ -54,6 +52,32 @@ public class PlayerInventory extends Inventory
      * Max character strength.
      */
     private final int maxHealth;
+    /**
+     * Character class.
+     */
+    private final CharacterClass characterClass;
+    /**
+     * Character experience.
+     */
+    private int experience;
+    /**
+     * Actual character level.
+     */
+    private int actualLevel;
+
+    /**
+     * Test inventory.
+     */
+    public static final PlayerInventory TEST_INVENTORY = new PlayerInventory(
+            "Test Inventory",
+            new ArrayList<>(),
+            new Money(0),
+            ILevel.CharacterClass.FIGHTER,
+            8_400,
+            2,
+            39,
+            15, 13, 18, 9, 11, 10, 12
+    );
 
     /**
      * Create a player inventory.
@@ -73,13 +97,19 @@ public class PlayerInventory extends Inventory
     public PlayerInventory(
             final String inventoryName,
             final List<InventoryItem> startingItems,
-            final nl.codevs.dndinventory.data.Money startingMoney,
-            final double maximalEncumbrance,
-            int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int complexion, int maxHealth) {
+            final Money startingMoney,
+            final CharacterClass characterClass,
+            final int experience,
+            final int actualLevel,
+            final int maxHealth,
+            int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int complexion
+    ) {
 
         super(inventoryName, startingItems);
         money = startingMoney;
-        maxWeight = maximalEncumbrance;
+        this.characterClass = characterClass;
+        this.experience = experience;
+        this.actualLevel = actualLevel;
         this.strength = strength;
         this.dexterity = dexterity;
         this.constitution = constitution;
@@ -96,7 +126,7 @@ public class PlayerInventory extends Inventory
      * @return The inventory
      */
     @Override
-    public Inventory inventory() {
+    public Inventory getInventory() {
         return this;
     }
 
@@ -106,7 +136,7 @@ public class PlayerInventory extends Inventory
      * @return The Value
      */
     @Override
-    public nl.codevs.dndinventory.data.Money money() {
+    public nl.codevs.dndinventory.data.Money getMoney() {
         return money;
     }
 
@@ -121,32 +151,13 @@ public class PlayerInventory extends Inventory
     }
 
     /**
-     * Max weight capacity.
-     *
-     * @return The max amount of weight capacity
-     */
-    @Override
-    public double maxWeight() {
-        return maxWeight;
-    }
-
-    /**
-     * Convert the inventory to Json.
-     * @return A json string
-     */
-    @Override
-    public String toJson() {
-        return Inventory.GSON.toJson(this);
-    }
-
-    /**
      * Add any additional stats you want to show in the "stats" column.
      *
      * @return A string for the stats to display
      */
     @Override
     protected String getAdditionalStats() {
-        return "weight left: " + getRemainingWeight() + " of " + maxWeight();
+        return "weight left: " + getRemainingWeight() + " of " + getMaxWeight();
     }
 
     /**
@@ -155,7 +166,7 @@ public class PlayerInventory extends Inventory
      */
     @Override
     public double getRemainingWeight() {
-        return Weighted.super.getRemainingWeight() - money.getWeight();
+        return IWeighted.super.getRemainingWeight() - money.getWeight();
     }
 
     /**
@@ -164,7 +175,7 @@ public class PlayerInventory extends Inventory
      * @return the current health
      */
     @Override
-    public int health() {
+    public int getHealth() {
         return health;
     }
 
@@ -174,7 +185,7 @@ public class PlayerInventory extends Inventory
      * @return the maximal health
      */
     @Override
-    public int maxHealth() {
+    public int getMaxHealth() {
         return maxHealth;
     }
 
@@ -194,7 +205,7 @@ public class PlayerInventory extends Inventory
      * @return -5 to 25, literal noodle to stronk
      */
     @Override
-    public int strength() {
+    public int getStrength() {
         return strength;
     }
 
@@ -204,7 +215,7 @@ public class PlayerInventory extends Inventory
      * @return -5 to 25, about as agile as a wall to being a literal snake
      */
     @Override
-    public int dexterity() {
+    public int getDexterity() {
         return dexterity;
     }
 
@@ -214,7 +225,7 @@ public class PlayerInventory extends Inventory
      * @return -5 to 25, exhausted all the time to ADHD
      */
     @Override
-    public int constitution() {
+    public int getConstitution() {
         return constitution;
     }
 
@@ -224,7 +235,7 @@ public class PlayerInventory extends Inventory
      * @return -5 to 25, useless to creative
      */
     @Override
-    public int intelligence() {
+    public int getIntelligence() {
         return intelligence;
     }
 
@@ -234,7 +245,7 @@ public class PlayerInventory extends Inventory
      * @return -5 to 25, goldfish brain to big brain
      */
     @Override
-    public int wisdom() {
+    public int getWisdom() {
         return wisdom;
     }
 
@@ -244,7 +255,7 @@ public class PlayerInventory extends Inventory
      * @return -5 to 25, rude to besties with everyone
      */
     @Override
-    public int charisma() {
+    public int getCharisma() {
         return charisma;
     }
 
@@ -254,7 +265,55 @@ public class PlayerInventory extends Inventory
      * @return -5 to 25, ugly af to beautiful
      */
     @Override
-    public int complexion() {
+    public int getComplexion() {
         return complexion;
+    }
+
+    /**
+     * Get the current amount of experience.
+     *
+     * @return the current amount of experience
+     */
+    @Override
+    public int getExperience() {
+        return experience;
+    }
+
+    /**
+     * Add experience
+     *
+     * @param experience the experience to add
+     */
+    @Override
+    public void addExperience(int experience) {
+        this.experience += experience;
+    }
+
+    /**
+     * Get the current character's class.
+     *
+     * @return the current character's class
+     */
+    @Override
+    public CharacterClass getCharacterClass() {
+        return characterClass;
+    }
+
+    /**
+     * Get the current character's actual level.
+     */
+    @Override
+    public int getActualLevel() {
+        return actualLevel;
+    }
+
+    /**
+     * Set the actual level.
+     *
+     * @param actualLevel the new actual level
+     */
+    @Override
+    public void setActualLevel(int actualLevel) {
+        this.actualLevel = actualLevel;
     }
 }

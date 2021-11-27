@@ -1,18 +1,18 @@
 package nl.codevs.dndinventory.inventories.interfaces;
 
-public interface Health {
+public interface IHealth extends IInterface {
 
     /**
      * Current character health.
      * @return the current health
      */
-    int health();
+    int getHealth();
 
     /**
      * Get the maximal character health.
      * @return the maximal health
      */
-    int maxHealth();
+    int getMaxHealth();
 
     /**
      * Set the health.
@@ -25,13 +25,13 @@ public interface Health {
      * @param damage damage to the character
      */
     default void damage(int damage) {
-        setHealth(Math.min(minHealth(), health() - damage));
+        setHealth(Math.min(getMinHealth(), getHealth() - damage));
     }
 
     /**
      * Get absolute minimal health (can be negative).
      */
-    default int minHealth() {
+    default int getMinHealth() {
         return -10;
     }
 }

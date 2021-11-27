@@ -3,13 +3,11 @@ import nl.codevs.dndinventory.data.Money;
 import nl.codevs.dndinventory.inventories.PlayerInventory;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestPlayerInventory {
 
-    private static final PlayerInventory SUT = new PlayerInventory("hi", new ArrayList<>(), new Money(5), 10, 1, 2, 3, 4, 5, 6, 7, 8);
+    private static final PlayerInventory SUT = PlayerInventory.TEST_INVENTORY;
 
     static {
         SUT.addItem(Item.makeGetItem(Item.Type.WEAPONS, "Sword", new Money(5), 1d, ""), 5);

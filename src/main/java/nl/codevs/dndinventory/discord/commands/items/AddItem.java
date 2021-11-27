@@ -31,7 +31,7 @@ public class AddItem implements Command {
         e.getMessage().reply("Hey!").queue();
 
         if (params.size() < 4) {
-            e.getMessage().reply("You must specify all arguments: Category Name MoneyInventory Weight (Stats...)").queue();
+            e.getMessage().reply("You must specify all arguments: Category Name IMoney Weight (IStats...)").queue();
             e.getMessage().reply("Example: `Weapons Sword 2gp 5 very cool weapon").queue();
         }
 

@@ -2,6 +2,8 @@ package nl.codevs.dndinventory.inventories.interfaces;
 
 import nl.codevs.dndinventory.data.Dice;
 
+import java.util.function.Function;
+
 public interface ILevel {
 
     /**
@@ -11,10 +13,10 @@ public interface ILevel {
     int getExperience();
 
     /**
-     * Add experience
+     * Add experience.
      * @param experience the experience to add
      */
-    void addExperience(int experience);
+    void addExperience(final int experience);
 
     /**
      * Get the current character's class.
@@ -24,6 +26,7 @@ public interface ILevel {
 
     /**
      * Get the current character's actual level.
+     * @return the current character's actual level
      */
     int getActualLevel();
 
@@ -32,7 +35,7 @@ public interface ILevel {
      *
      * @param actualLevel the new actual level
      */
-    void setActualLevel(int actualLevel);
+    void setActualLevel(final int actualLevel);
 
     /**
      * Get the amount of levels that can be trained.
@@ -61,21 +64,31 @@ public interface ILevel {
             }
             return i;
         }
-        throw new RuntimeException("Potential level cannot be found for class/xp: " + getCharacterClass() + "/" + getExperience() + " because it exceeds " + xps[xps.length - 1]);
+        throw new RuntimeException(
+                "Potential level cannot be found for class/xp: "
+                        + getCharacterClass() + "/" + getExperience()
+                        + " because it exceeds " + xps[xps.length - 1]);
     }
+
+    /**
+     * Convert warrior level into dice.
+     */
+    Function<Integer, Dice> WARRIOR_LEVEL_DICE = (i) -> i < 10 ? new Dice(10, i, 0) : new Dice(10, 9, (i - 9)  * 3);
+    Function<Integer, Dice> WIZARD_LEVEL_DICE =  (i) -> i < 11 ? new Dice(4, i, 0)  : new Dice(4, 10, (i - 10) * 1);
+    Function<Integer, Dice> PRIEST_LEVEL_DICE =  (i) -> i < 10 ? new Dice(8, i, 0)  : new Dice(8,  9, (i - 9)  * 2);
+    Function<Integer, Dice> ROGUE_LEVEL_DICE =   (i) -> i < 11 ? new Dice(6, i, 0)  : new Dice(6, 10, (i - 10) * 2);
 
     /**
      * The level-up to the current {@link #getPotentialLevel()}.
      * @return {@link Dice} with the dice details for level-up health
      */
     default Dice getHitPointDice() {
-        int level = getPotentialLevel() - 1;
-        return switch (ClassGroup.of(getCharacterClass())) {
-            case WARRIOR -> level < 10 ? new Dice(10, level, 0) : new Dice(10, 9, (level - 9) * 3);
-            case WIZARD -> level < 11 ? new Dice(4, level, 0) : new Dice(4, 10, (level - 10) * 1);
-            case PRIEST -> level < 10 ? new Dice(8, level, 0) : new Dice(8, 9, (level - 9) * 2);
-            case ROGUE -> level < 11 ? new Dice(6, level, 0) : new Dice(6, 10, (level - 10) * 2);
-        };
+        return (switch (ClassGroup.of(getCharacterClass())) {
+            case WARRIOR -> WARRIOR_LEVEL_DICE;
+            case WIZARD  -> WIZARD_LEVEL_DICE;
+            case PRIEST  -> PRIEST_LEVEL_DICE;
+            case ROGUE   -> ROGUE_LEVEL_DICE;
+        }).apply(getPotentialLevel() - 1);
     }
 
     /**
@@ -144,44 +157,72 @@ public interface ILevel {
      */
     enum CharacterClass {
         /**
-         * Warriors.
+         * Warriors, Fighter.
          */
         FIGHTER,
+        /**
+         * Warriors, Paladin.
+         */
         PALADIN,
+        /**
+         * Warriors, Ranger.
+         */
         RANGER,
 
         /**
-         * Wizards.
+         * Wizards Mage.
          */
         MAGE,
+        /**
+         * Warriors, Specialist.
+         */
         SPECIALIST,
 
         /**
-         * Priest
+         * Priests, Cleric.
          */
         CLERIC,
+        /**
+         * Priests, Druid.
+         */
         DRUID,
 
         /**
-         * Rogue.
+         * Rogue, Thief.
          */
         THIEF,
+
+        /**
+         * Rogue, Bard.
+         */
         BARD
-        ;
+
     }
 
     enum ClassGroup {
+        /**
+         * Warriors.
+         */
         WARRIOR,
+        /**
+         * Wizards.
+         */
         WIZARD,
+        /**
+         * Priests.
+         */
         PRIEST,
+        /**
+         * Rogues.
+         */
         ROGUE;
 
         /**
-         * Get the ClassGroup belonging to the class
+         * Get the ClassGroup belonging to the class.
          * @param characterClass character class
          * @return the ClassGroup
          */
-        public static ClassGroup of(CharacterClass characterClass){
+        public static ClassGroup of(final CharacterClass characterClass) {
             return switch (characterClass) {
                 case FIGHTER, RANGER, PALADIN -> WARRIOR;
                 case MAGE, SPECIALIST -> WIZARD;

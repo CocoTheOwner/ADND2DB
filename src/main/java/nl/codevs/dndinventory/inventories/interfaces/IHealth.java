@@ -18,18 +18,19 @@ public interface IHealth extends IInterface {
      * Set the health.
      * @param newHealth the new health amount
      */
-    void setHealth(int newHealth);
+    void setHealth(final int newHealth);
 
     /**
      * Damage the character.
      * @param damage damage to the character
      */
-    default void damage(int damage) {
+    default void damage(final int damage) {
         setHealth(Math.min(getMinHealth(), getHealth() - damage));
     }
 
     /**
      * Get absolute minimal health (can be negative).
+     * @return the minimal amount of health before dying
      */
     default int getMinHealth() {
         return -10;

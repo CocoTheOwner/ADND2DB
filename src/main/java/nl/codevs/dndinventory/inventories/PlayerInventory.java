@@ -1,49 +1,48 @@
 package nl.codevs.dndinventory.inventories;
 
 import nl.codevs.dndinventory.data.Money;
-import nl.codevs.dndinventory.inventories.interfaces.ILevel;
-import nl.codevs.dndinventory.inventories.interfaces.IMoney;
-import nl.codevs.dndinventory.inventories.interfaces.IStats;
-import nl.codevs.dndinventory.inventories.interfaces.IWeighted;
+import nl.codevs.dndinventory.inventories.interfaces.*;
+import nl.codevs.dndinventory.inventories.interfaces.ILevel.CharacterClass;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerInventory extends Inventory
-        implements IMoney, IWeighted, IStats, ILevel {
+        implements IMoney, IWeighted, IStats, IHealth, ILevel {
 
     /**
-     * The amount of worth in the inventory {@link nl.codevs.dndinventory.data.Money}.
+     * The amount of worth in the inventory
+     * {@link nl.codevs.dndinventory.data.Money}.
      */
     private Money money;
     /**
      * Character strength.
      */
-    private final int strength;
+    private final int str;
     /**
      * Character dexterity.
      */
-    private final int dexterity;
+    private final int dex;
     /**
      * Character constitution.
      */
-    private final int constitution;
+    private final int con;
     /**
      * Character intelligence.
      */
-    private final int intelligence;
+    private final int intl;
     /**
      * Character wisdom.
      */
-    private final int wisdom;
+    private final int wis;
     /**
      * Character charisma.
      */
-    private final int charisma;
+    private final int chr;
     /**
      * Character complexion.
      */
-    private final int complexion;
+    private final int com;
     /**
      * Character health.
      */
@@ -51,19 +50,19 @@ public class PlayerInventory extends Inventory
     /**
      * Max character strength.
      */
-    private final int maxHealth;
+    private final int mHp;
     /**
      * Character class.
      */
-    private final CharacterClass characterClass;
+    private final CharacterClass cc;
     /**
      * Character experience.
      */
-    private int experience;
+    private int exp;
     /**
      * Actual character level.
      */
-    private int actualLevel;
+    private int realLvl;
 
     /**
      * Test inventory.
@@ -81,10 +80,14 @@ public class PlayerInventory extends Inventory
 
     /**
      * Create a player inventory.
-     * @param inventoryName The inventory name
-     * @param startingItems The starting inventory items
+     * @param playerName The player name
+     * @param startingItems The starting player items
      * @param startingMoney The amount of starting capital
-     * @param maximalEncumbrance The maximal carry capacity
+     * @param characterClass The
+     * {@link CharacterClass} of the player (Fighter, etc.)
+     * @param experience The current experience of the player
+     * @param actualLevel The actual (trained) level of the character
+     * @param maxHealth MaxHealth
      * @param strength Strength
      * @param dexterity Dexterity
      * @param constitution Constitution
@@ -92,32 +95,37 @@ public class PlayerInventory extends Inventory
      * @param wisdom Wisdom
      * @param charisma Charisma
      * @param complexion Complexion
-     * @param maxHealth MaxHealth
      */
     public PlayerInventory(
-            final String inventoryName,
+            final String playerName,
             final List<InventoryItem> startingItems,
             final Money startingMoney,
             final CharacterClass characterClass,
             final int experience,
             final int actualLevel,
             final int maxHealth,
-            int strength, int dexterity, int constitution, int intelligence, int wisdom, int charisma, int complexion
+            final int strength,
+            final int dexterity,
+            final int constitution,
+            final int intelligence,
+            final int wisdom,
+            final int charisma,
+            final int complexion
     ) {
 
-        super(inventoryName, startingItems);
+        super(playerName, startingItems);
         money = startingMoney;
-        this.characterClass = characterClass;
-        this.experience = experience;
-        this.actualLevel = actualLevel;
-        this.strength = strength;
-        this.dexterity = dexterity;
-        this.constitution = constitution;
-        this.intelligence = intelligence;
-        this.wisdom = wisdom;
-        this.charisma = charisma;
-        this.complexion = complexion;
-        this.maxHealth = maxHealth;
+        this.cc = characterClass;
+        this.exp = experience;
+        this.realLvl = actualLevel;
+        this.str = strength;
+        this.dex = dexterity;
+        this.con = constitution;
+        this.intl = intelligence;
+        this.wis = wisdom;
+        this.chr = charisma;
+        this.com = complexion;
+        this.mHp = maxHealth;
     }
 
     /**
@@ -186,7 +194,7 @@ public class PlayerInventory extends Inventory
      */
     @Override
     public int getMaxHealth() {
-        return maxHealth;
+        return mHp;
     }
 
     /**
@@ -195,7 +203,7 @@ public class PlayerInventory extends Inventory
      * @param newHealth the new health amount
      */
     @Override
-    public void setHealth(int newHealth) {
+    public void setHealth(final int newHealth) {
         health = newHealth;
     }
 
@@ -206,7 +214,7 @@ public class PlayerInventory extends Inventory
      */
     @Override
     public int getStrength() {
-        return strength;
+        return str;
     }
 
     /**
@@ -216,7 +224,7 @@ public class PlayerInventory extends Inventory
      */
     @Override
     public int getDexterity() {
-        return dexterity;
+        return dex;
     }
 
     /**
@@ -226,7 +234,7 @@ public class PlayerInventory extends Inventory
      */
     @Override
     public int getConstitution() {
-        return constitution;
+        return con;
     }
 
     /**
@@ -236,7 +244,7 @@ public class PlayerInventory extends Inventory
      */
     @Override
     public int getIntelligence() {
-        return intelligence;
+        return intl;
     }
 
     /**
@@ -246,7 +254,7 @@ public class PlayerInventory extends Inventory
      */
     @Override
     public int getWisdom() {
-        return wisdom;
+        return wis;
     }
 
     /**
@@ -256,7 +264,7 @@ public class PlayerInventory extends Inventory
      */
     @Override
     public int getCharisma() {
-        return charisma;
+        return chr;
     }
 
     /**
@@ -266,7 +274,7 @@ public class PlayerInventory extends Inventory
      */
     @Override
     public int getComplexion() {
-        return complexion;
+        return com;
     }
 
     /**
@@ -276,17 +284,17 @@ public class PlayerInventory extends Inventory
      */
     @Override
     public int getExperience() {
-        return experience;
+        return exp;
     }
 
     /**
-     * Add experience
+     * Add experience.
      *
      * @param experience the experience to add
      */
     @Override
-    public void addExperience(int experience) {
-        this.experience += experience;
+    public void addExperience(final int experience) {
+        this.exp += experience;
     }
 
     /**
@@ -296,7 +304,7 @@ public class PlayerInventory extends Inventory
      */
     @Override
     public CharacterClass getCharacterClass() {
-        return characterClass;
+        return cc;
     }
 
     /**
@@ -304,7 +312,7 @@ public class PlayerInventory extends Inventory
      */
     @Override
     public int getActualLevel() {
-        return actualLevel;
+        return realLvl;
     }
 
     /**
@@ -313,7 +321,7 @@ public class PlayerInventory extends Inventory
      * @param actualLevel the new actual level
      */
     @Override
-    public void setActualLevel(int actualLevel) {
-        this.actualLevel = actualLevel;
+    public void setActualLevel(final int actualLevel) {
+        this.realLvl = actualLevel;
     }
 }

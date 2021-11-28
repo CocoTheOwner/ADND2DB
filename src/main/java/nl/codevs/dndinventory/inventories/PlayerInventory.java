@@ -2,7 +2,6 @@ package nl.codevs.dndinventory.inventories;
 
 import nl.codevs.dndinventory.data.Money;
 import nl.codevs.dndinventory.inventories.interfaces.*;
-import nl.codevs.dndinventory.inventories.interfaces.ILevel.CharacterClass;
 
 import java.util.ArrayList;
 import java.util.List;

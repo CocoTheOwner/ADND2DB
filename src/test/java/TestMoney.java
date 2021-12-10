@@ -58,33 +58,33 @@ public class TestMoney {
 
     @Test
     public void valueToString() {
-        assertEquals(new Money("10gp").toString(), "10g");
+        assertEquals(Money.fromString("10gp").toString(), "10gp");
     }
 
     @Test
     public void testMaximizeSimple() {
-        System.out.println(new Money("50cp"));
-        assertEquals(5, new Money("50cp").getSP());
+        System.out.println(Money.fromString("50cp"));
+        assertEquals(5, Money.fromString("50cp").getSP());
     }
 
     @Test
     public void testMaximizeComplex() {
-        assertEquals(1, new Money("5.11GP").getSP());
-        assertEquals(1, new Money("5.11GP").getCP());
-        assertEquals(5, new Money("5.11GP").getGP());
-        assertEquals(0, new Money("5.11GP").getEP());
+        assertEquals(1, Money.fromString("5.11GP").getSP());
+        assertEquals(1, Money.fromString("5.11GP").getCP());
+        assertEquals(5, Money.fromString("5.11GP").getGP());
+        assertEquals(0, Money.fromString("5.11GP").getEP());
     }
 
     @Test
     public void testMaximizeString() {
-        assertEquals(151, new Money("15151cp").getGP());
-        assertEquals(5, new Money("15151cp").getSP());
-        assertEquals(1, new Money("15151cp").getCP());
+        assertEquals(151, Money.fromString("15151cp").getGP());
+        assertEquals(5, Money.fromString("15151cp").getSP());
+        assertEquals(1, Money.fromString("15151cp").getCP());
     }
 
     @Test
     public void testAsGP() {
-        assertEquals(151.51, new Money("15151cp").getAsGP());
+        assertEquals(151.51, Money.fromString("15151cp").getAsGP());
     }
 
     @Test

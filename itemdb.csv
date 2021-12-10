@@ -1,428 +1,429 @@
 Category,Name,Value,Weight,IStats
-WEAPONS,Dragon's Paw,15.0,9.0,(SM) 1d6 (L) 1d6+1
-MISC,Signal whistle,0.8,0.1,
-WEAPONS,Quarterstaff,10.0,4.0,(SM) 1d6 (L) 1d6
-ANIMALS,Guinea hen,0.02,null,
-WEAPONS,Blunderbus,500.0,12.0,(SM) 1d4 (L) 1d4
-PROVISIONS,Dry rations,10.0,null,per week
-ANIMALS,Pigeon (mail),100.0,null,
-ANIMALS,Pigeon,0.01,null,
-WEAPONS,Bo Stick,0.02,4.0,(SM) 1d6 (L) 1d4
-HARNESS,Barding (Full plate),2000.0,85.0,
-WEAPONS,Lasso,0.5,3.0,(SM)  (L) 
-WEAPONS,Spear,0.8,5.0,(SM) 1H 1d6 / 2H 1d8+1 (L) 1H 1d8 / 2H 2d6
-WEAPONS,Razor,0.4,1.0,(SM) 1d2 (L) 1d2
-WEAPONS,Polearm (Glaive),6.0,8.0,(SM) 1d6 (L) 1d10
-MISC,Lantern (Beacon),150.0,50.0,
-WEAPONS,Dart,0.5,0.5,(SM) 1d3 (L) 1d2
-WEAPONS,Punch-cutter,6.0,1.0,(SM) 1d4 (L) 1d3
-WEAPONS,Nyek-ple-nen-toh,40.0,10.0,(SM) 1d8+1 (L) 1d8
-ARMOR,Armor (Bronze plate mail),400.0,45.0,AC 4
-ANIMALS,Falcon (trained),1000.0,null,
-CLOTHING,Cloak (Fine fur),50.0,null,
-CLOTHING,Girdle,3.0,null,
-CLOTHING,Boots (Riding),3.0,null,
-ARMOR,Helmet (Great helm),30.0,10.0,Reduce head crit (plate+)
-WEAPONS,Flindbar,8.0,6.0,(SM) 1d4 (L) 1d4
-MISC,Perfume,5.0,0.1,per vial
-WEAPONS,Crossbow (Light),35.0,7.0,(SM) arrow (L) arrow
-MISC,Paper,2.0,0.01,per sheet
-WEAPONS,Sword (Short),10.0,3.0,(SM) 1d6 (L) 1d8
-WEAPONS,Bard's Friend,10.0,3.0,(SM) 1d4+1 (L) 1d3
-WEAPONS,Bow (Pixie),50.0,1.0,(SM) arrow (L) arrow
-WEAPONS,Sword (Great Scimitar),60.0,16.0,(SM) 2d8 (L) 4d4
-WEAPONS,Staff (Sling),0.2,2.0,(SM) rock (L) rock
-MISC,Sack (Small),0.05,0.1,
-WEAPONS,Glove Nail,2.0,2.0,(SM) 1d4+1 (L) 1d4
-WEAPONS,Cahulaks,12.0,12.0,(SM) 1d6 (L) 1d6
-WEAPONS,Polearm (Crusher),24.0,9.0,(SM) 1d4 (L) 1d3
-WEAPONS,Hatchet (Hawk),2.0,6.0,(SM) 1d6+1/1d4+1 (L) 1d4/1d4
-MISC,Lamp Oil,0.06,1.0,per flask
-ANIMALS,Pig,3.0,null,
-WEAPONS,Polearm (Military Fork),5.0,7.0,(SM) 1d8 (L) 2d4
-WEAPONS,Chain,0.5,3.0,(SM) 1d4+1 (L) 1d4
-WEAPONS,Dejada Cestus,10.0,9.0,(SM) 1d6/1d6 (L) 1d8/1d6
-WEAPONS,Basilard,7.0,3.0,(SM) 1d4+1 (L) 1d6+1
-WEAPONS,Sticks (Singing),0.5,1.0,(SM) 1d6 (L) 1d4
-CLOTHING,Vest,0.6,null,
-MISC,Rope (Hemp),1.0,20.0,per 50 ft.
-WEAPONS,Dart (Barbed),0.0,5.0,(SM) 1d4 (L) 1d4
-MISC,Glass bottle,10.0,0.1,
-WEAPONS,Bow (Composite Long),100.0,3.0,(SM) arrow (L) arrow
-WEAPONS,Polearm (Bec De Corbin),8.0,10.0,(SM) 1d8 (L) 1d6
-MISC,Bell,1.0,0.1,
-WEAPONS,Sword (Mandible),6.0,3.0,(SM) 1d8/1d6 (L) 1d6/1d4
-MISC,Holy item,25.0,0.1,
-WEAPONS,Polearm (Voulge),5.0,12.0,(SM) 2d4 (L) 2d4
-WEAPONS,Spear (Long),5.0,8.0,(SM) 1H 1d8 / 2H 2d6 (L) 1H 1d8+1 / 2H 3d6
-WEAPONS,Apple,5.0,5.0,Extra info here
-WEAPONS,Flail (Horseman's),8.0,5.0,(SM) 1d4+1 (L) 1d4+1
-WEAPONS,Lance (Light Horse),6.0,5.0,(SM) 1d6 (L) 1d8
-MISC,Mirror (small metal),10.0,0.1,
-WEAPONS,Polearm (Guisarme-Voulge),8.0,15.0,(SM) 2d4 (L) 2d4
-WEAPONS,Sword (Flamberge),30.0,21.0,(SM) 1d8+1 (L) 2d8
-WEAPONS,Impaler,0.04,5.0,(SM) 1d8 (L) 1d8
-WEAPONS,Mace (Footman's),8.0,10.0,(SM) 1d6+1 (L) 1d6
-WEAPONS,Sword (Claymore),25.0,10.0,(SM) 2d4 (L) 2d8
-PROVISIONS,Coarse sugar,1.0,null,per lb.
-PROVISIONS,Spice Rare,2.0,null,per lb.
-MISC,Belt pouch (Small),0.7,0.1,
-MISC,Flint and steel,0.5,0.1,
-ANIMALS,Partridge,0.05,null,
-WEAPONS,Flail (Footman's),15.0,15.0,(SM) 1d6+1 (L) 2d4
-WEAPONS,Stick (Goblin),5.0,8.0,(SM) 1d4 (L) 1d6
-WEAPONS,Sling,0.05,0.1,(SM) rock (L) rock
-WEAPONS,Polearm (Quad Fauchard),20.0,20.0,(SM) 1d6 (L) 1d8
-WEAPONS,Spear (Throwing),1.0,3.0,(SM) 1d6 (L) 1d8
-WEAPONS,Puchik,6.0,1.0,(SM) 1d4+1 (L) 1d4+1
-WEAPONS,Polearm (Giant-kin Halberd),25.0,35.0,(SM) 1d12 (L) 2d8
-MISC,Torch,0.01,1.0,
-WEAPONS,Quabone,0.01,4.0,(SM) 1d4 (L) 1d3
-FOOD_LODGING,City rooms (Poor),0.6,null,per month
-WEAPONS,Polearm (Naginata),8.0,10.0,(SM) 1d8 (L) 1d10
-ARMOR,Armor (Full plate),10000.0,70.0,AC 1
-FOOD_LODGING,Inn lodging (Common; week),3.0,null,
-ANIMALS,Chicken,0.02,null,
-WEAPONS,Staff (Hamanu's),10.0,5.0,(SM) 1d8 (L) 1d8
-MISC,Fishing net (10 sq. ft.),4.0,5.0,
-WEAPONS,Flail (Grain),3.0,3.0,(SM) 1d4+1 (L) 1d4
-ANIMALS,Mule or ass,8.0,null,
-ANIMALS,Horse (Heavy war),400.0,null,
-CLOTHING,Gown,1.2,null,
-WEAPONS,Mace (Horseman's Whistling),9.0,3.0,(SM) 1d4+1 (L) 1d2+1
-WEAPONS,Lance (Flight),6.0,5.0,(SM) 1d6+1 (L) 2d6
-WEAPONS,Polearm (Ranseur),6.0,7.0,(SM) 2d4 (L) 2d4
-ARMOR,Armor (Scale mail),120.0,40.0,AC 6
-WEAPONS,Chatkcha,0.01,0.5,(SM) 1d6+2 (L) 1d4+1
-FOOD_LODGING,Separate latrine for rooms (day),0.1,null,
-ARMOR,Armor (Chain mail),75.0,40.0,AC 5
-WEAPONS,Polearm (Awl Pike),5.0,12.0,(SM) 1d6 (L) 1d12
-WEAPONS,Lance (Heavy Horse),15.0,15.0,(SM) 1d8+1 (L) 3d6
-WEAPONS,Spear (Double-Bladed),2.0,6.0,(SM) 1d8 (L) 1d8
-WEAPONS,Knife (Bone),0.03,0.5,(SM) 1d2 (L) 1d2
-CLOTHING,Breeches,2.0,null,
-WEAPONS,Quarrel (Hand),1.0,0.1,(SM) 1d3 (L) 1d2
-CLOTHING,Sword Hanger,4.0,null,
-ANIMALS,Horse (Draft),200.0,null,
-PROVISIONS,Tun of good wine,20.0,null,per 250 gal.
-WEAPONS,Net,5.0,10.0,(SM)  (L) 
-MISC,Canvas,0.4,1.0,per sq. yard
-MISC,Piton,0.03,0.01,
-ANIMALS,Horse (Medium war),225.0,null,
-WEAPONS,Peshkabz,3.0,1.0,(SM) 1d4 (L) 1d3
-HARNESS,Barding (Full scale),1000.0,75.0,
-CLOTHING,Knife sheath,0.03,null,
-WEAPONS,Whip (Chain),21.0,3.5,(SM) 1d3 (L) 1d2
-MISC,Quiver,0.8,1.0,
-WEAPONS,Kukri,3.0,2.0,(SM) 1d4+1 (L) 1d4+1
-MISC,Lock (Poor),20.0,1.0,
-WEAPONS,Lance (Medium Horse),10.0,10.0,(SM) 1d6+1 (L) 2d6
-WEAPONS,Alhulak,9.0,9.0,(SM) 1d6 (L) 1d6
-WEAPONS,Club (Datchi),12.0,10.0,(SM) 1d6 (L) 1d4
-ANIMALS,Dog (Guard),25.0,null,
-ANIMALS,Donkey,8.0,null,
-WEAPONS,Dirk,2.0,1.0,(SM) 1d4 (L) 1d3
-ANIMALS,Goat,1.0,null,
-MISC,Chain (Heavy),4.0,3.0,per ft.
-WEAPONS,Polearm (Fauchard-Fork),8.0,9.0,(SM) 1d8 (L) 1d10
-WEAPONS,Sword (Sabre),17.0,5.0,(SM) 1d6+1 (L) 1d8+1
-MISC,Block and tackle,5.0,5.0,
-MISC,Map or scroll case,0.8,0.1,
-WEAPONS,Polearm (Bill-Guisarme),7.0,15.0,(SM) 2d4 (L) 1d10
-WEAPONS,Sword (Wakizashi),50.0,3.0,(SM) 1d8 (L) 1d8
-PROVISIONS,Salted herring,1.0,null,per 100
-HARNESS,Barding (Half brigandine),500.0,45.0,
-CLOTHING,Sandals,0.05,null,
-WEAPONS,Spear (Stone),0.08,5.0,(SM) 1H 1d4 / 2H 1d6 (L) 1H 1d6 / 2H 2d4
-FOOD_LODGING,Meals (Good),0.5,null,per day
-HARNESS,Barding (Half scale),500.0,50.0,
-CLOTHING,Robe (Embroidered),20.0,null,
-MISC,Barrel,2.0,30.0,
-ARMOR,Shield (Small),3.0,5.0,-1 AC
-WEAPONS,Sword,5.0,1.0,
-WEAPONS,Sword (Cutlass),12.0,4.0,(SM) 1d6 (L) 1d8
-MISC,Tent (Large),25.0,20.0,
-WEAPONS,Pata,30.0,6.0,(SM) 1d8 (L) 1d12
-WEAPONS,Spear (Heavy),3.0,8.0,(SM) 1H 1d8 / 2H 2d6 (L) 1H 1d10 / 2H 2d8
-WEAPONS,Sword (Talwar),15.0,5.0,(SM) 2d4 (L) 2d4
-ARMOR,Armor (Splint mail),80.0,40.0,AC 4
-WEAPONS,Polearm (Tetsubo),2.0,7.0,(SM) 1d8 (L) 1d8
-MISC,Backpack,2.0,2.0,
-WEAPONS,Polearm (Fauchard),5.0,7.0,(SM) 1d6 (L) 1d8
-WEAPONS,Lance (Jousting),20.0,20.0,(SM) 1d3-1 (L) 1d2-1
-WEAPONS,Arrow (Mail-Piercer),0.05,0.1,(SM) 1d6 (L) 1d6
-WEAPONS,Blowgun,5.0,2.0,(SM) see dart (L) see dart
-WEAPONS,Warhammer,2.0,6.0,(SM) 1d4+1 (L) 1d4
-MISC,Tent (Pavilion),100.0,50.0,
-ANIMALS,Horse (Riding),75.0,null,
-WEAPONS,Kick-slasher,7.0,3.0,(SM) 1d4+1 (L) 1d6+1
-WEAPONS,Assegai,2.0,1.0,(SM) 1d8 (L) 1d10
-MISC,Wineskin,0.8,1.0,
-WEAPONS,Mace (Footman's Whistling),12.0,6.0,(SM) 1d6 (L) 1d4
-FOOD_LODGING,Cheese,0.4,null,
-HARNESS,Barding (Half padded),100.0,25.0,
-HARNESS,Saddle blanket,0.3,4.0,
-WEAPONS,Axe (Two-Handed Battle),10.0,10.0,(SM) 1d10 (L) 2d8
-WEAPONS,Shoka,6.0,7.0,(SM) 1d6+1 (L) 1d6+1
-WEAPONS,Shuriken,0.3,1.0,(SM) 1d4 (L) 1d4
-WEAPONS,Talid,4.0,1.0,(SM) 1d6 (L) 1d6-1
-WEAPONS,Staff (Hornhead),5.0,20.0,(SM) 2d6 (L) 2d6
-FOOD_LODGING,Meals (Common),0.3,null,per day
-WEAPONS,Musket,800.0,20.0,(SM) 1d12 (L) 1d12
-ANIMALS,Hunting cat (jaguar),5000.0,null,
-ANIMALS,Ox,15.0,null,
-FOOD_LODGING,Inn lodging (Poor; day),0.05,null,
-WEAPONS,Pick (Footman's),8.0,6.0,(SM) 1d6+1 (L) 2d4
-PROVISIONS,Nuts,1.0,null,per lb.
-MISC,Whetstone,0.02,1.0,
-WEAPONS,Dagger (Bone),0.1,1.0,(SM) 1d2 (L) 1d2
-MISC,Sealing or candle wax,1.0,1.0,per lb.
-CLOTHING,Boots (Soft),1.0,null,
-ANIMALS,Cat,0.1,null,
-MISC,Sack (Large),0.2,0.1,
-WEAPONS,Sword (Khopesh),10.0,7.0,(SM) 2d4 (L) 1d6
-WEAPONS,Knife (Stone),0.05,0.5,(SM) 1d2 (L) 1d2
-WEAPONS,Sword (Bastard),25.0,10.0,(SM) 1H 1d8 / 2H 2d4 (L) 1H 1d12 / 2H 2d8
-MISC,Merchant's scale,2.0,1.0,
-WEAPONS,Arrow (Daikyu),0.05,1.0,(SM) 1d8 (L) 1d6
-MISC,Belt pouch (Large),1.0,1.0,
-WEAPONS,Quarrel (Light),0.1,0.1,(SM) 1d4 (L) 1d4
-PROVISIONS,Barrel of pickled fish,3.0,null,
-CLOTHING,Sash,0.2,null,
-ARMOR,Helmet (Basinet),8.0,5.0,Reduce head crit (plate+)
-WEAPONS,Bow (Giant-kin Long),125.0,8.0,(SM) arrow (L) arrow
-WEAPONS,Dagger (Parrying),5.0,1.0,(SM) 1d3 (L) 1d3
-WEAPONS,Ritiik,10.0,6.0,(SM) 1d6+1 (L) 1d8+1
-MISC,Chest (Small),1.0,10.0,
-FOOD_LODGING,City rooms (Common),20.0,null,per month
-ANIMALS,Elephant (Labor),200.0,null,
-CLOTHING,Belt,0.3,null,
-WEAPONS,Bagh Nakh (Tiger Claws),0.4,1.0,(SM) 1d2 (L) 1d2
-WEAPONS,Sword (Piercer),12.0,3.0,(SM) 1d6+1 (L) 1d8
-CLOTHING,Mittens,0.3,null,
-MISC,Basket (Small),0.05,0.1,
-WEAPONS,Polearm (Trikal),12.0,8.0,(SM) 1d10 (L) 1d10
-WEAPONS,Tortoise Blades,9.0,5.0,(SM) 1d6 (L) 1d6+1
-WEAPONS,Gouge,6.0,12.0,(SM) 1d8 (L) 1d10
-MISC,Crampons,4.0,2.0,
-WEAPONS,Disk (Crossbow),5.0,0.3,(SM) 1d6+1 (L) 1d6
-MISC,Chest (Large),2.0,25.0,
-PROVISIONS,Eggs,0.2,null,per 24
-PROVISIONS,Raisins,0.2,null,per lb.
-WEAPONS,Trombash,1.0,2.0,(SM) 1H 1d4 / 2H 1d6 (L) 1H 1d2 / 2H 1d4
-ANIMALS,Pony,30.0,null,
-ANIMALS,Camel,50.0,null,
-MISC,Bolt case,1.0,1.0,
-WEAPONS,Caviler,450.0,11.0,(SM) 1d8 (L) 1d8
-WEAPONS,Main-Gauche,3.0,2.0,(SM) 1d4 (L) 1d3
-MISC,Parchment,1.0,0.01,per sheet
-WEAPONS,Sword (Rapier),15.0,4.0,(SM) 1d6+1 (L) 1d8+1
-MISC,Soap,0.5,1.0,per lb.
-WEAPONS,Polearm (Halberd),10.0,15.0,(SM) 1d10 (L) 2d6
-WEAPONS,Whip (Master's),6.0,3.0,(SM) 1d3 (L) 1d2
-FOOD_LODGING,Soup,0.05,null,
-ANIMALS,Calf,5.0,null,
-WEAPONS,Crossbow (Hand),300.0,3.0,(SM) arrow (L) arrow
-WEAPONS,Knife (Widow's),5.0,4.0,(SM) 1d4 (L) 1d4
-HARNESS,Saddle (Riding),10.0,35.0,
-WEAPONS,Hora,1.0,0.5,(SM) 1d3 (L) 1d3
-MISC,Sewing needle,0.5,0.1,
-WEAPONS,Sword (Hook),15.0,4.0,(SM) 1d8+1 (L) 1d8
-WEAPONS,Bow (Short),30.0,2.0,(SM) arrow (L) arrow
-WEAPONS,Axe (Forearm),1.0,4.0,(SM) 1d6 (L) 1d6
-HARNESS,Bit and bridle,1.5,3.0,
-ARMOR,Armor (Plate mail),600.0,50.0,AC 3
-FOOD_LODGING,Separate latrine for rooms (month),2.0,null,
-HARNESS,Saddle bags (Small),3.0,5.0,
-ANIMALS,Songbird,1.0,null,
-WEAPONS,Crossbow (Disk),175.0,10.0,(SM) arrow (L) arrow
-WEAPONS,Spike (Head),10.0,10.0,(SM) 1d6 (L) 1d8
-MISC,Winter blanket,0.5,3.0,
-WEAPONS,Flail (Chain),1.0,5.0,(SM) 1d4+2 (L) 1d4+1
-WEAPONS,Bow (Long),75.0,3.0,(SM) arrow (L) arrow
-WEAPONS,Polearm (Spetum),5.0,7.0,(SM) 1d6+1 (L) 2d6
-ARMOR,Armor (Hide),15.0,30.0,AC 6
-WEAPONS,Sword (Drusus),50.0,3.0,(SM) 1d6+1 (L) 1d8+1
-WEAPONS,Arrow (Flight),0.03,0.1,(SM) 1d6 (L) 1d6
-CLOTHING,Robe (Common),0.9,null,
-HARNESS,Cart harness,2.0,10.0,
-MISC,Cloth (Fine),50.0,10.0,per 10 sq. yds.
-ARMOR,Armor (Studded leather),20.0,25.0,AC 7
-WEAPONS,Scourge,1.0,2.0,(SM) 1d4 (L) 1d2
-WEAPONS,Dagger (Giant-kin),5.0,3.0,(SM) 1d6 (L) 1d8
-WEAPONS,Arrow (War),0.05,0.1,(SM) 1d4+1 (L) 1d4+1
-WEAPONS,Flail (Bladeback),20.0,25.0,(SM) 1d8+1 (L) 2d6
-WEAPONS,Dagger,2.0,1.0,(SM) 1d4 (L) 1d3
-WEAPONS,Sword (Long),15.0,4.0,(SM) 1d8 (L) 1d12
-WEAPONS,Polearm (Partisan),10.0,8.0,(SM) 1d6 (L) 1d6+1
-WEAPONS,Madu,6.0,5.0,(SM) 1d4 (L) 1d3
-MISC,Lantern (Bullseye),12.0,3.0,
-MISC,Magnifying glass,100.0,0.1,
-ARMOR,Shield (Buckler),1.0,3.0,-1 AC
-WEAPONS,Polearm (Hook Fauchard),10.0,8.0,(SM) 1d4 (L) 1d4
-WEAPONS,Spike (Elbow),1.0,2.0,(SM) 1d4 (L) 1d4
-CLOTHING,Tunic,0.8,null,
-FOOD_LODGING,Egg or fresh vegetables,0.01,null,
-WEAPONS,Polearm (Lucern Hammer),7.0,15.0,(SM) 2d4 (L) 1d6
-WEAPONS,Chakram,1.0,0.5,(SM) 1d4 (L) 1d3
-WEAPONS,Katar (Punch Dagger),3.0,1.0,(SM) 1d3+1 (L) 1d3
-CLOTHING,Cap,0.1,null,
-WEAPONS,Caltrop,0.2,0.2,(SM) 1 (L) 1d2
-WEAPONS,Club (Great),8.0,12.0,(SM) 2d4 (L) 1d6+1
-WEAPONS,Knobkerrie,1.0,4.0,(SM) 1d6 (L) 1d4+1
-WEAPONS,Dagger (Stone),0.2,1.0,(SM) 1d3 (L) 1d2
-CLOTHING,Pin,6.0,null,
-PROVISIONS,Firewood,0.01,null,per day
-WEAPONS,Sword (Giant-kin Two-Handed),100.0,35.0,(SM) 1d10x2 (L) 3d6x2
-WEAPONS,Sword (Two-Handed),50.0,15.0,(SM) 1d10 (L) 3d6
-CLOTHING,Surcoat,0.6,null,
-WEAPONS,Axe (Battle),5.0,7.0,(SM) 1d8 (L) 1d8
-WEAPONS,Mace (Great),20.0,20.0,(SM) 1d8+1 (L) 2d4
-MISC,Lantern (Hooded),7.0,2.0,
-FOOD_LODGING,Grain and stabling for horse,0.5,null,per day
-WEAPONS,Pick (Horseman's),7.0,4.0,(SM) 1d4+1 (L) 1d4
-ANIMALS,Goose,0.05,null,
-WEAPONS,Sword (Scimitar),15.0,4.0,(SM) 1d8 (L) 1d8
-WEAPONS,Belaying Pin,0.02,2.0,(SM) 1d3 (L) 1d3
-WEAPONS,Iuak (Snow Blade),10.0,3.0,(SM) 1d4 (L) 1d6
-HARNESS,Yoke (Horse),5.0,15.0,
-WEAPONS,Swordlet,8.0,2.0,(SM) 1d4+1 (L) 1d4+1
-WEAPONS,Knife,0.5,0.5,(SM) 1d3 (L) 1d2
-ANIMALS,Bull,20.0,null,
-WEAPONS,Mancatcher,30.0,8.0,(SM)  (L) 
-ANIMALS,Dog (War),20.0,null,
-PROVISIONS,Herbs,0.05,null,per lb.
-ARMOR,Armor (Leather),5.0,15.0,AC 8
-WEAPONS,Arquebus,500.0,10.0,(SM) 1d10 (L) 1d10
-WEAPONS,Sword (Falchion),17.0,8.0,(SM) 1d6+1 (L) 2d4
-WEAPONS,Kora,11.0,4.0,(SM) 1d6+1 (L) 1d6+1
-WEAPONS,Spear (Paddle),1.0,3.0,(SM) 1d4+1 (L) 1d6+1
-ARMOR,Shield (Body),10.0,15.0,-1 AC
-WEAPONS,Mace (Bladeback),15.0,16.0,(SM) 1d8+1 (L) 1d8
-MISC,Fishhook,0.1,0.01,
-MISC,Iron pot,0.5,2.0,
-WEAPONS,Lotulis,15.0,10.0,(SM) 1d10 (L) 1d12
-MISC,Cloth (Rich),100.0,10.0,per 10 sq. yds.
-WEAPONS,Dejada,6.0,8.0,(SM) 1d8 (L) 1d6
-MISC,Rope (Silk),10.0,10.0,per 50 ft.
-FOOD_LODGING,Ale,0.2,null,per gallon
-ANIMALS,Horse (Light war),150.0,null,
-CLOTHING,Cloak (Good cloth),0.8,null,
-WEAPONS,Pick (Ice),1.0,0.5,(SM) 1d4 (L) 1d3
-MISC,Chain (Light),3.0,1.0,per ft.
-WEAPONS,Spike (Knee),3.0,2.0,(SM) 1d4 (L) 1d4
-HARNESS,Horseshoes & shoeing,1.0,10.0,
-WEAPONS,Machete,30.0,4.0,(SM) 1d8 (L) 1d8
-WEAPONS,Sickle,0.6,3.0,(SM) 1d4+1 (L) 1d4
-MISC,Tent (Small),5.0,10.0,
-ARMOR,Armor (Banded mail),200.0,35.0,AC 4
-ANIMALS,Capon,0.03,null,
-ANIMALS,Dog (Hunting),17.0,null,
-WEAPONS,Zaghnal,14.0,5.0,(SM) 1d4+1 (L) 1d6+1
-WEAPONS,Stiletto,0.5,0.5,(SM) 1d3 (L) 1d2
-HARNESS,Barding (Chain),500.0,70.0,
-ARMOR,Armor (Field plate),2000.0,60.0,AC 2
-FOOD_LODGING,Common wine (pitcher),0.2,null,
-FOOD_LODGING,Meals (Poor),0.1,null,per day
-CLOTHING,Sword scabbard,4.0,null,
-WEAPONS,Mace (Giant-kin),11.0,12.0,(SM) 1d8x2 (L) 1d6x2
-CLOTHING,Hose,2.0,null,
-WEAPONS,Polearm (Gythka),0.06,12.0,(SM) 2d4 (L) 1d10
-ANIMALS,Cow,10.0,null,
-FOOD_LODGING,Bread,0.05,null,
-WEAPONS,Quarrel (Heavy),0.2,0.1,(SM) 1d4+1 (L) 1d6+1
-WEAPONS,Carrikal,8.0,6.0,(SM) 1d6+1 (L) 1d8
-CLOTHING,Shoes,1.0,null,
-MISC,Papyrus,0.8,0.01,per sheet
-WEAPONS,Sword (Pixie),30.0,1.0,(SM) 1d4 (L) 1d3
-CLOTHING,Hat,0.1,null,
-ANIMALS,Elephant (War),500.0,null,
-WEAPONS,Shotel,3.0,4.0,(SM) 1d6 (L) 1d6
-PROVISIONS,Salt,0.1,null,per lb.
-FOOD_LODGING,Meat for one meal,0.1,null,
-WEAPONS,Polearm (Glaive-Guisarme),10.0,10.0,(SM) 2d4 (L) 2d6
-WEAPONS,Bow (Elven),150.0,3.0,(SM) arrow (L) arrow
-WEAPONS,Dagger (Climbing),5.0,1.0,(SM) 1d3 (L) 1d2
-WEAPONS,Pike (Weighted),6.0,15.0,(SM) 1d6/1d6 (L) 1d12/1d4
-WEAPONS,Sword (Broad),10.0,4.0,(SM) 2d4 (L) 1d6+1
-HARNESS,Saddle (Pack),5.0,15.0,
-WEAPONS,Club,0.0,3.0,(SM) 1d6 (L) 1d3
-WEAPONS,Knife (Throwing),3.0,3.0,(SM) 1d4+1 (L) 1d4+1
-MISC,Thieves' picks,30.0,1.0,
-CLOTHING,Gloves,1.0,null,
-ANIMALS,Sheep,2.0,null,
-FOOD_LODGING,Inn lodging (Common; day),0.5,null,
-ANIMALS,Peacock,0.5,null,
-ANIMALS,Ram,4.0,null,
-PROVISIONS,Tun of cider,8.0,null,per 250 gal.
-WEAPONS,Bola,0.5,2.0,(SM) 1d3 (L) 1d2
-WEAPONS,Sai,0.5,2.0,(SM) 1d4 (L) 1d2
-CLOTHING,Toga (coarse),0.08,null,
-MISC,Water clock,1000.0,200.0,
-CLOTHING,Tabard,0.6,null,
-WEAPONS,Buckler (Spiked),3.0,3.0,(SM) 1d3 (L) 1d2
-WEAPONS,Sword (Mariner's),9.0,5.0,(SM) 1d8 (L) 1d8
-WEAPONS,Crossbow (Heavy),50.0,14.0,(SM) arrow (L) arrow
-WEAPONS,Spear (Hook-Tailed),8.0,7.0,(SM) 1d6 (L) 1d8
-FOOD_LODGING,Honey,0.5,null,
-CLOTHING,Sword Baldric,4.0,null,
-WEAPONS,Ankus (Elephant Goad),3.0,4.0,(SM) 1d4 (L) 1d4
-ANIMALS,Boar,10.0,null,
-WEAPONS,Spear Caster,10.0,3.0,(SM) spear (L) spear
-WEAPONS,Trident,15.0,5.0,(SM) 1H 1d6+1 / 2H 1d8+1 (L) 3d4
-WEAPONS,Gada,1.0,6.0,(SM) 1d8 (L) 1d4
 WEAPONS,Hatchet,2.0,3.0,(SM) 1d4+1 (L) 1d4+1
-WEAPONS,Cestus,1.0,2.0,(SM) 1d4 (L) 1d3
-WEAPONS,Sap,1.0,0.1,(SM) 1d2 (L) 1d2
-MISC,Ladder (10 ft.) ,0.05,20.0,
-WEAPONS,Bow (Folding Short),45.0,2.0,(SM) arrow (L) arrow
-WEAPONS,Arrow (Sheaf),0.05,0.1,(SM) 1d8 (L) 1d8
-MISC,Cloth (Common),7.0,10.0,per 10 sq. yds.
-WEAPONS,Whip,0.1,2.0,(SM) 1d2 (L) 1
-WEAPONS,Bow (Composite Short),75.0,2.0,(SM) arrow (L) arrow
-CLOTHING,Plain brooch,10.0,null,
-ARMOR,Shield (Medium),7.0,10.0,-1 AC
-WEAPONS,Morning Star (Double-Ball),35.0,16.0,(SM) 1d4+1x2 (L) 1d4x2
-WEAPONS,Shield (Spike),15.0,18.0,(SM) 1d8 (L) 1d6
-PROVISIONS,Butter,0.2,null,per lb.
-ARMOR,Armor (Padded),4.0,10.0,AC 8
-MISC,Spyglass,1000.0,1.0,
-PROVISIONS,Spice Exotic,15.0,null,per lb.
-MISC,Chalk,0.01,0.1,
-MISC,Bucket,0.5,3.0,
-WEAPONS,Club (Rim),0.2,12.0,(SM) 1d6 (L) 1d6
-WEAPONS,Bow (Kenyan Long),60.0,4.0,(SM) arrow (L) arrow
-WEAPONS,Morning Star,10.0,12.0,(SM) 2d4 (L) 1d6+1
-PROVISIONS,Figs,0.3,null,per lb.
-WEAPONS,Crossbow (Doubled),60.0,8.0,(SM) arrow (L) arrow
-MISC,Basket (Large),0.3,1.0,
-WEAPONS,Axe (Hand or Throwing),1.0,5.0,(SM) 1d6 (L) 1d4
-MISC,Lock (Good),100.0,1.0,
-WEAPONS,Nunchaku,1.0,3.0,(SM) 1d6 (L) 1d6
-WEAPONS,Mace (Horseman's),5.0,6.0,(SM) 1d6 (L) 1d4
-FOOD_LODGING,Small beer,0.05,null,per gallon
-ARMOR,Armor (Brigandine),120.0,35.0,AC 6
-PROVISIONS,Rice,0.2,null,per lb.
-FOOD_LODGING,Banquet,10.0,null,per person
-CLOTHING,Silk jacket,80.0,null,
-WEAPONS,Polearm (Bardiche),7.0,12.0,(SM) 2d4 (L) 2d6
-WEAPONS,Wrist Razor,0.1,1.0,(SM) 1d6+1 (L) 1d4+1
-MISC,Signet ring or personal seal,5.0,0.1,
-PROVISIONS,Spice Uncommon,1.0,null,per lb.
-MISC,Candle,0.01,0.1,
-FOOD_LODGING,Inn lodging (Poor; week),0.2,null,
-HARNESS,Yoke (Ox),3.0,20.0,
-MISC,Grappling hook,0.8,4.0,
-MISC,Hourglass,25.0,1.0,
-HARNESS,Barding (Leather or padded),150.0,60.0,
-WEAPONS,Maca,25.0,6.0,(SM) 1d8 (L) 1d6
+ARMOR,Shield (Buckler),1.0,3.0,-1 AC
+WEAPONS,Lance (Jousting),20.0,20.0,(SM) 1d3-1 (L) 1d2-1
 WEAPONS,Scythe,10.0,15.0,(SM) 1d10+2 (L) 2d6
-WEAPONS,Arrow (Kenyan),0.05,0.1,(SM) 1d10 (L) 1d10
-HARNESS,Halter,0.05,0.1,
+WEAPONS,Lance (Flight),6.0,5.0,(SM) 1d6+1 (L) 2d6
+FOOD_LODGING,Meat for one meal,0.1,null,
+WEAPONS,Bo Stick,0.02,4.0,(SM) 1d6 (L) 1d4
+WEAPONS,Spike (Head),10.0,10.0,(SM) 1d6 (L) 1d8
+MISC,Paper,2.0,0.01,per sheet
+MISC,Rope (Hemp),1.0,20.0,per 50 ft.
+MISC,Holy item,25.0,0.1,
+WEAPONS,Bow (Giant-kin Long),125.0,8.0,(SM) arrow (L) arrow
+WEAPONS,Katar (Punch Dagger),3.0,1.0,(SM) 1d3+1 (L) 1d3
+PROVISIONS,Tun of good wine,20.0,null,per 250 gal.
+WEAPONS,Sword (Khopesh),10.0,7.0,(SM) 2d4 (L) 1d6
+WEAPONS,Madu,6.0,5.0,(SM) 1d4 (L) 1d3
+WEAPONS,Polearm (Bill-Guisarme),7.0,15.0,(SM) 2d4 (L) 1d10
+WEAPONS,Apple,5.0,5.0,Extra info here
+WEAPONS,Belaying Pin,0.02,2.0,(SM) 1d3 (L) 1d3
+ARMOR,Armor (Field plate),2000.0,60.0,AC 2
+CLOTHING,Boots (Soft),1.0,null,
+WEAPONS,Knife,0.5,0.5,(SM) 1d3 (L) 1d2
+WEAPONS,Sticks (Singing),0.5,1.0,(SM) 1d6 (L) 1d4
+WEAPONS,Sword (Giant-kin Two-Handed),100.0,35.0,(SM) 1d10x2 (L) 3d6x2
+MISC,Cloth (Rich),100.0,10.0,per 10 sq. yds.
+WEAPONS,Sword,5.0,1.0,
+WEAPONS,Sword (Sabre),17.0,5.0,(SM) 1d6+1 (L) 1d8+1
+CLOTHING,Silk jacket,80.0,null,
+ANIMALS,Songbird,1.0,null,
+ANIMALS,Goat,1.0,null,
+WEAPONS,Polearm (Naginata),8.0,10.0,(SM) 1d8 (L) 1d10
+WEAPONS,Spike (Knee),3.0,2.0,(SM) 1d4 (L) 1d4
+CLOTHING,Hose,2.0,null,
+WEAPONS,Bow (Long),75.0,3.0,(SM) arrow (L) arrow
+CLOTHING,Pin,6.0,null,
+WEAPONS,Morning Star,10.0,12.0,(SM) 2d4 (L) 1d6+1
+HARNESS,Barding (Full scale),1000.0,75.0,
+ANIMALS,Cat,0.1,null,
+FOOD_LODGING,Inn lodging (Common; day),0.5,null,
+HARNESS,Barding (Leather or padded),150.0,60.0,
+WEAPONS,Crossbow (Heavy),50.0,14.0,(SM) arrow (L) arrow
+MISC,Whetstone,0.02,1.0,
+WEAPONS,Spear (Hook-Tailed),8.0,7.0,(SM) 1d6 (L) 1d8
+MISC,Tent (Large),25.0,20.0,
+WEAPONS,Polearm (Crusher),24.0,9.0,(SM) 1d4 (L) 1d3
+HARNESS,Saddle blanket,0.3,4.0,
+PROVISIONS,Spice Uncommon,1.0,null,per lb.
+WEAPONS,Polearm (Awl Pike),5.0,12.0,(SM) 1d6 (L) 1d12
+WEAPONS,Puchik,6.0,1.0,(SM) 1d4+1 (L) 1d4+1
+FOOD_LODGING,Grain and stabling for horse,0.5,null,per day
+FOOD_LODGING,Common wine (pitcher),0.2,null,
+WEAPONS,Sai,0.5,2.0,(SM) 1d4 (L) 1d2
+ANIMALS,Donkey,8.0,null,
+WEAPONS,Mancatcher,30.0,8.0,(SM)  (L) 
+WEAPONS,Sword (Wakizashi),50.0,3.0,(SM) 1d8 (L) 1d8
+WEAPONS,Polearm (Glaive-Guisarme),10.0,10.0,(SM) 2d4 (L) 2d6
+WEAPONS,Spear (Heavy),3.0,8.0,(SM) 1H 1d8 / 2H 2d6 (L) 1H 1d10 / 2H 2d8
+ANIMALS,Dog (War),20.0,null,
+WEAPONS,Sword (Falchion),17.0,8.0,(SM) 1d6+1 (L) 2d4
+WEAPONS,Sword (Talwar),15.0,5.0,(SM) 2d4 (L) 2d4
+WEAPONS,Polearm (Giant-kin Halberd),25.0,35.0,(SM) 1d12 (L) 2d8
+CLOTHING,Shoes,1.0,null,
+WEAPONS,Mace (Footman's),8.0,10.0,(SM) 1d6+1 (L) 1d6
+FOOD_LODGING,Meals (Good),0.5,null,per day
+ANIMALS,Elephant (War),500.0,null,
+ANIMALS,Guinea hen,0.02,null,
+CLOTHING,Girdle,3.0,null,
+MISC,Barrel,2.0,30.0,
+WEAPONS,Club (Rim),0.2,12.0,(SM) 1d6 (L) 1d6
+WEAPONS,Sling,0.05,0.1,(SM) rock (L) rock
+HARNESS,Saddle (Riding),10.0,35.0,
+MISC,Sealing or candle wax,1.0,1.0,per lb.
+MISC,Thieves' picks,30.0,1.0,
+WEAPONS,Swordlet,8.0,2.0,(SM) 1d4+1 (L) 1d4+1
+CLOTHING,Hat,0.1,null,
+MISC,Greek fire,10.0,2.0,per flask
+WEAPONS,Ritiik,10.0,6.0,(SM) 1d6+1 (L) 1d8+1
+WEAPONS,Kukri,3.0,2.0,(SM) 1d4+1 (L) 1d4+1
+WEAPONS,Polearm (Bec De Corbin),8.0,10.0,(SM) 1d8 (L) 1d6
+CLOTHING,Knife sheath,0.03,null,
+ANIMALS,Boar,10.0,null,
+WEAPONS,Iuak (Snow Blade),10.0,3.0,(SM) 1d4 (L) 1d6
+FOOD_LODGING,Inn lodging (Poor; week),0.2,null,
+WEAPONS,Mace (Footman's Whistling),12.0,6.0,(SM) 1d6 (L) 1d4
+WEAPONS,Spike (Elbow),1.0,2.0,(SM) 1d4 (L) 1d4
+MISC,Tent (Small),5.0,10.0,
+WEAPONS,Mace (Bladeback),15.0,16.0,(SM) 1d8+1 (L) 1d8
+WEAPONS,Polearm (Tetsubo),2.0,7.0,(SM) 1d8 (L) 1d8
+WEAPONS,Sword (Cutlass),12.0,4.0,(SM) 1d6 (L) 1d8
+MISC,Sewing needle,0.5,0.1,
+WEAPONS,Wrist Razor,0.1,1.0,(SM) 1d6+1 (L) 1d4+1
+WEAPONS,Shoka,6.0,7.0,(SM) 1d6+1 (L) 1d6+1
+WEAPONS,Polearm (Halberd),10.0,15.0,(SM) 1d10 (L) 2d6
+WEAPONS,Caviler,450.0,11.0,(SM) 1d8 (L) 1d8
+ARMOR,Armor (Plate mail),600.0,50.0,AC 3
+WEAPONS,Bow (Elven),150.0,3.0,(SM) arrow (L) arrow
+PROVISIONS,Figs,0.3,null,per lb.
+FOOD_LODGING,Small beer,0.05,null,per gallon
+WEAPONS,Bow (Kenyan Long),60.0,4.0,(SM) arrow (L) arrow
+WEAPONS,Pick (Horseman's),7.0,4.0,(SM) 1d4+1 (L) 1d4
+WEAPONS,Dagger (Stone),0.2,1.0,(SM) 1d3 (L) 1d2
+WEAPONS,Quabone,0.01,4.0,(SM) 1d4 (L) 1d3
+WEAPONS,Bola,0.5,2.0,(SM) 1d3 (L) 1d2
+ARMOR,Helmet (Great helm),30.0,10.0,Reduce head crit (plate+)
+WEAPONS,Knife (Stone),0.05,0.5,(SM) 1d2 (L) 1d2
+CLOTHING,Mittens,0.3,null,
+ANIMALS,Pigeon (mail),100.0,null,
+ANIMALS,Bull,20.0,null,
+PROVISIONS,Coarse sugar,1.0,null,per lb.
+WEAPONS,Machete,30.0,4.0,(SM) 1d8 (L) 1d8
+HARNESS,Saddle (Pack),5.0,15.0,
+PROVISIONS,Tun of cider,8.0,null,per 250 gal.
+WEAPONS,Sword (Mariner's),9.0,5.0,(SM) 1d8 (L) 1d8
+ANIMALS,Horse (Medium war),225.0,null,
+WEAPONS,Spear (Long),5.0,8.0,(SM) 1H 1d8 / 2H 2d6 (L) 1H 1d8+1 / 2H 3d6
+WEAPONS,Axe (Hand or Throwing),1.0,5.0,(SM) 1d6 (L) 1d4
+CLOTHING,Tabard,0.6,null,
+FOOD_LODGING,Bread,0.05,null,
+ANIMALS,Dog (Guard),25.0,null,
+FOOD_LODGING,Inn lodging (Common; week),3.0,null,
+ARMOR,Helmet (Basinet),8.0,5.0,Reduce head crit (plate+)
+WEAPONS,Pick (Footman's),8.0,6.0,(SM) 1d6+1 (L) 2d4
+WEAPONS,Talid,4.0,1.0,(SM) 1d6 (L) 1d6-1
+MISC,Lantern (Bullseye),12.0,3.0,
+ANIMALS,Sheep,2.0,null,
+WEAPONS,Basilard,7.0,3.0,(SM) 1d4+1 (L) 1d6+1
+WEAPONS,Bow (Pixie),50.0,1.0,(SM) arrow (L) arrow
+WEAPONS,Staff (Sling),0.2,2.0,(SM) rock (L) rock
+ARMOR,Armor (Leather),5.0,15.0,AC 8
+PROVISIONS,Butter,0.2,null,per lb.
 MISC,Writing ink,8.0,0.1,per vial
 ARMOR,Armor (Ring mail),100.0,30.0,AC 7
-ANIMALS,Swan,0.5,null,
-HARNESS,Saddle bags (Large),4.0,8.0,
-WEAPONS,Polearm (Guisarme),5.0,8.0,(SM) 2d4 (L) 1d8
+WEAPONS,Dagger (Giant-kin),5.0,3.0,(SM) 1d6 (L) 1d8
+WEAPONS,Zaghnal,14.0,5.0,(SM) 1d4+1 (L) 1d6+1
+ARMOR,Shield (Medium),7.0,10.0,-1 AC
+WEAPONS,Warhammer,2.0,6.0,(SM) 1d4+1 (L) 1d4
+PROVISIONS,Spice Rare,2.0,null,per lb.
+WEAPONS,Whip (Chain),21.0,3.5,(SM) 1d3 (L) 1d2
+MISC,Water clock,1000.0,200.0,
+ANIMALS,Elephant (Labor),200.0,null,
+WEAPONS,Stiletto,0.5,0.5,(SM) 1d3 (L) 1d2
+CLOTHING,Sword Baldric,4.0,null,
+MISC,Lamp Oil,0.06,1.0,per flask
+MISC,Belt pouch (Large),1.0,1.0,
+WEAPONS,Polearm (Trikal),12.0,8.0,(SM) 1d10 (L) 1d10
+WEAPONS,Sword (Hook),15.0,4.0,(SM) 1d8+1 (L) 1d8
+WEAPONS,Arrow (Flight),0.03,0.1,(SM) 1d6 (L) 1d6
+WEAPONS,Polearm (Quad Fauchard),20.0,20.0,(SM) 1d6 (L) 1d8
+WEAPONS,Lance (Medium Horse),10.0,10.0,(SM) 1d6+1 (L) 2d6
+HARNESS,Horseshoes & shoeing,1.0,10.0,
+WEAPONS,Blowgun,5.0,2.0,(SM) see dart (L) see dart
+MISC,Block and tackle,5.0,5.0,
+FOOD_LODGING,City rooms (Common),20.0,null,per month
+FOOD_LODGING,City rooms (Poor),0.6,null,per month
+WEAPONS,Flail (Bladeback),20.0,25.0,(SM) 1d8+1 (L) 2d6
+ANIMALS,Goose,0.05,null,
+WEAPONS,Morning Star (Double-Ball),35.0,16.0,(SM) 1d4+1x2 (L) 1d4x2
+ARMOR,Armor (Bronze plate mail),400.0,45.0,AC 4
+MISC,Cloth (Common),7.0,10.0,per 10 sq. yds.
+MISC,Glass bottle,10.0,0.1,
+WEAPONS,Musket,800.0,20.0,(SM) 1d12 (L) 1d12
+FOOD_LODGING,Meals (Common),0.3,null,per day
+WEAPONS,Sap,1.0,0.1,(SM) 1d2 (L) 1d2
+ANIMALS,Mule or ass,8.0,null,
+WEAPONS,Quarrel (Hand),1.0,0.1,(SM) 1d3 (L) 1d2
+WEAPONS,Shield (Spike),15.0,18.0,(SM) 1d8 (L) 1d6
+MISC,Flint and steel,0.5,0.1,
+WEAPONS,Arrow (War),0.05,0.1,(SM) 1d4+1 (L) 1d4+1
+ANIMALS,Cow,10.0,null,
+MISC,Bucket,0.5,3.0,
+WEAPONS,Disk (Crossbow),5.0,0.3,(SM) 1d6+1 (L) 1d6
+WEAPONS,Ankus (Elephant Goad),3.0,4.0,(SM) 1d4 (L) 1d4
+MISC,Fishhook,0.1,0.01,
+WEAPONS,Pata,30.0,6.0,(SM) 1d8 (L) 1d12
+MISC,Magnifying glass,100.0,0.1,
+WEAPONS,Sword (Piercer),12.0,3.0,(SM) 1d6+1 (L) 1d8
+WEAPONS,Club,0.0,3.0,(SM) 1d6 (L) 1d3
+WEAPONS,Chakram,1.0,0.5,(SM) 1d4 (L) 1d3
+WEAPONS,Flail (Chain),1.0,5.0,(SM) 1d4+2 (L) 1d4+1
+WEAPONS,Axe (Battle),5.0,7.0,(SM) 1d8 (L) 1d8
+WEAPONS,Staff (Hamanu's),10.0,5.0,(SM) 1d8 (L) 1d8
+MISC,Piton,0.03,0.01,
+WEAPONS,Arrow (Sheaf),0.05,0.1,(SM) 1d8 (L) 1d8
+ANIMALS,Partridge,0.05,null,
+FOOD_LODGING,Inn lodging (Poor; day),0.05,null,
+MISC,Fishing net (10 sq. ft.),4.0,5.0,
+MISC,Backpack,2.0,2.0,
+WEAPONS,Peshkabz,3.0,1.0,(SM) 1d4 (L) 1d3
+WEAPONS,Kora,11.0,4.0,(SM) 1d6+1 (L) 1d6+1
+WEAPONS,Sword (Two-Handed),50.0,15.0,(SM) 1d10 (L) 3d6
+WEAPONS,Lance (Light Horse),6.0,5.0,(SM) 1d6 (L) 1d8
+MISC,Belt pouch (Small),0.7,0.1,
+CLOTHING,Sandals,0.05,null,
+WEAPONS,Main-Gauche,3.0,2.0,(SM) 1d4 (L) 1d3
+MISC,Papyrus,0.8,0.01,per sheet
+HARNESS,Yoke (Ox),3.0,20.0,
+WEAPONS,Stick (Goblin),5.0,8.0,(SM) 1d4 (L) 1d6
+ANIMALS,Ram,4.0,null,
+WEAPONS,Mace (Horseman's),5.0,6.0,(SM) 1d6 (L) 1d4
+WEAPONS,Bow (Composite Long),100.0,3.0,(SM) arrow (L) arrow
+CLOTHING,Surcoat,0.6,null,
+WEAPONS,Trombash,1.0,2.0,(SM) 1H 1d4 / 2H 1d6 (L) 1H 1d2 / 2H 1d4
+WEAPONS,Spear Caster,10.0,3.0,(SM) spear (L) spear
+WEAPONS,Knife (Bone),0.03,0.5,(SM) 1d2 (L) 1d2
+ANIMALS,Horse (Heavy war),400.0,null,
+MISC,Lock (Poor),20.0,1.0,
+WEAPONS,Lance (Heavy Horse),15.0,15.0,(SM) 1d8+1 (L) 3d6
+HARNESS,Barding (Half brigandine),500.0,45.0,
+WEAPONS,Flindbar,8.0,6.0,(SM) 1d4 (L) 1d4
+HARNESS,Halter,0.05,0.1,
+WEAPONS,Quarrel (Heavy),0.2,0.1,(SM) 1d4+1 (L) 1d6+1
+FOOD_LODGING,Banquet,10.0,null,per person
+MISC,Sack (Large),0.2,0.1,
+MISC,Iron pot,0.5,2.0,
+WEAPONS,Trident,15.0,5.0,(SM) 1H 1d6+1 / 2H 1d8+1 (L) 3d4
+MISC,Canvas,0.4,1.0,per sq. yard
+CLOTHING,Robe (Common),0.9,null,
+WEAPONS,Arrow (Kenyan),0.05,0.1,(SM) 1d10 (L) 1d10
+MISC,Bell,1.0,0.1,
+CLOTHING,Sword scabbard,4.0,null,
+WEAPONS,Cahulaks,12.0,12.0,(SM) 1d6 (L) 1d6
+FOOD_LODGING,Honey,0.5,null,
+WEAPONS,Cestus,1.0,2.0,(SM) 1d4 (L) 1d3
+CLOTHING,Sash,0.2,null,
+WEAPONS,Razor,0.4,1.0,(SM) 1d2 (L) 1d2
+CLOTHING,Plain brooch,10.0,null,
+MISC,Torch,0.01,1.0,
+WEAPONS,Hora,1.0,0.5,(SM) 1d3 (L) 1d3
+WEAPONS,Sword (Long),15.0,4.0,(SM) 1d8 (L) 1d12
+WEAPONS,Nunchaku,1.0,3.0,(SM) 1d6 (L) 1d6
 WEAPONS,Jambiya,4.0,1.0,(SM) 1d4 (L) 1d4
-MISC,Greek fire,10.0,2.0,per flask
+WEAPONS,Bow (Composite Short),75.0,2.0,(SM) arrow (L) arrow
+MISC,Basket (Small),0.05,0.1,
+WEAPONS,Dart,0.5,0.5,(SM) 1d3 (L) 1d2
+PROVISIONS,Dry rations,10.0,null,per week
+MISC,Hourglass,25.0,1.0,
+WEAPONS,Punch-cutter,6.0,1.0,(SM) 1d4 (L) 1d3
+MISC,Ladder (10 ft.) ,0.05,20.0,
+FOOD_LODGING,Cheese,0.4,null,
+WEAPONS,Dagger (Climbing),5.0,1.0,(SM) 1d3 (L) 1d2
+ARMOR,Armor (Studded leather),20.0,25.0,AC 7
+FOOD_LODGING,Ale,0.2,null,per gallon
+CLOTHING,Cloak (Good cloth),0.8,null,
+ANIMALS,Dog (Hunting),17.0,null,
+MISC,Lock (Good),100.0,1.0,
+ARMOR,Armor (Splint mail),80.0,40.0,AC 4
+WEAPONS,Crossbow (Light),35.0,7.0,(SM) arrow (L) arrow
+CLOTHING,Robe (Embroidered),20.0,null,
+MISC,Soap,0.5,1.0,per lb.
+ANIMALS,Ox,15.0,null,
+WEAPONS,Axe (Forearm),1.0,4.0,(SM) 1d6 (L) 1d6
+PROVISIONS,Barrel of pickled fish,3.0,null,
+WEAPONS,Nyek-ple-nen-toh,40.0,10.0,(SM) 1d8+1 (L) 1d8
+WEAPONS,Polearm (Fauchard-Fork),8.0,9.0,(SM) 1d8 (L) 1d10
+ANIMALS,Calf,5.0,null,
+PROVISIONS,Salt,0.1,null,per lb.
+WEAPONS,Bard's Friend,10.0,3.0,(SM) 1d4+1 (L) 1d3
+ANIMALS,Horse (Riding),75.0,null,
+WEAPONS,Arrow (Mail-Piercer),0.05,0.1,(SM) 1d6 (L) 1d6
+HARNESS,Bit and bridle,1.5,3.0,
+ARMOR,Armor (Banded mail),200.0,35.0,AC 4
+CLOTHING,Vest,0.6,null,
+WEAPONS,Polearm (Voulge),5.0,12.0,(SM) 2d4 (L) 2d4
+WEAPONS,Spear (Paddle),1.0,3.0,(SM) 1d4+1 (L) 1d6+1
+CLOTHING,Boots (Riding),3.0,null,
+MISC,Chain (Light),3.0,1.0,per ft.
+WEAPONS,Spear (Double-Bladed),2.0,6.0,(SM) 1d8 (L) 1d8
+PROVISIONS,Nuts,1.0,null,per lb.
+ANIMALS,Hunting cat (jaguar),5000.0,null,
+MISC,Rope (Silk),10.0,10.0,per 50 ft.
+FOOD_LODGING,Egg or fresh vegetables,0.01,null,
+WEAPONS,Dirk,2.0,1.0,(SM) 1d4 (L) 1d3
+HARNESS,Barding (Half padded),100.0,25.0,
+HARNESS,Yoke (Horse),5.0,15.0,
+WEAPONS,Impaler,0.04,5.0,(SM) 1d8 (L) 1d8
+MISC,Bolt case,1.0,1.0,
+CLOTHING,Sword Hanger,4.0,null,
+PROVISIONS,Rice,0.2,null,per lb.
+WEAPONS,Lasso,0.5,3.0,(SM)  (L) 
+WEAPONS,Sword (Claymore),25.0,10.0,(SM) 2d4 (L) 2d8
+WEAPONS,Flail (Grain),3.0,3.0,(SM) 1d4+1 (L) 1d4
+CLOTHING,Gloves,1.0,null,
+WEAPONS,Polearm (Fauchard),5.0,7.0,(SM) 1d6 (L) 1d8
+WEAPONS,Alhulak,9.0,9.0,(SM) 1d6 (L) 1d6
+ANIMALS,Swan,0.5,null,
+WEAPONS,Dejada Cestus,10.0,9.0,(SM) 1d6/1d6 (L) 1d8/1d6
+WEAPONS,Crossbow (Doubled),60.0,8.0,(SM) arrow (L) arrow
+MISC,Lantern (Beacon),150.0,50.0,
+MISC,Perfume,5.0,0.1,per vial
+WEAPONS,Sword,5.0,1.0,
+WEAPONS,Arquebus,500.0,10.0,(SM) 1d10 (L) 1d10
+WEAPONS,Pick (Ice),1.0,0.5,(SM) 1d4 (L) 1d3
+WEAPONS,Mace (Giant-kin),11.0,12.0,(SM) 1d8x2 (L) 1d6x2
+WEAPONS,Net,5.0,10.0,(SM)  (L) 
+WEAPONS,Whip (Master's),6.0,3.0,(SM) 1d3 (L) 1d2
+WEAPONS,Spear (Throwing),1.0,3.0,(SM) 1d6 (L) 1d8
+WEAPONS,Tortoise Blades,9.0,5.0,(SM) 1d6 (L) 1d6+1
+MISC,Signal whistle,0.8,0.1,
+WEAPONS,Lotulis,15.0,10.0,(SM) 1d10 (L) 1d12
+HARNESS,Saddle bags (Small),3.0,5.0,
+MISC,Mirror (small metal),10.0,0.1,
+MISC,Tent (Pavilion),100.0,50.0,
+WEAPONS,Bow (Folding Short),45.0,2.0,(SM) arrow (L) arrow
+PROVISIONS,Herbs,0.05,null,per lb.
+ANIMALS,Capon,0.03,null,
+WEAPONS,Dagger (Bone),0.1,1.0,(SM) 1d2 (L) 1d2
+ARMOR,Shield (Body),10.0,15.0,-1 AC
+WEAPONS,Staff (Hornhead),5.0,20.0,(SM) 2d6 (L) 2d6
+MISC,Winter blanket,0.5,3.0,
+ARMOR,Armor (Full plate),10000.0,70.0,AC 1
+MISC,Lantern (Hooded),7.0,2.0,
+WEAPONS,Polearm (Hook Fauchard),10.0,8.0,(SM) 1d4 (L) 1d4
+WEAPONS,Polearm (Lucern Hammer),7.0,15.0,(SM) 2d4 (L) 1d6
+MISC,Cloth (Fine),50.0,10.0,per 10 sq. yds.
+WEAPONS,Crossbow (Hand),300.0,3.0,(SM) arrow (L) arrow
+MISC,Candle,0.01,0.1,
+MISC,Chest (Large),2.0,25.0,
+FOOD_LODGING,Meals (Poor),0.1,null,per day
+WEAPONS,Polearm (Ranseur),6.0,7.0,(SM) 2d4 (L) 2d4
+MISC,Map or scroll case,0.8,0.1,
+WEAPONS,Mace (Horseman's Whistling),9.0,3.0,(SM) 1d4+1 (L) 1d2+1
+HARNESS,Cart harness,2.0,10.0,
+PROVISIONS,Firewood,0.01,null,per day
+CLOTHING,Belt,0.3,null,
+WEAPONS,Blunderbus,500.0,12.0,(SM) 1d4 (L) 1d4
+MISC,Signet ring or personal seal,5.0,0.1,
+ARMOR,Armor (Chain mail),75.0,40.0,AC 5
+MISC,Crampons,4.0,2.0,
+WEAPONS,Assegai,2.0,1.0,(SM) 1d8 (L) 1d10
+WEAPONS,Chain,0.5,3.0,(SM) 1d4+1 (L) 1d4
+WEAPONS,Arrow (Daikyu),0.05,1.0,(SM) 1d8 (L) 1d6
+HARNESS,Barding (Half scale),500.0,50.0,
+WEAPONS,Bagh Nakh (Tiger Claws),0.4,1.0,(SM) 1d2 (L) 1d2
+ANIMALS,Chicken,0.02,null,
+WEAPONS,Polearm (Bardiche),7.0,12.0,(SM) 2d4 (L) 2d6
+WEAPONS,Sword (Flamberge),30.0,21.0,(SM) 1d8+1 (L) 2d8
+WEAPONS,Sword (Bastard),25.0,10.0,(SM) 1H 1d8 / 2H 2d4 (L) 1H 1d12 / 2H 2d8
+WEAPONS,Buckler (Spiked),3.0,3.0,(SM) 1d3 (L) 1d2
+WEAPONS,Shuriken,0.3,1.0,(SM) 1d4 (L) 1d4
+WEAPONS,Club (Great),8.0,12.0,(SM) 2d4 (L) 1d6+1
+ANIMALS,Pigeon,0.01,null,
+WEAPONS,Crossbow (Disk),175.0,10.0,(SM) arrow (L) arrow
+MISC,Chain (Heavy),4.0,3.0,per ft.
+MISC,Spyglass,1000.0,1.0,
+CLOTHING,Breeches,2.0,null,
+WEAPONS,Polearm (Partisan),10.0,8.0,(SM) 1d6 (L) 1d6+1
+WEAPONS,Polearm (Military Fork),5.0,7.0,(SM) 1d8 (L) 2d4
+MISC,Quiver,0.8,1.0,
+ANIMALS,Pony,30.0,null,
+ANIMALS,Falcon (trained),1000.0,null,
+WEAPONS,Pike (Weighted),6.0,15.0,(SM) 1d6/1d6 (L) 1d12/1d4
+WEAPONS,Kick-slasher,7.0,3.0,(SM) 1d4+1 (L) 1d6+1
+WEAPONS,Dagger (Parrying),5.0,1.0,(SM) 1d3 (L) 1d3
+WEAPONS,Gada,1.0,6.0,(SM) 1d8 (L) 1d4
+WEAPONS,Sickle,0.6,3.0,(SM) 1d4+1 (L) 1d4
+WEAPONS,Dart (Barbed),0.0,5.0,(SM) 1d4 (L) 1d4
+ANIMALS,Camel,50.0,null,
+PROVISIONS,Salted herring,1.0,null,per 100
+WEAPONS,Shotel,3.0,4.0,(SM) 1d6 (L) 1d6
+WEAPONS,Dragon's Paw,15.0,9.0,(SM) 1d6 (L) 1d6+1
+WEAPONS,Flail (Footman's),15.0,15.0,(SM) 1d6+1 (L) 2d4
+PROVISIONS,Spice Exotic,15.0,null,per lb.
+MISC,Basket (Large),0.3,1.0,
+WEAPONS,Scourge,1.0,2.0,(SM) 1d4 (L) 1d2
+FOOD_LODGING,Separate latrine for rooms (day),0.1,null,
+WEAPONS,Polearm (Gythka),0.06,12.0,(SM) 2d4 (L) 1d10
+WEAPONS,Quarrel (Light),0.1,0.1,(SM) 1d4 (L) 1d4
+WEAPONS,Sword (Rapier),15.0,4.0,(SM) 1d6+1 (L) 1d8+1
+WEAPONS,Knife (Throwing),3.0,3.0,(SM) 1d4+1 (L) 1d4+1
+CLOTHING,Tunic,0.8,null,
+WEAPONS,Polearm (Glaive),6.0,8.0,(SM) 1d6 (L) 1d10
+WEAPONS,Polearm (Guisarme),5.0,8.0,(SM) 2d4 (L) 1d8
+ARMOR,Armor (Brigandine),120.0,35.0,AC 6
+PROVISIONS,Eggs,0.2,null,per 24
+WEAPONS,Caltrop,0.2,0.2,(SM) 1 (L) 1d2
+HARNESS,Saddle bags (Large),4.0,8.0,
+HARNESS,Barding (Chain),500.0,70.0,
+WEAPONS,Sword (Pixie),30.0,1.0,(SM) 1d4 (L) 1d3
+WEAPONS,Dagger,2.0,1.0,(SM) 1d4 (L) 1d3
+MISC,Merchant's scale,2.0,1.0,
+WEAPONS,Sword (Great Scimitar),60.0,16.0,(SM) 2d8 (L) 4d4
+WEAPONS,Mace (Great),20.0,20.0,(SM) 1d8+1 (L) 2d4
+WEAPONS,Spear,0.8,5.0,(SM) 1H 1d6 / 2H 1d8+1 (L) 1H 1d8 / 2H 2d6
+HARNESS,Barding (Full plate),2000.0,85.0,
+WEAPONS,Flail (Horseman's),8.0,5.0,(SM) 1d4+1 (L) 1d4+1
+CLOTHING,Toga (coarse),0.08,null,
+WEAPONS,Whip,0.1,2.0,(SM) 1d2 (L) 1
+WEAPONS,Glove Nail,2.0,2.0,(SM) 1d4+1 (L) 1d4
+MISC,Grappling hook,0.8,4.0,
+FOOD_LODGING,Soup,0.05,null,
+ARMOR,Shield (Small),3.0,5.0,-1 AC
+MISC,Sack (Small),0.05,0.1,
+WEAPONS,Knobkerrie,1.0,4.0,(SM) 1d6 (L) 1d4+1
+WEAPONS,Sword (Scimitar),15.0,4.0,(SM) 1d8 (L) 1d8
+WEAPONS,Carrikal,8.0,6.0,(SM) 1d6+1 (L) 1d8
+ARMOR,Armor (Scale mail),120.0,40.0,AC 6
+FOOD_LODGING,Separate latrine for rooms (month),2.0,null,
+ANIMALS,Horse (Light war),150.0,null,
+CLOTHING,Cloak (Fine fur),50.0,null,
+WEAPONS,Gouge,6.0,12.0,(SM) 1d8 (L) 1d10
+WEAPONS,Maca,25.0,6.0,(SM) 1d8 (L) 1d6
+ANIMALS,Horse (Draft),200.0,null,
+WEAPONS,Quarterstaff,10.0,4.0,(SM) 1d6 (L) 1d6
+WEAPONS,Sword (Mandible),6.0,3.0,(SM) 1d8/1d6 (L) 1d6/1d4
+WEAPONS,Sword (Drusus),50.0,3.0,(SM) 1d6+1 (L) 1d8+1
+WEAPONS,Chatkcha,0.01,0.5,(SM) 1d6+2 (L) 1d4+1
+WEAPONS,Bow (Short),30.0,2.0,(SM) arrow (L) arrow
+PROVISIONS,Raisins,0.2,null,per lb.
+CLOTHING,Cap,0.1,null,
+WEAPONS,Hatchet (Hawk),2.0,6.0,(SM) 1d6+1/1d4+1 (L) 1d4/1d4
+MISC,Chalk,0.01,0.1,
+ANIMALS,Pig,3.0,null,
+ARMOR,Armor (Hide),15.0,30.0,AC 6
+WEAPONS,Sword (Short),10.0,3.0,(SM) 1d6 (L) 1d8
+MISC,Wineskin,0.8,1.0,
+WEAPONS,Polearm (Guisarme-Voulge),8.0,15.0,(SM) 2d4 (L) 2d4
+WEAPONS,Sword (Broad),10.0,4.0,(SM) 2d4 (L) 1d6+1
+WEAPONS,Club (Datchi),12.0,10.0,(SM) 1d6 (L) 1d4
+WEAPONS,Spear (Stone),0.08,5.0,(SM) 1H 1d4 / 2H 1d6 (L) 1H 1d6 / 2H 2d4
+CLOTHING,Gown,1.2,null,
+WEAPONS,Knife (Widow's),5.0,4.0,(SM) 1d4 (L) 1d4
+ANIMALS,Peacock,0.5,null,
+WEAPONS,Polearm (Spetum),5.0,7.0,(SM) 1d6+1 (L) 2d6
+MISC,Chest (Small),1.0,10.0,
+WEAPONS,Axe (Two-Handed Battle),10.0,10.0,(SM) 1d10 (L) 2d8
+WEAPONS,Dejada,6.0,8.0,(SM) 1d8 (L) 1d6
+ARMOR,Armor (Padded),4.0,10.0,AC 8
+MISC,Parchment,1.0,0.01,per sheet

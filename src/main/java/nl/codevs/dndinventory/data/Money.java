@@ -1,7 +1,11 @@
 package nl.codevs.dndinventory.data;
 
-import java.util.HashMap;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
+
+import java.security.InvalidParameterException;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import static nl.codevs.dndinventory.data.Money.Coin.CP;
 import static nl.codevs.dndinventory.data.Money.Coin.SP;
@@ -66,11 +70,13 @@ public final class Money {
      * @param money The value to modify
      * @param modifierFor The factor by which to in-/decrement
      * @return The new adjusted value
+     * @throws IllegalArgumentException if the input is negative
      */
-    public static Money fromValueAndFactor(
-            final Money money,
+    @Contract("_, _ -> new")
+    public static @NotNull Money fromValueAndFactor(
+            final @NotNull Money money,
             final double modifierFor
-    ) {
+    ) throws IllegalArgumentException {
         return new Money(CP, money.getAsCP() * modifierFor);
     }
 
@@ -78,8 +84,10 @@ public final class Money {
      * Subtract a value from this value.
      * @param money The value to subtract
      * @return The new value
+     * @throws IllegalArgumentException if the input is negative
      */
-    public Money subtract(final Money money) {
+    @Contract("_ -> new")
+    public @NotNull Money subtract(final @NotNull Money money) throws IllegalArgumentException {
         return new Money(CP, getAsCP() - money.getAsCP());
     }
 
@@ -126,16 +134,18 @@ public final class Money {
     /**
      * Gold pieces only.
      * @param goldPieces The amount of GP
+     * @throws IllegalArgumentException if the input is negative
      */
-    public Money(final int goldPieces) {
-        this(0, 0, goldPieces);
+    public Money(final int goldPieces) throws IllegalArgumentException {
+        this(GP, goldPieces);
     }
 
     /**
      * Fractional Gold pieces only.
      * @param goldPieces The amount of GP
+     * @throws IllegalArgumentException if the input is negative
      */
-    public Money(final double goldPieces) {
+    public Money(final double goldPieces) throws IllegalArgumentException {
         this(GP, goldPieces);
     }
 
@@ -144,12 +154,13 @@ public final class Money {
      * @param copperPieces The amount of CP
      * @param silverPieces The amount of SP
      * @param goldPieces The amount of GP
+     * @throws IllegalArgumentException if the input is negative
      */
     public Money(
             final int copperPieces,
             final int silverPieces,
             final int goldPieces
-    ) {
+    ) throws IllegalArgumentException {
         this(CP, copperPieces, SP, silverPieces, GP, goldPieces);
     }
 
@@ -157,8 +168,9 @@ public final class Money {
      * Fractional one type.
      * @param type The coin type
      * @param amount The amount
+     * @throws IllegalArgumentException if the input is negative
      */
-    public Money(final Coin type, final double amount) {
+    public Money(final Coin type, final double amount) throws IllegalArgumentException {
         this(type, amount, CP, 0);
     }
 
@@ -168,13 +180,14 @@ public final class Money {
      * @param amount1 The first coin amount
      * @param type2 The second coin type
      * @param amount2 The second coin amount
+     * @throws IllegalArgumentException if a coin was negative
      */
     public Money(
             final Coin type1,
             final double amount1,
             final Coin type2,
             final double amount2
-    ) {
+    ) throws IllegalArgumentException {
         addCoin(type1, amount1);
         addCoin(type2, amount2);
         maxTarget();
@@ -184,8 +197,9 @@ public final class Money {
      * Any type whole amount.
      * @param type The coin type
      * @param amount The amount
+     * @throws IllegalArgumentException if the input is negative
      */
-    public Money(final Coin type, final int amount) {
+    public Money(final Coin type, final int amount) throws IllegalArgumentException {
         this(type, amount, CP, 0);
     }
 
@@ -195,13 +209,14 @@ public final class Money {
      * @param amount1 The first coin amount
      * @param type2 The second coin type
      * @param amount2 The second coin amount
+     * @throws IllegalArgumentException if the input is negative
      */
     public Money(
             final Coin type1,
             final int amount1,
             final Coin type2,
             final int amount2
-    ) {
+    ) throws IllegalArgumentException {
         this(type1, amount1, type2, amount2, CP, 0);
     }
 
@@ -213,6 +228,7 @@ public final class Money {
      * @param amount2 The second coin amount
      * @param type3 The third coin type
      * @param amount3 The third coin amount
+     * @throws IllegalArgumentException if the input is negative
      */
     public Money(
             final Coin type1,
@@ -221,10 +237,43 @@ public final class Money {
             final int amount2,
             final Coin type3,
             final int amount3
-    ) {
+    ) throws IllegalArgumentException {
+        this(
+                type1,
+                amount1,
+                type2,
+                amount2,
+                type3,
+                amount3,
+                true
+        );
+    }
+
+    /**
+     * Whole three types.
+     * @param type1 The first coin type
+     * @param amount1 The first coin amount
+     * @param type2 The second coin type
+     * @param amount2 The second coin amount
+     * @param type3 The third coin type
+     * @param amount3 The third coin amount
+     * @param simplify If set to true, simplifies by maximizing gp, then sp, then cp
+     * @throws IllegalArgumentException if the input is negative
+     */
+    public Money(
+            final Coin type1,
+            final int amount1,
+            final Coin type2,
+            final int amount2,
+            final Coin type3,
+            final int amount3,
+            boolean simplify
+    ) throws IllegalArgumentException {
         addCoin(type1, amount1);
         addCoin(type2, amount2);
         addCoin(type3, amount3);
+        validate();
+        setSimplify(simplify);
         maxTarget();
     }
 
@@ -235,6 +284,7 @@ public final class Money {
      * @param electrumPieces Amount of EP
      * @param goldPieces Amount of GP
      * @param platinumPieces Amount of PP
+     * @throws IllegalArgumentException if the input is negative
      */
     public Money(
             final int copperPieces,
@@ -242,64 +292,120 @@ public final class Money {
             final int electrumPieces,
             final int goldPieces,
             final int platinumPieces
-    ) {
+    ) throws IllegalArgumentException {
+        this(
+                copperPieces,
+                silverPieces,
+                electrumPieces,
+                goldPieces,
+                platinumPieces,
+                true
+        );
+    }
+
+    /**
+     * All {@link Coin} types separately.
+     * @param copperPieces Amount of CP
+     * @param silverPieces Amount of SP
+     * @param electrumPieces Amount of EP
+     * @param goldPieces Amount of GP
+     * @param platinumPieces Amount of PP
+     * @param simplify If set to true, simplifies by maximizing gp, then sp, then cp
+     * @throws IllegalArgumentException if the input is negative
+     */
+    public Money(
+            final int copperPieces,
+            final int silverPieces,
+            final int electrumPieces,
+            final int goldPieces,
+            final int platinumPieces,
+            boolean simplify
+    ) throws IllegalArgumentException {
         this.cp = copperPieces;
         this.sp = silverPieces;
         this.ep = electrumPieces;
         this.gp = goldPieces;
         this.pp = platinumPieces;
+        validate();
+        setSimplify(simplify);
         maxTarget();
     }
 
     /**
-     * <p>Create a value from a carefully formatted string.</p>
-     * <h3></h3>
-     *
-     * <h3>Format options:</h3>
-     * <li>0 <i>Only 0. Non-0 requires a type</i></li>
-     * <li>5 gp</li>
-     * <li>5gp</li>
-     * <li>5  gp</li>
-     * <li>5pp</li>
-     * <li>0.5pp</li>
-     * <li>0.3pp</li>
-     * <li>1\tpp</li>
-     * <li>(etc)</li>
+     * <p>Create a value from a formatted string.</p><br>
+     * <h3>Format examples:</h3>
+     * <ul>
+     *     <li>5gp 6sp 9pp</li>
+     *     li>500 <i>Assumed to be GP</i></li>
+     *     <li>5gp 5gp 5gp <i>Added up to 15gp</i></li>
+     *     <li>5gp5sp5cp5pp</li>
+     *     <li>5g <i>c, s, e, g, p work as well as cp, sp, ep, gp, pp</i></li>
+     * </ul>
+     * <p>
+     *     See {@link #fromString(String, boolean)} for creating money that is not simplified<br>
+     *     (5ep will become 2gp 5sp, and 1pp becomes 10gp)
+     * </p>
+     * <p>
+     *     Note that this system uses regex to find specific element in your string.
+     *     The more precise the input, the better this process goes.
+     *     Regex can skip characters in your string in order to find suitable matches.
+     * </p>
      * @param value The string representation of a value
-     * @throws IllegalArgumentException
-     *      when the input has no valid extension
-     * @throws NumberFormatException
-     *      when the input number has a valid extension,
-     *      but no valid (double-convertible) value
+     * @throws InvalidParameterException when the input is invalid
+     * @throws IllegalArgumentException if the input is negative
      */
-    public Money(final String value)
-            throws IllegalArgumentException, NumberFormatException {
+    @Contract("_ -> new")
+    public static @NotNull Money fromString(final String value)
+            throws InvalidParameterException, IllegalArgumentException {
+        return fromString(value, true);
+    }
+
+    /**
+     * Money matching regex.
+     */
+    private static final Pattern MONEY_REGEX = Pattern.compile("((?:[0-9]*[.])?[0-9]+[csegpCSEGP][pP]?|[0-9]*[.]?[0-9]+)");
+
+    /**
+     * <p>Create a value from a formatted string.</p><br>
+     * <h3>Format examples:</h3>
+     * <ul>
+     *     <li>5gp 6sp 9pp</li>
+     *     <li>500 <i>Assumed to be GP</i></li>
+     *     <li>5gp 5gp 5gp <i>Added up to 15gp</i></li>
+     *     <li>5gp5sp5cp5pp</li>
+     *     <li>5g <i>c, s, e, g, p work as well as cp, sp, ep, gp, pp</i></li>
+     * </ul>
+     * <p>
+     *     Note that this system uses regex to find specific element in your string.
+     *     The more precise the input, the better this process goes.
+     *     Regex can skip characters in your string in order to find suitable matches.
+     * </p>
+     * @param value The string representation of a value
+     * @param simplify If set to true, simplifies by maximizing gp, then sp, then cp
+     * @throws InvalidParameterException when the input is invalid
+     * @throws IllegalArgumentException if the input is negative
+     */
+    @Contract("_, _ -> new")
+    public static @NotNull Money fromString(final @NotNull String value, boolean simplify)
+            throws InvalidParameterException, IllegalArgumentException {
+
         String cleanValue = value
-                .toLowerCase(Locale.ROOT)
-                .replaceAll(" ", "")
-                .replaceAll("\t", "")
-                .replaceAll(",", ".")
-                .strip();
-        if (cleanValue.equals("0")) {
-            return;
-        }
-        String end = cleanValue.substring(cleanValue.length() - 2);
-        Coin type = switch (end) {
-            case "cp" -> CP;
-            case "sp" -> SP;
-            case "ep" -> EP;
-            case "gp" -> GP;
-            case "pp" -> PP;
-            default -> throw new IllegalArgumentException(
-                    "Value (" + cleanValue + ")"
-                    + " ends with '" + end + "'"
-                    + " which is not cp, sp, ep, gp or pp"
-            );
-        };
-        double amount = Double.parseDouble(cleanValue.replace(end, ""));
-        assert amount >= 0;
-        addCoin(type, amount);
-        maxTarget();
+                .replace(" ", "")
+                .replace(",", ".")
+                .toUpperCase(Locale.ROOT);
+
+        System.out.println(cleanValue);
+        System.out.println(MONEY_REGEX.matcher(cleanValue).group());
+
+        int cp = 0;
+        int sp = 0;
+        int ep = 0;
+        int gp = 0;
+        int pp = 0;
+
+
+
+        return new Money(cp, sp, ep, gp, pp, simplify);
     }
 
     /**
@@ -315,12 +421,14 @@ public final class Money {
     private void addCoin(final Coin type, final double amount) {
         // 0 amount
         if (amount == 0) {
+            validate();
             return;
         }
 
         // round amount
         if (Math.round(amount) == amount) {
             addCoin(type, (int) amount);
+            validate();
             return;
         }
 
@@ -350,6 +458,8 @@ public final class Money {
                 type.decrement(),
                 Math.round(newAmount * factor * ROUND_FACTOR) / ROUND_FACTOR
         );
+
+        validate();
     }
 
     /**
@@ -408,6 +518,16 @@ public final class Money {
     }
 
     /**
+     * Validate money, ensuring all parameters are positive or 0.
+     * @throws IllegalArgumentException if invalid
+     */
+    private void validate() throws IllegalArgumentException {
+        if (cp < 0 || sp < 0 || ep < 0 || gp < 0 || pp < 0) {
+            throw new IllegalArgumentException("Input negative value: " + this);
+        }
+    }
+
+    /**
      * Maximizes the amount of currency in a specific coin in this value.<p>
      * Uses the local constant array 'targets' to define order
      */
@@ -417,11 +537,6 @@ public final class Money {
             return;
         }
 
-        assert cp >= 0;
-        assert sp >= 0;
-        assert ep >= 0;
-        assert gp >= 0;
-        assert pp >= 0;
         int totalCP = getAsCP();
 
         // Reset value counters (all value is stored in 'totalCP')
@@ -477,114 +592,37 @@ public final class Money {
 
     @Override
     public String toString() {
+        return toConstructorString();
+    }
+
+    /**
+     * Create a string that can also be used in {@link #fromString(String, boolean)} or {@link #fromString(String)}.
+     * @return a string representation usable in the fromString method
+     */
+    public String toConstructorString() {
         StringBuilder res = new StringBuilder();
         if (pp != 0) {
-            res.append(pp).append("p ");
+            res.append(pp).append("pp ");
         }
         if (gp != 0) {
-            res.append(gp).append("g ");
+            res.append(gp).append("gp ");
         }
         if (ep != 0) {
-            res.append(ep).append("e ");
+            res.append(ep).append("ep ");
         }
         if (sp != 0) {
-            res.append(sp).append("s ");
+            res.append(sp).append("sp ");
         }
         if (cp != 0) {
-            res.append(cp).append("c ");
+            res.append(cp).append("cp ");
         }
-        return res.toString().strip();
+        String out = res.toString().strip();
+        return out.isBlank() ? "0gp" : out;
     }
 
     /**
-     * Returns a hash code value for the object. This method is
-     * supported for the benefit of hash tables such as those provided by
-     * {@link HashMap}.
-     * <p>
-     * The general contract of {@code hashCode} is:
-     * <ul>
-     * <li>Whenever it is invoked on the same object more than once during
-     *     an execution of a Java application, the {@code hashCode} method
-     *     must consistently return the same integer, provided no information
-     *     used in {@code equals} comparisons on the object is modified.
-     *     This integer need not remain consistent from one execution of an
-     *     application to another execution of the same application.
-     * <li>If two objects are equal according to the {@code equals(Object)}
-     *     method, then calling the {@code hashCode} method on each of
-     *     the two objects must produce the same integer result.
-     * <li>It is <em>not</em> required that if two objects are unequal
-     *     according to the {@link Object#equals(Object)}
-     *     method, then calling the {@code hashCode} method on each of the
-     *     two objects must produce distinct integer results.  However, the
-     *     programmer should be aware that producing distinct integer results
-     *     for unequal objects may improve the performance of hash tables.
-     * </ul>
-     *
-     * @return a hash code value for this object.
-     * @implSpec As far as is reasonably practical,
-     * the {@code hashCode} method defined
-     * by class {@code Object} returns distinct integers for distinct objects.
-     * @see Object#equals(Object)
-     * @see System#identityHashCode
+     * Coin types.
      */
-    @Override
-    public int hashCode() {
-        return getAsCP();
-    }
-
-    /**
-     * Indicates whether some other object is "equal to" this one.
-     * <p>
-     * The {@code equals} method implements an equivalence relation
-     * on non-null object references:
-     * <ul>
-     * <li>It is <i>reflexive</i>: for any non-null reference value
-     *     {@code x}, {@code x.equals(x)} should return
-     *     {@code true}.
-     * <li>It is <i>symmetric</i>: for any non-null reference values
-     *     {@code x} and {@code y}, {@code x.equals(y)}
-     *     should return {@code true} if and only if
-     *     {@code y.equals(x)} returns {@code true}.
-     * <li>It is <i>transitive</i>: for any non-null reference values
-     *     {@code x}, {@code y}, and {@code z}, if
-     *     {@code x.equals(y)} returns {@code true} and
-     *     {@code y.equals(z)} returns {@code true}, then
-     *     {@code x.equals(z)} should return {@code true}.
-     * <li>It is <i>consistent</i>: for any non-null reference values
-     *     {@code x} and {@code y}, multiple invocations of
-     *     {@code x.equals(y)} consistently return {@code true}
-     *     or consistently return {@code false}, provided no
-     *     information used in {@code equals} comparisons on the
-     *     objects is modified.
-     * <li>For any non-null reference value {@code x},
-     *     {@code x.equals(null)} should return {@code false}.
-     * </ul>
-     * <p>
-     * The {@code equals} method for class {@code Object} implements
-     * the most discriminating possible equivalence relation on objects;
-     * that is, for any non-null reference values {@code x} and
-     * {@code y}, this method returns {@code true} if and only
-     * if {@code x} and {@code y} refer to the same object
-     * ({@code x == y} has the value {@code true}).
-     * <p>
-     * Note that it is generally necessary to override the {@code hashCode}
-     * method whenever this method is overridden, so as to maintain the
-     * general contract for the {@code hashCode} method, which states
-     * that equal objects must have equal hash codes.
-     *
-     * @param obj the reference object with which to compare.
-     *
-     * @return {@code true} if this object is the same as the obj
-     * argument; {@code false} otherwise.
-     *
-     * @see #hashCode()
-     * @see HashMap
-     */
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj) && obj.hashCode() == hashCode();
-    }
-
     public enum Coin {
         /**
          * Copper Pieces.

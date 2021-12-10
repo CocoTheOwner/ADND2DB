@@ -34,6 +34,14 @@ public abstract class Inventory {
      */
     public static final List<Inventory> LOADED_INVENTORIES = new ArrayList<>();
 
+    static {
+        try {
+            LOADED_INVENTORIES.addAll(instantiateAllInventories(PlayerInventory.class));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Discord table headers.
      */
@@ -130,16 +138,20 @@ public abstract class Inventory {
      * @return a list of inventory instances,of the given type,
      *      for each valid Json in the aforementioned directory.
      */
-    public static List<? extends Inventory> instantiateAllInventories(Class<? extends Inventory> type) throws FileNotFoundException {
-        List<? extends Inventory> inventories = new ArrayList<>();
-        File target = new File(INVENTORY_DIRECTORY + "/" + type.getSimpleName().toLowerCase(Locale.ROOT));
-        if (!target.exists()) {
-            return inventories;
-        }
-        File[] files = target.listFiles(file -> file.getPath().endsWith(".json"));
-        assert files != null;
-        for (File inventoryFile : files) {
-            inventories.add(GSON.fromJson(new FileReader(inventoryFile), (Type) type));
+    @SafeVarargs
+    public static List<Inventory> instantiateAllInventories(Class<? extends Inventory>... type) throws FileNotFoundException {
+        List<Inventory> inventories = new ArrayList<>();
+        for (Class<? extends Inventory> aClass : type) {
+            File target = new File(INVENTORY_DIRECTORY + "/" + aClass.getSimpleName().toLowerCase(Locale.ROOT));
+            if (!target.exists()) {
+                return inventories;
+            }
+            File[] files = target.listFiles(file -> file.getPath().endsWith(".json"));
+            assert files != null;
+            for (File inventoryFile : files) {
+                inventories.add(GSON.fromJson(new FileReader(inventoryFile), (Type) aClass));
+            }
+
         }
         return inventories;
     }

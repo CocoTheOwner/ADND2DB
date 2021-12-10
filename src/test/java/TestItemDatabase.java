@@ -31,7 +31,7 @@ public class TestItemDatabase {
 
     @Test
     public void testMatchingSingle2() {
-        assertEquals(new Money("10gp").getAsGP(), Item.Database.matchAll("Boar").get(0).worth.getAsGP());
+        assertEquals(Money.fromString("10gp").getAsGP(), Item.Database.matchAll("Boar").get(0).worth.getAsGP());
     }
 
     @Test

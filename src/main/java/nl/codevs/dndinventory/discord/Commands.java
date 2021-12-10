@@ -1,10 +1,14 @@
-package nl.codevs.dndinventory;
+package nl.codevs.dndinventory.discord;
 
 import nl.codevs.strinput.examples.discord.DiscordCategory;
 import nl.codevs.strinput.system.StrInput;
 
 @StrInput(name = "dnd", description = "Dungeons & Dragons", aliases = "d")
 public class Commands implements DiscordCategory {
+
+    InventoryCommands c;
+
+    ItemCommands i;
 
     @StrInput(name = "ping", description = "Pong!")
     public void ping() {

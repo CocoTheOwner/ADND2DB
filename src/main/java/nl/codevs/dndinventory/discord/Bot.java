@@ -1,16 +1,30 @@
 package nl.codevs.dndinventory.discord;
 
+import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import nl.codevs.strinput.examples.discord.DiscordCenter;
+import nl.codevs.strinput.system.util.AtomicCache;
 import org.jetbrains.annotations.NotNull;
 
 import javax.security.auth.login.LoginException;
+import java.util.Objects;
 
 public class Bot extends ListenerAdapter {
+
+    /**
+     * JDA.
+     */
+    private final JDA jda;
+
+    /**
+     * Channel cache.
+     */
+    private final AtomicCache<TextChannel> channelCache = new AtomicCache<>();
 
     /**
      * Create a new Discord bot.
@@ -28,7 +42,7 @@ public class Bot extends ListenerAdapter {
             @NotNull final String activityCommand,
             @NotNull final DiscordCenter commandCenter
     ) throws LoginException, InterruptedException {
-        setup(authToken, commandPrefix, activityCommand);
+        this.jda = setup(authToken, commandPrefix, activityCommand);
         this.center = commandCenter;
         this.prefix = commandPrefix;
     }
@@ -53,8 +67,9 @@ public class Bot extends ListenerAdapter {
      * @throws LoginException if the bot token isn't working
      * @throws InterruptedException if the setup fails
      *
+     * @return
      */
-    public void setup(
+    public JDA setup(
             @NotNull final String authToken,
             @NotNull final String commandPrefix,
             @NotNull final String activityCommand
@@ -81,7 +96,7 @@ public class Bot extends ListenerAdapter {
                 GatewayIntent.GUILD_EMOJIS
         );
 
-        builder.build().awaitReady();
+        return builder.build().awaitReady();
     }
 
     /**
@@ -97,5 +112,17 @@ public class Bot extends ListenerAdapter {
             return;
         }
         center.onCommand(event, prefix);
+    }
+
+    /**
+     * Send a debug message
+     * @param string the debug message
+     */
+    public void debug(String string) {
+        Objects.requireNonNull(
+                channelCache.acquire(() ->
+                        jda.getTextChannelsByName("bot-debug", true).get(0)
+                )
+        ).sendMessage(string).queue();
     }
 }

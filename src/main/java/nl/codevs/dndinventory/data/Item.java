@@ -1,6 +1,8 @@
 package nl.codevs.dndinventory.data;
 
 import org.apache.commons.text.similarity.LevenshteinDistance;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
 import java.security.InvalidParameterException;
@@ -17,6 +19,14 @@ public class Item {
     public final Money worth;
     public final Double weight;
     public final String details;
+
+    /**
+     * Get the item name.
+     * @return the item name
+     */
+    public String getName() {
+        return name;
+    }
 
     /**
      * Create a new item.
@@ -91,7 +101,7 @@ public class Item {
     public String toString() {
         return name + " (" + category.getName() + ")"
                 + " worth " + worth.toString()
-                + (weight == null ? "no weight" : "weighs " + weight)
+                + (weight == null ? " no weight" : " weighs " + weight)
                 + (details.isEmpty() ? "" : " stats: " + details);
     }
 
@@ -200,7 +210,8 @@ public class Item {
          * Get all items in the database.
          * @return Items
          */
-        public static List<Item> getItems() {
+        @Contract(" -> new")
+        public static @NotNull List<Item> getItems() {
             return new ArrayList<>(ITEM_MAP.values());
         }
 
@@ -267,7 +278,7 @@ public class Item {
          * Get raw data from database.
          * @return Raw item data from the DATABASE
          */
-        private static List<String> getRawData() {
+        private static @NotNull List<String> getRawData() {
             List<String> data = new ArrayList<>();
             String line;
             try {
@@ -301,7 +312,7 @@ public class Item {
          * @param separator The separator
          * @return An item
          */
-        public static Item fromCSV(final String csv, final String separator) {
+        public static Item fromCSV(final @NotNull String csv, final String separator) {
             String[] split = csv.split(separator);
             return Item.makeGetItem(
                     Type.fromString(split[0]),
@@ -386,7 +397,7 @@ public class Item {
          * @throws InvalidParameterException When the input string
          *                          does not match an {@link Type}
          */
-        public static Type fromString(String in) throws IllegalArgumentException {
+        public static @NotNull Type fromString(String in) throws IllegalArgumentException {
             in = in.toLowerCase(Locale.ROOT);
             for (Type value : Type.values()) {
                 if (value.name.equals(in)
@@ -452,7 +463,7 @@ public class Item {
      * @param details item details
      * @return hashcode based on aforementioned details
      */
-    public static int hashCode(Type category, String name, Money worth, Double weight, String details) {
+    public static int hashCode(@NotNull Type category, @NotNull String name, @NotNull Money worth, Double weight, @NotNull String details) {
         return category.getName().hashCode() + name.hashCode() + worth.hashCode() + ((Double) (weight == null ? 0 : weight)).hashCode() + details.hashCode();
     }
 

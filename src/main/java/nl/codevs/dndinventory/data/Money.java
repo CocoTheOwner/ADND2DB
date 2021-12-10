@@ -1,7 +1,7 @@
 package nl.codevs.dndinventory.data;
 
+import okhttp3.internal.annotations.EverythingIsNonNull;
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import static nl.codevs.dndinventory.data.Money.Coin.EP;
 import static nl.codevs.dndinventory.data.Money.Coin.GP;
 import static nl.codevs.dndinventory.data.Money.Coin.PP;
 
-
+@EverythingIsNonNull
 public final class Money {
 
     /**
@@ -77,8 +77,8 @@ public final class Money {
      * @throws IllegalArgumentException if the input is negative
      */
     @Contract("_, _ -> new")
-    public static @NotNull Money fromValueAndFactor(
-            final @NotNull Money money,
+    public static Money fromValueAndFactor(
+            final Money money,
             final double modifierFor
     ) throws IllegalArgumentException {
         return new Money(CP, money.getAsCP() * modifierFor);
@@ -91,7 +91,7 @@ public final class Money {
      * @throws IllegalArgumentException if the input is negative
      */
     @Contract("_ -> new")
-    public @NotNull Money subtract(final @NotNull Money money) throws IllegalArgumentException {
+    public Money subtract(final Money money) throws IllegalArgumentException {
         return new Money(CP, getAsCP() - money.getAsCP());
     }
 
@@ -359,7 +359,7 @@ public final class Money {
      * @throws IllegalArgumentException if the input is negative
      */
     @Contract("_ -> new")
-    public static @NotNull Money fromString(final String value)
+    public static Money fromString(final String value)
             throws InvalidParameterException, IllegalArgumentException {
         return fromString(value, true);
     }
@@ -367,7 +367,7 @@ public final class Money {
     /**
      * Money matching regex.
      */
-    private static final Pattern MONEY_REGEX = Pattern.compile("((?:[0-9]*[.])?[0-9]+([csegpCSEGP])[pP]?|[0-9]*[.]?[0-9]+)");
+    private static final Pattern MONEY_REGEX = Pattern.compile("(((?:[0-9]*[.])?[0-9]+)([CSEGP])[P]?|([0-9]*[.]?[0-9]+))");
 
     /**
      * <p>Create a value from a formatted string.</p><br>
@@ -390,37 +390,51 @@ public final class Money {
      * @throws IllegalArgumentException if the input is negative
      */
     @Contract("_, _ -> new")
-    public static @NotNull Money fromString(final @NotNull String value, boolean simplify)
+    public static Money fromString(final String value, boolean simplify)
             throws InvalidParameterException, IllegalArgumentException {
+
+        System.out.println("Making Money from string: " + value);
 
         String cleanValue = value
                 .replace(" ", "")
                 .replace(",", ".")
+                .replace("pp", "x")
+                .replace("p", "")
+                .replace("x", "p")
                 .toUpperCase(Locale.ROOT);
 
-        int cp = 0;
-        int sp = 0;
-        int ep = 0;
-        int gp = 0;
-        int pp = 0;
+        System.out.println("Cleaned input: " + cleanValue);
 
-        Matcher matcher = MONEY_REGEX.matcher("5GP1s69pp .1e");
+        // Match results
+        Matcher matcher = MONEY_REGEX.matcher(cleanValue);
         List<MatchResult> resultList = new ArrayList<>();
         while (matcher.find()) {
             resultList.add(matcher.toMatchResult());
         }
+
+        // Ensure some were found
         if (resultList.isEmpty()) {
             throw new InvalidParameterException("Input " + value + " not in valid Money format!");
-        } else if (resultList.size() == 1) {
-
         }
 
-        return new Money(cp, sp, ep, gp, pp, simplify);
-    }
+        // Money that will accumulate total
+        Money money = new Money();
 
-//    private Coin getType(MatchResult matchResult) {
-//        matchResult
-//    }
+        // Go over matched result groups.
+        for (MatchResult matchResult : resultList) {
+            money.addCoin(
+                    Coin.valueOf(matchResult.group(3) + "P"),
+                    Double.parseDouble(matchResult.group(2))
+            );
+        }
+
+        // Simplification on coins
+        if (simplify) {
+            money.maxTarget();
+        }
+
+        return money;
+    }
 
     /**
      * The factor to use to fix double division errors.

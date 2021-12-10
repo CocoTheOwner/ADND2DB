@@ -135,9 +135,9 @@ public final class DnDInventory {
             throws IOException {
         INV.addItem(Item.Database.fromName("Sandals"), 1);
         INV.getStones().add(new StonePouch.Stone(
-                Money.fromString("100gp"),
                 "stone",
                 "blue",
+                Money.fromString("100gp"),
                 ""
         ));
         INV.save(true);

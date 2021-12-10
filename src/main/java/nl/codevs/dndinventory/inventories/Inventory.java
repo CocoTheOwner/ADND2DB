@@ -207,9 +207,7 @@ public abstract class Inventory {
      * @param inventoryItem The inventory item to add
      */
     public void addItem(final InventoryItem inventoryItem) {
-        List<InventoryItem> i = new ArrayList<>();
-        i.add(inventoryItem);
-        addItemsBulk(i);
+        addItemsBulk(new ArrayList<>(List.of(inventoryItem)));
     }
 
     /**

@@ -4,7 +4,11 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
+import java.util.regex.MatchResult;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static nl.codevs.dndinventory.data.Money.Coin.CP;
@@ -363,7 +367,7 @@ public final class Money {
     /**
      * Money matching regex.
      */
-    private static final Pattern MONEY_REGEX = Pattern.compile("((?:[0-9]*[.])?[0-9]+[csegpCSEGP][pP]?|[0-9]*[.]?[0-9]+)");
+    private static final Pattern MONEY_REGEX = Pattern.compile("((?:[0-9]*[.])?[0-9]+([csegpCSEGP])[pP]?|[0-9]*[.]?[0-9]+)");
 
     /**
      * <p>Create a value from a formatted string.</p><br>
@@ -394,19 +398,29 @@ public final class Money {
                 .replace(",", ".")
                 .toUpperCase(Locale.ROOT);
 
-        System.out.println(cleanValue);
-        System.out.println(MONEY_REGEX.matcher(cleanValue).group());
-
         int cp = 0;
         int sp = 0;
         int ep = 0;
         int gp = 0;
         int pp = 0;
 
+        Matcher matcher = MONEY_REGEX.matcher("5GP1s69pp .1e");
+        List<MatchResult> resultList = new ArrayList<>();
+        while (matcher.find()) {
+            resultList.add(matcher.toMatchResult());
+        }
+        if (resultList.isEmpty()) {
+            throw new InvalidParameterException("Input " + value + " not in valid Money format!");
+        } else if (resultList.size() == 1) {
 
+        }
 
         return new Money(cp, sp, ep, gp, pp, simplify);
     }
+
+//    private Coin getType(MatchResult matchResult) {
+//        matchResult
+//    }
 
     /**
      * The factor to use to fix double division errors.

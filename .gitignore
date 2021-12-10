@@ -11,3 +11,9 @@ token.txt
 .settings/org.eclipse.buildship.core.prefs
 
 .classpath
+
+stonesdb.csv
+
+itemdb.csv
+
+inventories/playerinventory/

@@ -10,6 +10,8 @@ public class Commands implements DiscordCategory {
 
     ItemCommands i;
 
+    PlayerCommands k;
+
     @StrInput(name = "ping", description = "Pong!")
     public void ping() {
         long time = System.currentTimeMillis();

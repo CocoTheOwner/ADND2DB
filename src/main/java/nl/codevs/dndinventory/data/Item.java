@@ -16,7 +16,7 @@ public class Item {
     public final String name;
     public final Money worth;
     public final Double weight;
-    public final String stats;
+    public final String details;
 
     /**
      * Create a new item.
@@ -36,7 +36,7 @@ public class Item {
         this.name = itemName;
         this.worth = itemWorth;
         this.weight = itemWeight;
-        this.stats = itemStats;
+        this.details = itemStats;
     }
 
     /**
@@ -92,7 +92,7 @@ public class Item {
         return name + " (" + category.getName() + ")"
                 + " worth " + worth.toString()
                 + (weight == null ? "no weight" : "weighs " + weight)
-                + (stats.isEmpty() ? "" : " stats: " + stats);
+                + (details.isEmpty() ? "" : " stats: " + details);
     }
 
     /**
@@ -252,7 +252,7 @@ public class Item {
                         .append(item.name).append(",")
                         .append(item.worth.getAsGP()).append(",")
                         .append(item.weight).append(",")
-                        .append(item.stats).append("\n");
+                        .append(item.details).append("\n");
             }
 
             // Write to file
@@ -321,23 +321,27 @@ public class Item {
 
     public enum Type {
         /** Animals. */
-        ANIMALS("Animals", 4),
+        ANIMALS("Animals", 5),
         /** Armor. */
-        ARMOR("Armor", 1),
+        ARMOR("Armor", 2),
         /** Clothing. */
-        CLOTHING("Clothing", 3),
+        CLOTHING("Clothing", 4),
         /** Weapons. */
-        WEAPONS("Weapons", 0),
+        WEAPONS("Weapons", 1),
         /** Daily Food and Lodging. */
         FOOD_LODGING("Daily Food and Lodging", Type.NON_CARRY),
         /** Tack and Harness. */
-        HARNESS("Tack and Harness", 3),
+        HARNESS("Tack and Harness", 4),
         /** Magic Items. */
-        MAGIC("Magic Items", 2),
+        MAGIC("Magic Items", 3),
         /** Miscellaneous Equipment. */
-        MISC("Miscellaneous Equipment", 3),
+        MISC("Miscellaneous Equipment", 4),
         /** Provisions. */
-        PROVISIONS("Household Provisioning", 5);
+        PROVISIONS("Household Provisioning", 6),
+        /**
+         * Gemstones.
+         */
+        GEMSTONES("Gemstones", 0);
 
         /**
          * 'Items' that cannot be carried (such as services).
@@ -436,7 +440,7 @@ public class Item {
      */
     @Override
     public int hashCode() {
-        return hashCode(category, name, worth, weight, stats);
+        return hashCode(category, name, worth, weight, details);
     }
 
     /**
@@ -445,11 +449,11 @@ public class Item {
      * @param name item name
      * @param worth item worth {@link Money}
      * @param weight item weight
-     * @param stats item stats
-     * @return hashcode based on aforementioned stats
+     * @param details item details
+     * @return hashcode based on aforementioned details
      */
-    public static int hashCode(Type category, String name, Money worth, Double weight, String stats) {
-        return category.getName().hashCode() + name.hashCode() + worth.hashCode() + ((Double) (weight == null ? 0 : weight)).hashCode() + stats.hashCode();
+    public static int hashCode(Type category, String name, Money worth, Double weight, String details) {
+        return category.getName().hashCode() + name.hashCode() + worth.hashCode() + ((Double) (weight == null ? 0 : weight)).hashCode() + details.hashCode();
     }
 
     /**

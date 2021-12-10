@@ -1,6 +1,7 @@
 package nl.codevs.dndinventory.inventories;
 
 import nl.codevs.dndinventory.data.Money;
+import nl.codevs.dndinventory.data.StonePouch;
 import nl.codevs.dndinventory.inventories.interfaces.*;
 
 import java.util.ArrayList;
@@ -62,6 +63,10 @@ public class PlayerInventory extends Inventory
      * Actual character level.
      */
     private int realLvl;
+    /**
+     * Stone pouch.
+     */
+    private final StonePouch stones;
 
     /**
      * Test inventory.
@@ -70,6 +75,7 @@ public class PlayerInventory extends Inventory
             "Test Inventory",
             new ArrayList<>(),
             new Money(0),
+            new StonePouch(),
             ILevel.CharacterClass.FIGHTER,
             8_400,
             2,
@@ -77,11 +83,16 @@ public class PlayerInventory extends Inventory
             15, 13, 18, 9, 11, 10, 12
     );
 
+    static {
+        TEST_INVENTORY.getMoney().setSimplify(false);
+    }
+
     /**
      * Create a player inventory.
      * @param playerName The player name
      * @param startingItems The starting player items
      * @param startingMoney The amount of starting capital
+     * @param stonePouch Stones in the player inventory
      * @param characterClass The
      * {@link CharacterClass} of the player (Fighter, etc.)
      * @param experience The current experience of the player
@@ -99,6 +110,7 @@ public class PlayerInventory extends Inventory
             final String playerName,
             final List<InventoryItem> startingItems,
             final Money startingMoney,
+            final StonePouch stonePouch,
             final CharacterClass characterClass,
             final int experience,
             final int actualLevel,
@@ -114,6 +126,7 @@ public class PlayerInventory extends Inventory
 
         super(playerName, startingItems);
         money = startingMoney;
+        this.stones = stonePouch;
         this.cc = characterClass;
         this.exp = experience;
         this.realLvl = actualLevel;
@@ -125,6 +138,7 @@ public class PlayerInventory extends Inventory
         this.chr = charisma;
         this.com = complexion;
         this.mHp = maxHealth;
+        money.setSimplify(false);
     }
 
     /**
@@ -148,12 +162,21 @@ public class PlayerInventory extends Inventory
     }
 
     /**
+     * Get the stones in the inventory.
+     * @return The stones
+     */
+    public StonePouch getStones() {
+        return stones;
+    }
+
+    /**
      * Set newMoney in the inventory.
      *
      * @param newMoney The new newMoney value
      */
     @Override
     public void setMoney(final nl.codevs.dndinventory.data.Money newMoney) {
+        newMoney.setSimplify(false);
         this.money = newMoney;
     }
 

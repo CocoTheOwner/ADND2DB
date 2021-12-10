@@ -39,6 +39,22 @@ public final class Money {
     private int pp;
 
     /**
+     * Should convert to cp, sp and gp for value.
+     * Set this to false for an inventory with x amount of coins of a specific type.
+     */
+    private boolean simplify = true;
+
+    /**
+     * Set simplification.
+     * If true, converts value to cp, sp and gp.
+     * Set this to false for an inventory with x amount of coins of a specific type.
+     * @param simplify whether to simplify or not
+     */
+    public void setSimplify(boolean simplify) {
+        this.simplify = simplify;
+    }
+
+    /**
      * Create a new worthless value.
      */
     public Money() {
@@ -396,6 +412,11 @@ public final class Money {
      * Uses the local constant array 'targets' to define order
      */
     private void maxTarget() {
+
+        if (!simplify) {
+            return;
+        }
+
         assert cp >= 0;
         assert sp >= 0;
         assert ep >= 0;

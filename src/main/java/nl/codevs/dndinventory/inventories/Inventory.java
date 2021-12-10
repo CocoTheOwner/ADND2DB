@@ -1,5 +1,7 @@
 package nl.codevs.dndinventory.inventories;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import nl.codevs.dndinventory.data.Item;
@@ -15,8 +17,17 @@ public abstract class Inventory {
     /**
      * Gson used to convert inventories to/from JSON.
      */
-    public static final Gson GSON = new GsonBuilder()
-            .setPrettyPrinting().serializeNulls().create();
+    public static final Gson GSON = new GsonBuilder().setExclusionStrategies(new ExclusionStrategy() {
+                @Override
+                public boolean shouldSkipField(FieldAttributes f) {
+                    return f.getAnnotation(Exclude.class) != null;
+                }
+
+                @Override
+                public boolean shouldSkipClass(Class<?> clazz) {
+                    return false;
+                }
+            }).setPrettyPrinting().serializeNulls().create();
 
     /**
      * List of loaded (created) inventories.
@@ -220,17 +231,26 @@ public abstract class Inventory {
      * Remove a specific amount of items.
      * @param item The item type to remove
      * @param amount The amount to remove
+     * @return the inventory item if it could not be removed
+     * (or with lower amounts of items if not all could be removed)
      */
-    public void removeItem(final Item item, final int amount) {
-        removeItem(new InventoryItem(item, amount));
+    public InventoryItem removeItem(final Item item, final int amount) {
+        return removeItem(new InventoryItem(item, amount));
     }
 
     /**
      * Remove a specific amount of items.
      * @param inventoryItem The inventoryItem to remove
+     * @return the inventory item if it could not be removed
+     * (or with lower amounts of items if not all could be removed)
      */
-    public void removeItem(final InventoryItem inventoryItem) {
-        removeItemsBulk(Collections.singletonList(inventoryItem));
+    public InventoryItem removeItem(final InventoryItem inventoryItem) {
+        List<InventoryItem> x = removeItemsBulk(Collections.singletonList(inventoryItem));
+        if (x.isEmpty()) {
+            return null;
+        } else {
+            return x.get(0);
+        }
     }
 
     /**
@@ -428,7 +448,7 @@ public abstract class Inventory {
                     + " (" + amount + "*" + item.worth.getAsGP() + "gp)";
             endRow[4] = item.weight == null ? "0" : amount * item.weight
                     + " (" + amount + "*" + item.weight + ")";
-            endRow[5] = item.stats;
+            endRow[5] = item.details;
             return endRow;
         }
         /**

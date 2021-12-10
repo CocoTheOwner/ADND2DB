@@ -27,6 +27,6 @@ public class TestItemType {
     }
     @Test
     public void testGetPos() {
-        assertEquals(Item.Type.ANIMALS.getPos(), 4);
+        assertEquals(5, Item.Type.ANIMALS.getPos());
     }
 }

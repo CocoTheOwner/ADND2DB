@@ -1,8 +1,10 @@
 package nl.codevs.dndinventory.data;
 
+import okhttp3.internal.annotations.EverythingIsNonNull;
 import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 import java.security.InvalidParameterException;
@@ -13,11 +15,12 @@ import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+@EverythingIsNonNull
 public class Item {
     public final Type category;
     public final String name;
     public final Money worth;
-    public final Double weight;
+    @Nullable public final Double weight;
     public final String details;
 
     /**
@@ -40,8 +43,9 @@ public class Item {
             final Type categoryName,
             final String itemName,
             final Money itemWorth,
-            final Double itemWeight,
-            final String itemStats) {
+            @Nullable final Double itemWeight,
+            final String itemStats
+    ) {
         this.category = categoryName;
         this.name = itemName;
         this.worth = itemWorth;
@@ -81,7 +85,7 @@ public class Item {
             final Type categoryName,
             final String itemName,
             final Money itemWorth,
-            final Double itemWeight,
+            @Nullable final Double itemWeight,
             final String itemStats,
             final boolean saveToDatabase,
             final boolean checkExists
@@ -100,7 +104,7 @@ public class Item {
     @Override
     public String toString() {
         return name + " (" + category.getName() + ")"
-                + " worth " + worth.toString()
+                + " worth " + worth
                 + (weight == null ? " no weight" : " weighs " + weight)
                 + (details.isEmpty() ? "" : " stats: " + details);
     }
@@ -158,7 +162,7 @@ public class Item {
          * @param in The input string to match with
          * @return An array of items sorted by how close they match
          */
-        public static List<Item> matchAll(String in) {
+        public static @NotNull List<Item> matchAll(String in) {
             return matchAll(null, in);
         }
 
@@ -170,14 +174,14 @@ public class Item {
          * @param category The category of the item
          * @return An array of items sorted by how close they match
          */
-        public static List<Item> matchAll(final Type category, String in) {
+        public static @NotNull List<Item> matchAll(@Nullable final Type category, String in) {
             in = in.toLowerCase(Locale.ROOT);
             List<Item> items;
             if (category == null) {
                 items = getItems();
             } else {
                 items = getItems().stream().filter(i -> i.category.equals(category)).collect(Collectors.toList());
-            };
+            }
             LevenshteinDistance d = new LevenshteinDistance();
             String finalIn = in;
             items.sort((i1, i2) -> {
@@ -463,7 +467,7 @@ public class Item {
      * @param details item details
      * @return hashcode based on aforementioned details
      */
-    public static int hashCode(@NotNull Type category, @NotNull String name, @NotNull Money worth, Double weight, @NotNull String details) {
+    public static int hashCode(Type category, String name, Money worth, @Nullable Double weight, String details) {
         return category.getName().hashCode() + name.hashCode() + worth.hashCode() + ((Double) (weight == null ? 0 : weight)).hashCode() + details.hashCode();
     }
 

@@ -30,6 +30,15 @@ public abstract class Inventory {
             }).setPrettyPrinting().serializeNulls().create();
 
     /**
+     * Inventory directory.
+     */
+    public static final File INVENTORY_DIRECTORY = new File("./inventories/");
+
+    static {
+        INVENTORY_DIRECTORY.mkdirs();
+    }
+
+    /**
      * List of loaded (created) inventories.
      */
     public static final List<Inventory> LOADED_INVENTORIES = new ArrayList<>();
@@ -53,14 +62,6 @@ public abstract class Inventory {
      */
     private static final String SPACING_CHARACTER = "\t";
 
-    /**
-     * Inventory directory.
-     */
-    public static final File INVENTORY_DIRECTORY = new File("./inventories/");
-
-    static {
-        INVENTORY_DIRECTORY.mkdirs();
-    }
 
     /**
      * Items in inventory.

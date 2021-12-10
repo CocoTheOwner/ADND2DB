@@ -43,19 +43,24 @@ public class StonePouch extends ArrayList<StonePouch.Stone> {
      * @param value the stone's {@link Money} value
      * @param details additional details
      */
-    public record Stone(
-            String name,
-            String color,
-            Money value,
-            String details
-    ) {
+    public static class Stone {
+        final String name;
+        final String color;
+        final Money value;
+        final String details;
 
+        public Stone(
+                final String name,
+                final String color,
+                final Money value,
+                final String details
+        ) {
+            this.name = name;
+            this.color = color;
+            this.value = value;
+            this.details = details;
+        }
     }
-
-    /**
-     * GSON.
-     */
-    public static final Gson GSON = new Gson();
 
     /**
      * Setup database.

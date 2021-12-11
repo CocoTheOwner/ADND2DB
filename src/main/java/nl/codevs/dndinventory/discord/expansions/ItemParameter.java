@@ -1,11 +1,13 @@
 package nl.codevs.dndinventory.discord.expansions;
 
 import nl.codevs.dndinventory.data.Item;
+import nl.codevs.dndinventory.data.ItemDatabase;
+import nl.codevs.dndinventory.data.ItemType;
 import nl.codevs.strinput.system.parameter.StrParameterHandler;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class ItemParameter implements StrParameterHandler<Item> {
     /**
@@ -16,7 +18,7 @@ public class ItemParameter implements StrParameterHandler<Item> {
      */
     @Override
     public List<Item> getPossibilities() {
-        return Item.Database.getItems();
+        return new ArrayList<>(ItemDatabase.get().values());
     }
 
     /**
@@ -70,11 +72,11 @@ public class ItemParameter implements StrParameterHandler<Item> {
         List<Item> options;
         if (input.contains(",")) {
             String[] split = input.split(",");
-            Item.Type category = Item.Type.fromString(split[0]);
+            ItemType category = ItemType.fromString(split[0]);
             String itemName = split[1];
-            options = Item.Database.matchAll(category, itemName);
+            options = ItemDatabase.matchAll(category, itemName);
         } else {
-            options = Item.Database.matchAll(input);
+            options = ItemDatabase.matchAll(input);
         }
         return options.subList(0, Math.min(options.size() - 1, 5));
     }

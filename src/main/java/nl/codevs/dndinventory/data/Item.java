@@ -1,23 +1,14 @@
 package nl.codevs.dndinventory.data;
 
 import okhttp3.internal.annotations.EverythingIsNonNull;
-import org.apache.commons.text.similarity.LevenshteinDistance;
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.*;
-import java.security.InvalidParameterException;
-import java.util.ArrayList;
+import javax.management.InstanceAlreadyExistsException;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
 
 @EverythingIsNonNull
 public class Item {
-    public final Type category;
+    public final ItemType category;
     public final String name;
     public final Money worth;
     @Nullable public final Double weight;
@@ -33,14 +24,16 @@ public class Item {
 
     /**
      * Create a new item.
+     * It is usually better to use<br>
+     * {@link #makeGetItem(ItemType, String, Money, double, String)}.
      * @param categoryName item category
      * @param itemName item name
      * @param itemWorth item worth {@link Money}
      * @param itemWeight item weight
      * @param itemStats item stats
      */
-    private Item(
-            final Type categoryName,
+    Item(
+            final ItemType categoryName,
             final String itemName,
             final Money itemWorth,
             @Nullable final Double itemWeight,
@@ -62,7 +55,7 @@ public class Item {
      * @param itemStats item stats
      */
     public static Item makeGetItem(
-            final Type categoryName,
+            final ItemType categoryName,
             final String itemName,
             final Money itemWorth,
             final double itemWeight,
@@ -82,7 +75,7 @@ public class Item {
      * @param checkExists returns an existing item if one exists in the database (recommended)
      */
     public static Item makeGetItem(
-            final Type categoryName,
+            final ItemType categoryName,
             final String itemName,
             final Money itemWorth,
             @Nullable final Double itemWeight,
@@ -91,12 +84,17 @@ public class Item {
             final boolean checkExists
     ) {
         int hash = hashCode(categoryName, itemName, itemWorth, itemWeight, itemStats);
-        if (checkExists && Database.ITEM_MAP.containsKey(hash)) {
-            return Database.fromHashCode(hash);
+        if (checkExists && ItemDatabase.get().containsKey(hash)) {
+            return ItemDatabase.get().get(hash);
         }
         Item result = new Item(categoryName, itemName, itemWorth, itemWeight, itemStats);
         if (saveToDatabase) {
-            Database.addItem(result);
+            try {
+                ItemDatabase.add(result);
+            } catch (InstanceAlreadyExistsException e) {
+                System.out.println("Somehow the item did not exist, but did exist when trying to add it?");
+                e.printStackTrace();
+            }
         }
         return result;
     }
@@ -107,320 +105,6 @@ public class Item {
                 + " worth " + worth
                 + (weight == null ? " no weight" : " weighs " + weight)
                 + (details.isEmpty() ? "" : " stats: " + details);
-    }
-
-    /**
-     * Item database.
-     */
-    public static final class Database {
-
-        /**
-         * File used to read/write database data.
-         */
-        private static final File DATABASE_FILE = new File("./itemdb.csv");
-
-        /**
-         * Mapping from hashcode to item in database.
-         * Items are the same instances as found in {@code ITEM_LIST}.
-         */
-        private static final ConcurrentHashMap<Integer, Item>
-                ITEM_MAP = new ConcurrentHashMap<>();
-
-        static {
-            for (String item : getRawData()) {
-                Item newItem = fromCSV(item);
-                addItem(newItem);
-            }
-        }
-
-        /**
-         * Get an item from the database based on name.
-         * @param in The input hashcode
-         * @return All items matching the given name
-         */
-        public static Item fromHashCode(final int in) {
-            return ITEM_MAP.get(in);
-        }
-
-        /**
-         * Get an item from the database by name (not recommended due to runtime).
-         * Matches the closest matching item, not per-se the best item.
-         * Use {@code #fromHashCode} instead.
-         *
-         * Given the database is non-empty, returns an item.
-         * @param itemName the item name
-         * @return an item in the database
-         */
-        public static Item fromName(final String itemName) {
-            return matchAll(itemName).get(0);
-        }
-
-        /**
-         * Get all values in the database,
-         * ordered by how closely they match a certain string.
-         * Uses {@code LevenshteinDistance} from Apache Commons Text.
-         * @param in The input string to match with
-         * @return An array of items sorted by how close they match
-         */
-        public static @NotNull List<Item> matchAll(String in) {
-            return matchAll(null, in);
-        }
-
-        /**
-         * Get all values in the database,
-         * ordered by how closely they match a certain string.
-         * Uses {@code LevenshteinDistance} from Apache Commons Text.
-         * @param in The input string to match with
-         * @param category The category of the item
-         * @return An array of items sorted by how close they match
-         */
-        public static @NotNull List<Item> matchAll(@Nullable final Type category, String in) {
-            in = in.toLowerCase(Locale.ROOT);
-            List<Item> items;
-            if (category == null) {
-                items = getItems();
-            } else {
-                items = getItems().stream().filter(i -> i.category.equals(category)).collect(Collectors.toList());
-            }
-            LevenshteinDistance d = new LevenshteinDistance();
-            String finalIn = in;
-            items.sort((i1, i2) -> {
-
-                // Starts-with priority
-                boolean i2StartsWith = i2.name.toLowerCase(Locale.ROOT).startsWith(finalIn);
-                if (i1.name.toLowerCase(Locale.ROOT).startsWith(finalIn)) {
-                    if (i2StartsWith) {
-                        return Integer.compare(
-                                i1.name.length(),
-                                i2.name.length()
-                        );
-                    }
-                    return -1;
-                } else if (i2StartsWith) {
-                    return 1;
-                }
-
-                // Levenshtein distance
-                return Integer.compare(
-                        d.apply(finalIn, i1.name),
-                        d.apply(finalIn, i2.name)
-                );
-            });
-            return items;
-        }
-
-
-        /**
-         * Get all items in the database.
-         * @return Items
-         */
-        @Contract(" -> new")
-        public static @NotNull List<Item> getItems() {
-            return new ArrayList<>(ITEM_MAP.values());
-        }
-
-        /**
-         * Add an item to the database. Automatically saves to file.
-         * @param item The item to add
-         * @throws InvalidParameterException when item name already exists in DB
-         */
-        public static void addItem(final Item item)
-                throws InvalidParameterException {
-
-            // Exact copy check
-            if (itemAlreadyExists(item)){
-                throw new InvalidParameterException("An exact copy of this already exists in the database!" + item);
-            }
-
-            ITEM_MAP.put(item.hashCode(), item);
-
-            // Save database
-            try {
-                save();
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println(item);
-                System.out.println("Failed to save database!");
-            }
-        }
-
-        /**
-         * Check if an item already exists
-         * @param item the item to check existence of
-         * @return true if it exists, false if not
-         */
-        public static boolean itemAlreadyExists(Item item) {
-            return ITEM_MAP.containsKey(item.hashCode());
-        }
-
-        /**
-         * Save to file.
-         */
-        public static void save() throws IOException {
-
-            // Convert to CSV
-            StringBuilder out = new StringBuilder(
-                    "Category,Name,Value,Weight,IStats\n"
-            );
-            for (Item item : getItems()) {
-                out.append(item.category).append(",")
-                        .append(item.name).append(",")
-                        .append(item.worth.getAsGP()).append(",")
-                        .append(item.weight).append(",")
-                        .append(item.details).append("\n");
-            }
-
-            // Write to file
-            BufferedWriter writer = new BufferedWriter(
-                    new FileWriter(DATABASE_FILE)
-            );
-            writer.write(out.toString());
-            writer.close();
-        }
-
-        /**
-         * Get raw data from database.
-         * @return Raw item data from the DATABASE
-         */
-        private static @NotNull List<String> getRawData() {
-            List<String> data = new ArrayList<>();
-            String line;
-            try {
-                BufferedReader r = new BufferedReader(
-                        new FileReader(DATABASE_FILE)
-                );
-                while ((line = r.readLine()) != null && !line.isEmpty()) {
-                    data.add(line);
-                }
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException("Item database file not found");
-            } catch (IOException e) {
-                throw new RuntimeException("Failed getting data from database");
-            }
-            data.remove(0); // Header
-            return data;
-        }
-
-        /**
-         * Get an item from a csv String.
-         * @param csv The csv string
-         * @return An item
-         */
-        public static Item fromCSV(final String csv) {
-            return fromCSV(csv, ",");
-        }
-
-        /**
-         * Get an item from a csv string with custom separator.
-         * @param csv The csv string
-         * @param separator The separator
-         * @return An item
-         */
-        public static Item fromCSV(final @NotNull String csv, final String separator) {
-            String[] split = csv.split(separator);
-            return Item.makeGetItem(
-                    Type.fromString(split[0]),
-                    split[1],
-                    new Money(Double.parseDouble(split[2])),
-                    split[3].equals("null") ? null : Double.parseDouble(split[3]),
-                    split.length < 5 ? "" : split[4],
-                    false,
-                    true
-            );
-        }
-
-        private Database() {
-            // Never called
-        }
-    }
-
-    public enum Type {
-        /** Animals. */
-        ANIMALS("Animals", 5),
-        /** Armor. */
-        ARMOR("Armor", 2),
-        /** Clothing. */
-        CLOTHING("Clothing", 4),
-        /** Weapons. */
-        WEAPONS("Weapons", 1),
-        /** Daily Food and Lodging. */
-        FOOD_LODGING("Daily Food and Lodging", Type.NON_CARRY),
-        /** Tack and Harness. */
-        HARNESS("Tack and Harness", 4),
-        /** Magic Items. */
-        MAGIC("Magic Items", 3),
-        /** Miscellaneous Equipment. */
-        MISC("Miscellaneous Equipment", 4),
-        /** Provisions. */
-        PROVISIONS("Household Provisioning", 6),
-        /**
-         * Gemstones.
-         */
-        GEMSTONES("Gemstones", 0);
-
-        /**
-         * 'Items' that cannot be carried (such as services).
-         */
-        private static final int NON_CARRY = Integer.MAX_VALUE;
-
-        /**
-         * Category name.
-         */
-        private final String name;
-
-        /**
-         * Category position (lower = higher priority in inventory).
-         */
-        private final int pos;
-
-        /**
-         * Get category name.
-         * @return Category name
-         */
-        public String getName() {
-            return name;
-        }
-
-        /**
-         * Get position.
-         * @return Category position
-         */
-        public int getPos() {
-            return pos;
-        }
-
-        Type(final String typeName, final int position) {
-            name = typeName;
-            pos = position;
-        }
-
-        /**
-         * Get item type from string.
-         * @param in The input string
-         * @return The {@link Type} belonging to the input string
-         * @throws InvalidParameterException When the input string
-         *                          does not match an {@link Type}
-         */
-        public static @NotNull Type fromString(String in) throws IllegalArgumentException {
-            in = in.toLowerCase(Locale.ROOT);
-            for (Type value : Type.values()) {
-                if (value.name.equals(in)
-                        || value.getName().equals(in)
-                        || value.toString().equals(in)
-                        || value.getName().toLowerCase(Locale.ROOT).equals(in)
-                        || value.toString().toLowerCase(Locale.ROOT).equals(in)
-                        || value.getName().toLowerCase(Locale.ROOT).startsWith(in)
-                        || value.toString().toLowerCase(Locale.ROOT).startsWith(in)
-                        || value.getName().toLowerCase(Locale.ROOT).endsWith(in)
-                        || value.toString().toLowerCase(Locale.ROOT).endsWith(in)
-                ) {
-                    return value;
-                }
-            }
-            throw new InvalidParameterException(
-                    "Cannot convert '" + in + "' to valid ItemType"
-            );
-        }
     }
 
     /**
@@ -467,7 +151,7 @@ public class Item {
      * @param details item details
      * @return hashcode based on aforementioned details
      */
-    public static int hashCode(Type category, String name, Money worth, @Nullable Double weight, String details) {
+    public static int hashCode(ItemType category, String name, Money worth, @Nullable Double weight, String details) {
         return category.getName().hashCode() + name.hashCode() + worth.hashCode() + ((Double) (weight == null ? 0 : weight)).hashCode() + details.hashCode();
     }
 

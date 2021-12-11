@@ -4,10 +4,10 @@
  * <li>{@link nl.codevs.dndinventory.data.Item}
  * is the class for items (name, weight etc)</li>
  *
- * <li>{@link nl.codevs.dndinventory.data.Item.Type}
+ * <li>{@link nl.codevs.dndinventory.data.ItemType}
  * is the enum for item categories (types, e.g. weapons)</li>
  *
- * <li>{@link nl.codevs.dndinventory.data.Item.Database}
+ * <li>{@link nl.codevs.dndinventory.data.ItemDatabase}
  * is the util class with all (known) items</li>
  *
  * <li>{@link nl.codevs.dndinventory.data.Money}

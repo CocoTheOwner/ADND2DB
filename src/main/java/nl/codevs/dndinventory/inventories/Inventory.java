@@ -6,12 +6,15 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import nl.codevs.dndinventory.data.Item;
 import nl.codevs.dndinventory.data.Money;
+import okhttp3.internal.annotations.EverythingIsNonNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
 import java.lang.reflect.Type;
 import java.nio.file.FileAlreadyExistsException;
 import java.util.*;
 
+@EverythingIsNonNull
 public abstract class Inventory {
 
     /**
@@ -32,7 +35,7 @@ public abstract class Inventory {
     /**
      * Inventory directory.
      */
-    public static final File INVENTORY_DIRECTORY = new File("./inventories/");
+    public static final File INVENTORY_DIRECTORY = new File("./DNDInventories/");
 
     static {
         INVENTORY_DIRECTORY.mkdirs();
@@ -105,14 +108,6 @@ public abstract class Inventory {
     }
 
     /**
-     * Inventory just on name.
-     * @param inventoryName The inventory name
-     */
-    public Inventory(final String inventoryName) {
-        this(inventoryName, new ArrayList<>());
-    }
-
-    /**
      * Create an inventory from a file.
      * @param fromFile The file to use to create the inventory.
      * @return {@link Inventory} object from json file
@@ -169,7 +164,7 @@ public abstract class Inventory {
 
         if (!overwrite && targetFile.exists()) {
             System.out.println(toJson());
-            throw new FileAlreadyExistsException("Inventory by name: " + getName() + " already exists");
+            throw new FileAlreadyExistsException("Inventory by name: " + getName() + " already exists and overwrite is off");
         }
         BufferedWriter bw = new BufferedWriter(new FileWriter(targetFile));
         bw.write(toJson());
@@ -245,17 +240,17 @@ public abstract class Inventory {
      * @return the inventory item if it could not be removed
      * (or with lower amounts of items if not all could be removed)
      */
-    public InventoryItem removeItem(final Item item, final int amount) {
+    public @Nullable InventoryItem removeItem(final Item item, final int amount) {
         return removeItem(new InventoryItem(item, amount));
     }
 
     /**
      * Remove a specific amount of items.
      * @param inventoryItem The inventoryItem to remove
-     * @return the inventory item if it could not be removed
+     * @return the inventory item if it could not be removed, null if it could
      * (or with lower amounts of items if not all could be removed)
      */
-    public InventoryItem removeItem(final InventoryItem inventoryItem) {
+    public @Nullable InventoryItem removeItem(final InventoryItem inventoryItem) {
         List<InventoryItem> x = removeItemsBulk(Collections.singletonList(inventoryItem));
         if (x.isEmpty()) {
             return null;
@@ -319,7 +314,7 @@ public abstract class Inventory {
         Random r = new Random();
 
         emptying: while (removed.stream().mapToDouble(
-                i -> i.getItem().weight * i.getAmount()
+                i -> (i.getItem().weight != null ? i.getItem().weight * i.getAmount() : 0)
         ).sum() < targetWeight) {
             if (getItems().isEmpty()) {
                 System.out.println(

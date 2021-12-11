@@ -1,6 +1,7 @@
 package nl.codevs.dndinventory.inventories.interfaces;
 
 import nl.codevs.dndinventory.data.Item;
+import nl.codevs.dndinventory.data.ItemType;
 import nl.codevs.dndinventory.data.Money;
 
 public interface IShop extends IInterface {
@@ -10,7 +11,7 @@ public interface IShop extends IInterface {
      * @param type The item type (category)
      * @return The modifier for the type
      */
-    double getModifierFor(Item.Type type);
+    double getModifierFor(ItemType type);
 
     /**
      * Item modified for individual items.

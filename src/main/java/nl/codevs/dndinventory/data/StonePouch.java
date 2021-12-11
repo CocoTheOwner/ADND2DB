@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.InvalidPropertiesFormatException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ *
+ */
 public class StonePouch extends ArrayList<StonePouch.Stone> {
 
     /**

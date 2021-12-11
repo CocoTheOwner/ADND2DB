@@ -21,11 +21,6 @@ import static nl.codevs.dndinventory.data.Money.Coin.PP;
 public final class Money {
 
     /**
-     * Target these coins (in order) to be maximised in the value.
-     */
-    private static final Coin[] TARGET = new Coin[]{GP, SP, CP};
-
-    /**
      * Copper pieces.
      */
     private int cp;
@@ -393,8 +388,6 @@ public final class Money {
     public static Money fromString(final String value, boolean simplify)
             throws InvalidParameterException, IllegalArgumentException {
 
-        System.out.println("Making Money from string: " + value);
-
         String cleanValue = value
                 .replace(" ", "")
                 .replace(",", ".")
@@ -402,8 +395,6 @@ public final class Money {
                 .replace("p", "")
                 .replace("x", "p")
                 .toUpperCase(Locale.ROOT);
-
-        System.out.println("Cleaned input: " + cleanValue);
 
         // Match results
         Matcher matcher = MONEY_REGEX.matcher(cleanValue);
@@ -567,55 +558,18 @@ public final class Money {
 
         int totalCP = getAsCP();
 
-        // Reset value counters (all value is stored in 'totalCP')
-        this.cp = 0;
-        this.sp = 0;
-        this.ep = 0;
-        this.gp = 0;
-        this.pp = 0;
-
         // Conversion factors
-        final int cpCp = 1;
-        final int spCp = SP.decrementFactor() * cpCp;
-        final int epCp = EP.decrementFactor() * spCp;
-        final int gpCp = GP.decrementFactor() * epCp;
-        final int ppCp = PP.decrementFactor() * gpCp;
+        final int spCp = SP.decrementFactor();
+        final int gpCp = GP.decrementFactor() * EP.decrementFactor() * spCp;
 
-        /*
-         * It is a bit unclear what happens here
-         * So I will elaborate:
-         *
-         * We loop through all the target coin types
-         * We then find the highest amount of that coin possible,
-         * based on the amount of CP (the total CP in the Value)
-         *
-         * We then add that amount to the corresponding value
-         * And then subtract the CP amount corresponding to that,
-         * from the total remaining CP
-         *
-         * Finally, the remaining CP is stored
-         */
+        ep = 0;
+        pp = 0;
 
-        for (Coin t : TARGET) {
-            if (totalCP != 0) {
-                switch (t) {
-                    case CP -> totalCP -=
-                            (this.cp = (totalCP));
-                    case SP -> totalCP -= spCp
-                            * (this.sp = (totalCP - (totalCP % spCp)) / spCp);
-                    case EP -> totalCP -= epCp
-                            * (this.ep = (totalCP - (totalCP % epCp)) / epCp);
-                    case GP -> totalCP -= gpCp
-                            * (this.gp = (totalCP - (totalCP % gpCp)) / gpCp);
-                    case PP -> totalCP -= ppCp
-                            * (this.pp = (totalCP - (totalCP % ppCp)) / ppCp);
-                    default -> throw new RuntimeException(
-                            "Unhandled coin type"
-                    );
-                }
-            }
-        }
-        this.cp += totalCP; // In case CP is not in the 'target' array
+        gp = (totalCP - (totalCP % gpCp)) / gpCp;
+        totalCP -= gp * gpCp;
+        sp = (totalCP - (totalCP % spCp)) / spCp;
+        totalCP -= sp * spCp;
+        cp = totalCP;
     }
 
     @Override

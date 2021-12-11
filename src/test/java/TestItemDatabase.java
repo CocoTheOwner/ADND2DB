@@ -1,8 +1,10 @@
-import nl.codevs.dndinventory.data.Item;
+import nl.codevs.dndinventory.data.ItemDatabase;
 import nl.codevs.dndinventory.data.Money;
 import org.junit.jupiter.api.Test;
 
+import javax.management.InstanceAlreadyExistsException;
 import java.security.InvalidParameterException;
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
@@ -11,39 +13,39 @@ public class TestItemDatabase {
 
     @Test
     public void testDatabaseSlasherWeight() {
-        assertEquals(Item.Database.fromName("Kick-slasher").weight, 3.0d);
+        assertEquals(ItemDatabase.fromName("Kick-slasher").weight, 3.0d);
     }
 
     @Test
     public void testDatabaseBasilardValue() {
-        assertEquals(Item.Database.fromName("Basilard").worth.getAsGP(), 7);
+        assertEquals(7, ItemDatabase.fromName("Basilard").worth.getAsGP());
     }
 
     @Test
     public void testMatchingFromName() {
-        assertEquals(Item.Database.fromName("Assegai"), Item.Database.matchAll("Assegai").get(0));
+        assertEquals(ItemDatabase.fromName("Assegai"), ItemDatabase.matchAll("Assegai").get(0));
     }
 
     @Test
     public void testMatchingSingle1() {
-        assertEquals(1d, Item.Database.matchAll("Assegai").get(0).weight);
+        assertEquals(1d, ItemDatabase.matchAll("Assegai").get(0).weight);
     }
 
     @Test
     public void testMatchingSingle2() {
-        assertEquals(Money.fromString("10gp").getAsGP(), Item.Database.matchAll("Boar").get(0).worth.getAsGP());
+        assertEquals(Money.fromString("10gp").getAsGP(), ItemDatabase.matchAll("Boar").get(0).worth.getAsGP());
     }
 
     @Test
     public void testMatchingNonExact() {
-        assertEquals(new Money(5000).getAsGP(), Item.Database.matchAll("Hunting cat").get(0).worth.getAsGP());
+        assertEquals(new Money(5000).getAsGP(), ItemDatabase.matchAll("Hunting cat").get(0).worth.getAsGP());
     }
 
     @Test
     public void testDuplicateItemAdd() {
         assertThrowsExactly(
-                InvalidParameterException.class,
-                () -> Item.Database.addItem(Item.Database.getItems().get(0))
+                InstanceAlreadyExistsException.class,
+                () -> ItemDatabase.add(new ArrayList<>(ItemDatabase.get().values()).get(0))
         );
     }
 }

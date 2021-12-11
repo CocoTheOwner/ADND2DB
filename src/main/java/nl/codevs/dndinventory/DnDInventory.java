@@ -1,6 +1,6 @@
 package nl.codevs.dndinventory;
 
-import nl.codevs.dndinventory.data.Item;
+import nl.codevs.dndinventory.data.ItemDatabase;
 import nl.codevs.dndinventory.data.Money;
 import nl.codevs.dndinventory.data.StonePouch;
 import nl.codevs.dndinventory.discord.Bot;
@@ -133,7 +133,7 @@ public final class DnDInventory {
      */
     public static void main(final String[] args)
             throws IOException {
-        INV.addItem(Item.Database.fromName("Sandals"), 1);
+        INV.addItem(ItemDatabase.fromName("Sandals"), 1);
         INV.getStones().add(new StonePouch.Stone(
                 "stone",
                 "blue",

@@ -63,7 +63,6 @@ public class TestMoney {
 
     @Test
     public void testMaximizeSimple() {
-        System.out.println(Money.fromString("50cp"));
         assertEquals(5, Money.fromString("50cp").getSP());
     }
 

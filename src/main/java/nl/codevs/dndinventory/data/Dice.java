@@ -1,5 +1,8 @@
 package nl.codevs.dndinventory.data;
 
+import okhttp3.internal.annotations.EverythingIsNonNull;
+
+@EverythingIsNonNull
 public record Dice(int sides, int amount, int additional) {
     /**
      * Returns a string representation of the record.

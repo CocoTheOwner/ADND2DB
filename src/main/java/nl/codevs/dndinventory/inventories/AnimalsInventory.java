@@ -1,12 +1,14 @@
 package nl.codevs.dndinventory.inventories;
 
+import nl.codevs.dndinventory.data.Money;
+import nl.codevs.dndinventory.inventories.interfaces.IMoney;
 import nl.codevs.dndinventory.inventories.interfaces.IWeighted;
 import okhttp3.internal.annotations.EverythingIsNonNull;
 
 import java.util.List;
 
 @EverythingIsNonNull
-public class AnimalsInventory extends Inventory implements IWeighted {
+public class AnimalsInventory extends Inventory implements IWeighted, IMoney {
 
     /**
      * The animals whose inventory this is.
@@ -14,18 +16,27 @@ public class AnimalsInventory extends Inventory implements IWeighted {
     final List<Animal> animals;
 
     /**
+     * The money of this group of animals.
+     */
+    Money money;
+
+    /**
      * Generate from an existing, loaded, inventory.
      *
      * @param inventoryName The name of the inventory
      * @param inventoryItems The inventory mapping
      * @param herd The {@link Animal}s whose inventory this is
+     * @param initialMoney The initial money of this herd
      */
     public AnimalsInventory(
             final String inventoryName,
             final List<InventoryItem> inventoryItems,
-            final List<Animal> herd
+            final List<Animal> herd,
+            final Money initialMoney
     ) {
         super(inventoryName, inventoryItems);
+        money = initialMoney;
+        money.setSimplify(false);
         animals = herd;
     }
 
@@ -57,6 +68,27 @@ public class AnimalsInventory extends Inventory implements IWeighted {
     @Override
     public int getMaxWeight() {
         return animals.stream().mapToInt(Animal::getCarries).sum();
+    }
+
+    /**
+     * The amount of worth the inventory possesses.
+     *
+     * @return The Value
+     */
+    @Override
+    public Money getMoney() {
+        return money;
+    }
+
+    /**
+     * Set worth in the inventory.
+     *
+     * @param money The new worth value
+     */
+    @Override
+    public void setMoney(Money money) {
+        this.money = money;
+        this.money.setSimplify(false);
     }
 
     /**

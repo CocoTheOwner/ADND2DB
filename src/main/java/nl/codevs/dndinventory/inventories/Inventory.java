@@ -6,8 +6,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import nl.codevs.dndinventory.data.Item;
 import nl.codevs.dndinventory.data.Money;
-import nl.codevs.strinput.system.text.C;
 import okhttp3.internal.annotations.EverythingIsNonNull;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.*;
@@ -459,6 +459,7 @@ public abstract class Inventory {
     /**
      * Inventory item used for storing items in an inventory.
      */
+    @EverythingIsNonNull
     public static class InventoryItem {
 
         /**

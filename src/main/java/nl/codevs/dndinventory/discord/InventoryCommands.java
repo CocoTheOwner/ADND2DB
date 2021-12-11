@@ -68,6 +68,35 @@ public class InventoryCommands implements DiscordCategory {
         );
     }
 
+    @StrInput(description = "Remove an item from an inventory", aliases = {"remove", "-"})
+    public void removeFrom(
+            @Param(
+                    name = "inventory",
+                    description = "the inventory"
+            )
+            final Inventory inventory,
+            @Param(
+                    name = "item",
+                    description = "the item"
+            )
+            final Item item,
+            @Param(
+                    name = "amount",
+                    description = "the amount",
+                    defaultValue = "1"
+            )
+            final Integer amount
+    ) throws IOException {
+        Inventory.InventoryItem i = inventory.removeItem(item, amount);
+        inventory.save(true);
+        user().sendMessage("Removed " + amount
+                + " of " + item
+                + " from " + inventory.getName()
+                + " (now has " + inventory.getItems().size() + " items)"
+                + (i != null ? " remaining items: " + i.getAmount() + " of " + i.getItem() : " no remaining items")
+        );
+    }
+
     @StrInput(description = "Display an inventory")
     public void open(
             @Param(name = "inventory", description = "The inventory to open")

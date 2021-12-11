@@ -153,6 +153,20 @@ public abstract class Inventory {
     }
 
     /**
+     * Save all inventories.
+     * @param overwrite set to true to overwrite existing inventory files
+     */
+    public static void saveAll(boolean overwrite) {
+        LOADED_INVENTORIES.forEach(i -> {
+            try {
+                i.save(overwrite);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    /**
      * Save the inventory to a file in INVENTORY_DIRECTORY
      * @param overwrite set to true to overwrite existing inventory files
      * @throws FileAlreadyExistsException if the inventory already exists

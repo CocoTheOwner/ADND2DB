@@ -10,7 +10,7 @@ import java.util.List;
 
 @EverythingIsNonNull
 public class PlayerInventory extends Inventory
-        implements IMoney, IWeighted, IStats, IHealth, ILevel {
+        implements IMoney, IWeightedPlayer, IStats, IHealth, ILevel {
 
     /**
      * The amount of worth in the inventory
@@ -87,6 +87,7 @@ public class PlayerInventory extends Inventory
 
     static {
         TEST_INVENTORY.getMoney().setSimplify(false);
+        Inventory.LOADED_INVENTORIES.remove(TEST_INVENTORY);
     }
 
     /**
@@ -125,7 +126,6 @@ public class PlayerInventory extends Inventory
             final int charisma,
             final int complexion
     ) {
-
         super(playerName, startingItems);
         money = startingMoney;
         this.stones = stonePouch;
@@ -198,7 +198,7 @@ public class PlayerInventory extends Inventory
      */
     @Override
     public double getRemainingWeight() {
-        return IWeighted.super.getRemainingWeight() - money.getWeight();
+        return IWeightedPlayer.super.getRemainingWeight() - money.getWeight();
     }
 
     /**

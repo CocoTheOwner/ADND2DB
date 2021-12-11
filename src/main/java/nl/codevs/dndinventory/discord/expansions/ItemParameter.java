@@ -74,9 +74,9 @@ public class ItemParameter implements StrParameterHandler<Item> {
             String[] split = input.split(",");
             ItemType category = ItemType.fromString(split[0]);
             String itemName = split[1];
-            options = ItemDatabase.matchAll(category, itemName);
+            options = ItemDatabase.match(category, itemName, 0.1);
         } else {
-            options = ItemDatabase.matchAll(input);
+            options = ItemDatabase.match(input);
         }
         return options.subList(0, Math.min(options.size() - 1, 5));
     }

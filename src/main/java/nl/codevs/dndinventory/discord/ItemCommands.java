@@ -8,6 +8,7 @@ import nl.codevs.strinput.examples.discord.DiscordCategory;
 import nl.codevs.strinput.system.Param;
 import nl.codevs.strinput.system.StrInput;
 
+import javax.management.InstanceNotFoundException;
 import java.util.ArrayList;
 
 @StrInput(description = "Commands for items", name = "items", aliases = "i")
@@ -38,7 +39,11 @@ public class ItemCommands implements DiscordCategory {
                     description = "the item name"
             ) final String name
     ) {
-        user().sendMessage(ItemDatabase.fromName(name).toString());
+        try {
+            user().sendMessage(ItemDatabase.fromName(name).toString());
+        } catch (InstanceNotFoundException e) {
+            user().sendMessage("Could not find an item by the name: " + name);
+        }
     }
 
     @StrInput(description = "Make a new item", aliases = "new")

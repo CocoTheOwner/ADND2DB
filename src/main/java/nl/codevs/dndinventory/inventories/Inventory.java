@@ -482,6 +482,7 @@ public abstract class Inventory {
             endRow[5] = item.details;
             return endRow;
         }
+
         /**
          * The amount of items of the `item` type in this inventory item.
          */

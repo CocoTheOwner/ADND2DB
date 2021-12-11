@@ -3,15 +3,10 @@
 build/
 gradle/
 bin/
-
-token.txt
-
-.project
-
-.settings/org.eclipse.buildship.core.prefs
-
-.classpath
-
 DNDInventories/
 
+token.txt
 Field.txt
+.project
+.settings/org.eclipse.buildship.core.prefs
+.classpath

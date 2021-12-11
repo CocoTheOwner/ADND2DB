@@ -1,11 +1,13 @@
 package nl.codevs.dndinventory.data;
 
+import nl.codevs.strinput.system.util.NGram;
 import okhttp3.internal.annotations.EverythingIsNonNull;
-import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.management.InstanceAlreadyExistsException;
+import javax.management.InstanceNotFoundException;
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -32,11 +34,6 @@ public final class ItemDatabase {
      * Expected CSV header.
      */
     private static final String EXPECTED_HEADER = "Category,Name,Value,Weight,Stats";
-
-    /**
-     * Levenshtein distance.
-     */
-    private static final LevenshteinDistance LEVENSHTEIN_DISTANCE = new LevenshteinDistance();
 
     /**
      * The item database.
@@ -89,8 +86,13 @@ public final class ItemDatabase {
      * @param itemName the item name
      * @return an item in the database
      */
-    public static Item fromName(final String itemName) {
-        return matchAll(itemName).get(0);
+    public static @NotNull Item fromName(final String itemName) throws InstanceNotFoundException {
+        List<Item> matches = match(itemName);
+        if (matches.isEmpty()) {
+            throw new InstanceNotFoundException("Could not find that item!");
+        } else {
+            return matches.get(0);
+        }
     }
 
     /**
@@ -102,47 +104,61 @@ public final class ItemDatabase {
      * @return An array of items sorted by how close they match
      */
     @Contract("_ -> new")
-    public static List<Item> matchAll(String in) {
-        return matchAll(null, in);
+    public static List<Item> match(String in) {
+        return match(null, in, 0.1);
     }
 
     /**
-     * Get all values in the database,
+     * Get all values in the database that have a custom N-Gram match score above 0.1,
      * ordered by how closely they match a certain string.
-     * Uses {@code LevenshteinDistance} from Apache Commons Text.
+     * Uses {@link NGram}.
      *
      * @param in       The input string to match with
      * @param category The category of the item
+     * @param threshold The matching threshold
      * @return An array of items sorted by how close they match
      */
-    @Contract("_, _ -> new")
-    public static List<Item> matchAll(@Nullable final ItemType category, String in) {
-        List<Item> items = category == null ? new ArrayList<>(DATABASE.values())
-                : DATABASE.values().stream().filter(i -> i.category.equals(category)).collect(Collectors.toList());
-        String finalIn = in.toLowerCase(Locale.ROOT);
-        items.sort((i1, i2) -> {
+    @Contract("_, _, _ -> new")
+    public static List<Item> match(@Nullable final ItemType category, String in, double threshold) {
+        return sortByNGram(
+                in,
+                category == null
+                        ? new ArrayList<>(DATABASE.values())
+                        : DATABASE.values().stream().filter(i -> i.category.equals(category)).collect(Collectors.toList()),
+                threshold
+        );
+    }
 
-            // Starts-with priority
-            boolean i2StartsWith = i2.name.toLowerCase(Locale.ROOT).startsWith(finalIn);
-            if (i1.name.toLowerCase(Locale.ROOT).startsWith(finalIn)) {
-                if (i2StartsWith) {
-                    return Integer.compare(
-                            i1.name.length(),
-                            i2.name.length()
-                    );
-                }
-                return -1;
-            } else if (i2StartsWith) {
-                return 1;
-            }
+    /**
+     * Sort a list of items by n-gram match to a string input.<br>
+     * {@code itemList} is sorted and returned.<br>
+     * The best match (the highest n-gram score) is first, and the lowest last.
+     * @param input the input string for matching (source)
+     * @param itemList the list of items nodes to sort.
+     *                       <em>Not modified.</em>
+     * @param threshold the minimal matching score
+     * @return an array with the elements of
+     * {@code itemList}, in sorted order.
+     */
+    @Contract(mutates = "param2")
+    public static @NotNull List<Item> sortByNGram(
+            @NotNull final String input,
+            @NotNull final List<Item> itemList,
+            final double threshold
+    ) {
+        ConcurrentHashMap<Item, Double> results = new ConcurrentHashMap<>();
+        double[] scores = NGram.ngramMatching(input, itemList.stream().map(Item::getName).toList());
+        for (int i = 0; i < scores.length; i++) {
+            results.put(itemList.get(i), scores[i]);
+        }
 
-            // Levenshtein distance
-            return Integer.compare(
-                    LEVENSHTEIN_DISTANCE.apply(finalIn, i1.name),
-                    LEVENSHTEIN_DISTANCE.apply(finalIn, i2.name)
-            );
-        });
-        return items;
+        // Get & sort
+        return itemList
+                .stream()
+                .filter(v -> results.get(v) >= threshold)
+                .sorted(Comparator.comparingInt(v -> v.getName().length()))
+                .sorted(Comparator.comparingDouble(v -> -results.get(v)))
+                .collect(Collectors.toList());
     }
 
     /**

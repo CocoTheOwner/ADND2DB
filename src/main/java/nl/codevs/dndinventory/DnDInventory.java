@@ -1,13 +1,10 @@
 package nl.codevs.dndinventory;
 
-import nl.codevs.dndinventory.data.*;
 import nl.codevs.dndinventory.discord.Bot;
 import nl.codevs.dndinventory.discord.Commands;
 import nl.codevs.dndinventory.discord.expansions.InventoryParameter;
 import nl.codevs.dndinventory.discord.expansions.ItemParameter;
 import nl.codevs.dndinventory.inventories.Inventory;
-import nl.codevs.dndinventory.inventories.PlayerInventory;
-import nl.codevs.dndinventory.inventories.interfaces.ILevel;
 import nl.codevs.strinput.examples.discord.DiscordCenter;
 import nl.codevs.strinput.system.StrInput;
 import nl.codevs.strinput.system.StrUser;
@@ -18,7 +15,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.security.auth.login.LoginException;
 import java.io.*;
-import java.util.ArrayList;
 
 public final class DnDInventory {
 
@@ -110,7 +106,7 @@ public final class DnDInventory {
      */
     public static void main(final String[] args) {
 
-        Inventory
+        Inventory.LOADED_INVENTORIES.forEach(i -> System.out.println(i.getName()));
 
         try {
             bot = new Bot(

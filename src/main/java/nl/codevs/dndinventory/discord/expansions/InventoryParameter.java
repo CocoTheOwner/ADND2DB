@@ -5,6 +5,7 @@ import nl.codevs.strinput.system.parameter.StrParameterHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class InventoryParameter implements StrParameterHandler<Inventory> {
@@ -68,7 +69,8 @@ public class InventoryParameter implements StrParameterHandler<Inventory> {
      */
     @Override
     public @NotNull List<Inventory> getPossibilities(@NotNull String input) {
-        return getPossibilities().stream().filter(i -> i.getName().contains(input)).collect(Collectors.toList());
+        String lower = input.toLowerCase();
+        return getPossibilities().stream().filter(i -> i.getName().toLowerCase(Locale.ROOT).contains(lower)).collect(Collectors.toList());
     }
 
     /**

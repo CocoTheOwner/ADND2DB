@@ -8,11 +8,11 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import nl.codevs.strinput.examples.discord.DiscordCenter;
+import nl.codevs.strinput.system.StrCenter;
 import nl.codevs.strinput.system.util.AtomicCache;
 import org.jetbrains.annotations.NotNull;
 
 import javax.security.auth.login.LoginException;
-import java.util.Objects;
 
 public class Bot extends ListenerAdapter {
 
@@ -119,10 +119,6 @@ public class Bot extends ListenerAdapter {
      * @param string the debug message
      */
     public void debug(String string) {
-        Objects.requireNonNull(
-                channelCache.acquire(() ->
-                        jda.getTextChannelsByName("bot-debug", true).get(0)
-                )
-        ).sendMessage(string).queue();
+        StrCenter.DEFAULT_CONSOLE_USER.sendMessage(string);
     }
 }

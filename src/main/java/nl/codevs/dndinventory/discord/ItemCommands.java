@@ -2,6 +2,8 @@ package nl.codevs.dndinventory.discord;
 
 import nl.codevs.dndinventory.data.Item;
 import nl.codevs.dndinventory.data.ItemDatabase;
+import nl.codevs.dndinventory.data.ItemType;
+import nl.codevs.dndinventory.data.Money;
 import nl.codevs.strinput.examples.discord.DiscordCategory;
 import nl.codevs.strinput.system.Param;
 import nl.codevs.strinput.system.StrInput;
@@ -27,5 +29,32 @@ public class ItemCommands implements DiscordCategory {
             result.append("\n - ").append(item.toString());
         }
         user().sendMessage(result.toString());
+    }
+
+    @StrInput(description = "get an item by name", aliases = "find")
+    public void getItem(
+            @Param(
+                    name = "name",
+                    description = "the item name"
+            ) final String name
+    ) {
+        user().sendMessage(ItemDatabase.fromName(name).toString());
+    }
+
+    @StrInput(description = "Make a new item", aliases = "new")
+    public void make(
+            @Param(name = "name", description = "the item name")
+            final String name,
+            @Param(name = "category", description = "the item category")
+            final String category,
+            @Param(name = "value", description = "the item value")
+            final Money value,
+            @Param(name = "weight", description = "the item's weight")
+            final double weight,
+            @Param(name = "description", description = "the item's description", defaultValue = "")
+            final String description
+    ) {
+        Item i = Item.makeGetItem(ItemType.fromString(category), name, value, weight, description);
+        user().sendMessage("Made new item: " + i);
     }
 }

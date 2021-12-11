@@ -2,7 +2,6 @@ package nl.codevs.dndinventory.discord;
 
 import nl.codevs.dndinventory.data.Item;
 import nl.codevs.dndinventory.data.Money;
-import nl.codevs.dndinventory.data.StonePouch;
 import nl.codevs.dndinventory.inventories.Inventory;
 import nl.codevs.dndinventory.inventories.PlayerInventory;
 import nl.codevs.dndinventory.inventories.interfaces.ILevel;
@@ -41,7 +40,7 @@ public class InventoryCommands implements DiscordCategory {
         channel().sendMessage(s.toString()).queue();
     }
 
-    @StrInput(description = "Add an item to an inventory")
+    @StrInput(description = "Add an item to an inventory", aliases = {"add", "+"})
     public void addTo(
             @Param(
                     name = "inventory",
@@ -88,7 +87,6 @@ public class InventoryCommands implements DiscordCategory {
                 name,
                 new ArrayList<>(),
                 money,
-                new StonePouch(),
                 ILevel.CharacterClass.FIGHTER,
                 0,
                 1,
@@ -102,5 +100,4 @@ public class InventoryCommands implements DiscordCategory {
                 1
         );
     }
-
 }

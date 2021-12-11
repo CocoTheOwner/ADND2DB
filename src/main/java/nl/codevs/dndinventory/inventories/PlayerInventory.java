@@ -1,7 +1,6 @@
 package nl.codevs.dndinventory.inventories;
 
 import nl.codevs.dndinventory.data.Money;
-import nl.codevs.dndinventory.data.StonePouch;
 import nl.codevs.dndinventory.inventories.interfaces.*;
 import okhttp3.internal.annotations.EverythingIsNonNull;
 
@@ -65,10 +64,6 @@ public class PlayerInventory extends Inventory
      * Actual character level.
      */
     private int realLvl;
-    /**
-     * Stone pouch.
-     */
-    private final StonePouch stones;
 
     /**
      * Test inventory.
@@ -77,7 +72,6 @@ public class PlayerInventory extends Inventory
             "Test Inventory",
             new ArrayList<>(),
             new Money(0),
-            new StonePouch(),
             ILevel.CharacterClass.FIGHTER,
             8_400,
             2,
@@ -95,7 +89,6 @@ public class PlayerInventory extends Inventory
      * @param playerName The player name
      * @param startingItems The starting player items
      * @param startingMoney The amount of starting capital
-     * @param stonePouch Stones in the player inventory
      * @param characterClass The
      * {@link CharacterClass} of the player (Fighter, etc.)
      * @param experience The current experience of the player
@@ -113,7 +106,6 @@ public class PlayerInventory extends Inventory
             final String playerName,
             final List<InventoryItem> startingItems,
             final Money startingMoney,
-            final StonePouch stonePouch,
             final CharacterClass characterClass,
             final int experience,
             final int actualLevel,
@@ -128,7 +120,6 @@ public class PlayerInventory extends Inventory
     ) {
         super(playerName, startingItems);
         money = startingMoney;
-        this.stones = stonePouch;
         this.cc = characterClass;
         this.exp = experience;
         this.realLvl = actualLevel;
@@ -161,14 +152,6 @@ public class PlayerInventory extends Inventory
     @Override
     public nl.codevs.dndinventory.data.Money getMoney() {
         return money;
-    }
-
-    /**
-     * Get the stones in the inventory.
-     * @return The stones
-     */
-    public StonePouch getStones() {
-        return stones;
     }
 
     /**

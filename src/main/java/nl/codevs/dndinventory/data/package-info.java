@@ -15,8 +15,5 @@
  *
  * <li>{@link nl.codevs.dndinventory.data.Money.Coin}
  * is the enum for coins (GP CP SP etc)</li>
- *
- * <li>{@link nl.codevs.dndinventory.data.StonePouch}
- * is a list of {@link nl.codevs.dndinventory.data.StonePouch.Stone}s</li>
  */
 package nl.codevs.dndinventory.data;

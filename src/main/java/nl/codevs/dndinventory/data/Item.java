@@ -153,7 +153,7 @@ public class Item implements Comparable<Item> {
      * @return hashcode based on aforementioned details
      */
     public static int hashCode(ItemType category, String name, Money worth, @Nullable Double weight, String details) {
-        return category.getName().hashCode() + name.hashCode() + worth.hashCode() + ((Double) (weight == null ? 0 : weight)).hashCode() + details.hashCode();
+        return category.getName().hashCode() + name.hashCode() + worth.getAsCP() + ((Double) (weight == null ? 0 : weight)).hashCode() + details.hashCode();
     }
 
     /**

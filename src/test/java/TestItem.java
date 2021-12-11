@@ -8,16 +8,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestItem {
 
-    private static final Item item = Item.makeGetItem(ItemType.WEAPONS, "Apple", Money.fromString("5gp"), 5d, "Extra info here");
+    private static final Item ITEM = Item.makeGetItem(ItemType.WEAPONS, "Alhulak", Money.fromString("9gp"), 9, "(SM) 1d6 (L) 1d6");
 
     @Test
     public void testItemStat() {
-        assertEquals(item.toString(),
-                "Apple (Weapons) worth " + Money.fromString("5gp") + " weighs 5.0 stats: Extra info here");
+        assertEquals(ITEM.toString(),
+                "Alhulak (Weapons) worth " + Money.fromString("9gp") + " weighs 9.0 stats: (SM) 1d6 (L) 1d6");
     }
 
     @Test
     public void testItemWeight() {
-        assertEquals(5d, item.weight);
+        assertEquals(9d, ITEM.weight);
     }
 }

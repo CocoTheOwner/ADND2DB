@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestInventory {
 
     private static final Inventory SUT = PlayerInventory.TEST_INVENTORY;
-    private static final Item testItem = Item.makeGetItem(ItemType.WEAPONS, "Apple", Money.fromString("5gp"), 5d, "Extra info here");
+    private static final Item testItem = Item.makeGetItem(ItemType.WEAPONS, "Alhulak", Money.fromString("9gp"), 9, "(SM) 1d6 (L) 1d6");
 
     @BeforeAll
     static void addItems() {

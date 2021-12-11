@@ -137,7 +137,7 @@ public final class DnDInventory {
         INV.getStones().add(new StonePouch.Stone(
                 "stone",
                 "blue",
-                Money.fromString("100gp"),
+                100,
                 ""
         ));
         INV.save(true);

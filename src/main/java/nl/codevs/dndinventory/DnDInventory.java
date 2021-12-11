@@ -1,12 +1,11 @@
 package nl.codevs.dndinventory;
 
-import nl.codevs.dndinventory.data.ItemDatabase;
-import nl.codevs.dndinventory.data.Money;
-import nl.codevs.dndinventory.data.StonePouch;
+import nl.codevs.dndinventory.data.*;
 import nl.codevs.dndinventory.discord.Bot;
 import nl.codevs.dndinventory.discord.Commands;
 import nl.codevs.dndinventory.discord.expansions.InventoryParameter;
 import nl.codevs.dndinventory.discord.expansions.ItemParameter;
+import nl.codevs.dndinventory.inventories.Inventory;
 import nl.codevs.dndinventory.inventories.PlayerInventory;
 import nl.codevs.dndinventory.inventories.interfaces.ILevel;
 import nl.codevs.strinput.examples.discord.DiscordCenter;
@@ -108,22 +107,22 @@ public final class DnDInventory {
     /**
      * Testing inventory.
      */
-    public static PlayerInventory INV = new PlayerInventory(
-        "testPlayer",
+    public static PlayerInventory Lazerus = new PlayerInventory(
+        "Lazerus",
         new ArrayList<>(),
-        Money.fromString("10gp"),
+        Money.fromString("0"),
         new StonePouch(),
         ILevel.CharacterClass.FIGHTER,
-        0,
-        1,
+        8700,
+        2,
+        51,
         15,
-        14,
-        12,
+        13,
         18,
-        16,
-        12,
         9,
-        8
+        11,
+        10,
+        12
     );
 
     /**
@@ -133,15 +132,10 @@ public final class DnDInventory {
      */
     public static void main(final String[] args)
             throws IOException {
-        INV.addItem(ItemDatabase.fromName("Sandals"), 1);
-        INV.getStones().add(new StonePouch.Stone(
-                "stone",
-                "blue",
-                100,
-                ""
-        ));
-        INV.save(true);
-
+        Lazerus.addItems(
+                new Inventory.InventoryItem(Item.makeGetItem(ItemType.ARMOR, "Belt", Money.fromString("3sp"), 0, ""), 1)
+        );
+        Lazerus.save(true);
         try {
             bot = new Bot(
                     new BufferedReader(new FileReader("token.txt")).readLine(),

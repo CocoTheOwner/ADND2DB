@@ -60,7 +60,7 @@ public class InventoryCommands implements DiscordCategory {
             )
             final Integer amount
     ) throws IOException {
-        inventory.addItem(item, amount);
+        inventory.addItems(item, amount);
         inventory.save(true);
         user().sendMessage("Added " + amount
                 + " of " + item

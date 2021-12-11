@@ -166,9 +166,13 @@ public abstract class Inventory {
             System.out.println(toJson());
             throw new FileAlreadyExistsException("Inventory by name: " + getName() + " already exists and overwrite is off");
         }
-        BufferedWriter bw = new BufferedWriter(new FileWriter(targetFile));
-        bw.write(toJson());
-        bw.close();
+        try {
+            BufferedWriter bw = new BufferedWriter(new FileWriter(targetFile));
+            bw.write(toJson());
+            bw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -194,43 +198,45 @@ public abstract class Inventory {
      * @param item The item to add
      * @param amount The amount of this item to add
      */
-    public void addItem(final Item item, final int amount) {
-        addItem(new InventoryItem(item, amount));
+    public void addItems(final Item item, final int amount) {
+        addItems(new InventoryItem(item, amount));
     }
 
     /**
      * Add an inventory item to this inventory.
-     * @param inventoryItem The inventory item to add
+     * @param InventoryItems The inventory item to add
      */
-    public void addItem(final InventoryItem inventoryItem) {
-        addItemsBulk(new ArrayList<>(List.of(inventoryItem)));
+    public void addItems(final InventoryItem... InventoryItems) {
+
+        List<InventoryItem> items = new ArrayList<>(List.of(InventoryItems));
+
+
+        // Condensed items
+        for (InventoryItem iItem : getItems()) {
+            for (InventoryItem inventoryItem : new ArrayList<>(items)) {
+                if (iItem.getItem().equals(inventoryItem.getItem())) {
+                    iItem.setAmount(iItem.getAmount()
+                            + inventoryItem.getAmount()
+                    );
+                    items.remove(inventoryItem);
+                }
+            }
+            if (items.isEmpty()) {
+                return;
+            }
+        }
+
+        // Non-condensed items
+        for (InventoryItem inventoryItem : items) {
+            getItems().add(inventoryItem);
+        }
     }
 
     /**
      * Bulk add items.
      * @param inventoryItems List of inventory items
      */
-    public void addItemsBulk(final List<InventoryItem> inventoryItems) {
-
-        // Condensed items
-        for (InventoryItem iItem : getItems()) {
-            for (InventoryItem inventoryItem : new ArrayList<>(inventoryItems)) {
-                if (iItem.getItem().equals(inventoryItem.getItem())) {
-                    iItem.setAmount(iItem.getAmount()
-                            + inventoryItem.getAmount()
-                    );
-                    inventoryItems.remove(inventoryItem);
-                }
-            }
-            if (inventoryItems.isEmpty()) {
-                return;
-            }
-        }
-
-        // Non-condensed items
-        for (InventoryItem inventoryItem : inventoryItems) {
-            getItems().add(inventoryItem);
-        }
+    public void addItems(final List<InventoryItem> inventoryItems) {
     }
 
     /**

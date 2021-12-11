@@ -362,7 +362,7 @@ public final class Money {
     /**
      * Money matching regex.
      */
-    private static final Pattern MONEY_REGEX = Pattern.compile("(((?:[0-9]*[.])?[0-9]+)([CSEGP])[P]?|([0-9]*[.]?[0-9]+))");
+    private static final Pattern MONEY_REGEX = Pattern.compile("((?:[0-9]*[.])?[0-9]+)([CSEGP])[P]?|([0-9]*[.]?[0-9]+)");
 
     /**
      * <p>Create a value from a formatted string.</p><br>
@@ -402,6 +402,10 @@ public final class Money {
         while (matcher.find()) {
             resultList.add(matcher.toMatchResult());
         }
+        System.out.println("Input: " + cleanValue);
+        for (int i = 0; i < resultList.get(0).groupCount(); i++) {
+            System.out.println("Group " + i + ": " + resultList.get(0).group(i));
+        }
 
         // Ensure some were found
         if (resultList.isEmpty()) {
@@ -413,9 +417,23 @@ public final class Money {
 
         // Go over matched result groups.
         for (MatchResult matchResult : resultList) {
+
+            if (matchResult.groupCount() != 3) {
+                throw new InvalidParameterException("Input " + value + " invalid because not enough groups matched!");
+            }
+            // matchResult.groupCount == 3
+
+            if (matchResult.group(1) == null && matchResult.group(2) == null) {
+                if (resultList.size() != 1) {
+                    throw new InvalidParameterException("Input " + value + " invalid because not all C/S/E/G/P specified but not only number!");
+                } else {
+                    return new Money(Double.parseDouble(matchResult.group(0)));
+                }
+            }
+
             money.addCoin(
-                    Coin.valueOf(matchResult.group(3) + "P"),
-                    Double.parseDouble(matchResult.group(2))
+                    Coin.valueOf(matchResult.group(2) + "P"),
+                    Double.parseDouble(matchResult.group(1))
             );
         }
 

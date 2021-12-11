@@ -1,7 +1,5 @@
 package nl.codevs.dndinventory.data;
 
-import com.google.gson.Gson;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,7 +21,7 @@ public class StonePouch extends ArrayList<StonePouch.Stone> {
     /**
      * Database file.
      */
-    private static final File DATABASE_FILE = new File("stonesdb.csv");
+    private static final File DATABASE_FILE = new File("DNDInventories/databases/stonesdb.csv");
 
     /**
      * Stone database.

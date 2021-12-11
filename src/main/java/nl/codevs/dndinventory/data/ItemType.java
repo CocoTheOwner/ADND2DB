@@ -1,7 +1,6 @@
 package nl.codevs.dndinventory.data;
 
 import okhttp3.internal.annotations.EverythingIsNonNull;
-import org.jetbrains.annotations.NotNull;
 
 import java.security.InvalidParameterException;
 import java.util.Locale;

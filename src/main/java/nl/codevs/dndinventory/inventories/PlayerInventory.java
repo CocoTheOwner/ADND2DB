@@ -3,10 +3,12 @@ package nl.codevs.dndinventory.inventories;
 import nl.codevs.dndinventory.data.Money;
 import nl.codevs.dndinventory.data.StonePouch;
 import nl.codevs.dndinventory.inventories.interfaces.*;
+import okhttp3.internal.annotations.EverythingIsNonNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@EverythingIsNonNull
 public class PlayerInventory extends Inventory
         implements IMoney, IWeighted, IStats, IHealth, ILevel {
 

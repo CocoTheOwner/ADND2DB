@@ -12,9 +12,9 @@ token.txt
 
 .classpath
 
-stonesdb.csv
+DNDInventories/databases/stonesdb.csv
 
-itemdb.csv
+DNDInventories/databases/itemdb.csv
 
 inventories/playerinventory/
 

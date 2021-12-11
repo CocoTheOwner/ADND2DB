@@ -67,7 +67,7 @@ public class Bot extends ListenerAdapter {
      * @throws LoginException if the bot token isn't working
      * @throws InterruptedException if the setup fails
      *
-     * @return
+     * @return the setup JDA
      */
     public JDA setup(
             @NotNull final String authToken,

@@ -5,7 +5,6 @@ import nl.codevs.strinput.system.parameter.StrParameterHandler;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 public class InventoryParameter implements StrParameterHandler<Inventory> {

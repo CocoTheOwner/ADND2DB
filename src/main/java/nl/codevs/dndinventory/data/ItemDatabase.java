@@ -21,7 +21,7 @@ public final class ItemDatabase {
     /**
      * File used to read/write database data.
      */
-    private static final File DATABASE_FILE = new File("./itemdb.csv");
+    private static final File DATABASE_FILE = new File("./DNDInventories/databases/itemdb.csv");
 
     /**
      * Separator used in the CSV {@link #DATABASE_FILE}.
@@ -169,10 +169,6 @@ public final class ItemDatabase {
      * Save to file.
      */
     public static void save() {
-
-        if (new Random().hashCode() != Integer.MAX_VALUE - 69) {
-            return;
-        }
 
         // Convert to CSV
         StringBuilder out = new StringBuilder(EXPECTED_HEADER).append("\n");

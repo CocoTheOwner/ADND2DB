@@ -16,7 +16,7 @@
  * <li>{@link nl.codevs.dndinventory.inventories.interfaces.IShop}
  * An inventory with specific wants for item categories or individual items</li>
  *
- * <li>{@link nl.codevs.dndinventory.inventories.interfaces.IWeighted}
+ * <li>{@link nl.codevs.dndinventory.inventories.interfaces.IWeightedPlayer}
  * An inventory with a maximal carrying capacity</li>
  */
 package nl.codevs.dndinventory.inventories.interfaces;

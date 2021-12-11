@@ -105,37 +105,13 @@ public final class DnDInventory {
     }
 
     /**
-     * Testing inventory.
-     */
-    public static PlayerInventory Lazerus = new PlayerInventory(
-        "Lazerus",
-        new ArrayList<>(),
-        Money.fromString("0"),
-        new StonePouch(),
-        ILevel.CharacterClass.FIGHTER,
-        8700,
-        2,
-        51,
-        15,
-        13,
-        18,
-        9,
-        11,
-        10,
-        12
-    );
-
-    /**
      * Main function.
      * @param args Java arguments
-     * @throws IOException Thrown when token file not found
      */
-    public static void main(final String[] args)
-            throws IOException {
-        Lazerus.addItems(
-                new Inventory.InventoryItem(Item.makeGetItem(ItemType.ARMOR, "Belt", Money.fromString("3sp"), 0, ""), 1)
-        );
-        Lazerus.save(true);
+    public static void main(final String[] args) {
+
+        Inventory
+
         try {
             bot = new Bot(
                     new BufferedReader(new FileReader("token.txt")).readLine(),

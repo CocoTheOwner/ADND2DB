@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import nl.codevs.dndinventory.data.Item;
 import nl.codevs.dndinventory.data.Money;
+import nl.codevs.strinput.system.text.C;
 import okhttp3.internal.annotations.EverythingIsNonNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -46,9 +47,13 @@ public abstract class Inventory {
      */
     public static final List<Inventory> LOADED_INVENTORIES = new ArrayList<>();
 
+
     static {
         try {
-            LOADED_INVENTORIES.addAll(instantiateAllInventories(PlayerInventory.class));
+            LOADED_INVENTORIES.addAll(instantiateAllInventories(
+                    PlayerInventory.class,
+                    AnimalsInventory.class
+            ));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

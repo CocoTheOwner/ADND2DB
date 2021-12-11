@@ -5,6 +5,7 @@ import nl.codevs.dndinventory.discord.Bot;
 import nl.codevs.dndinventory.discord.Commands;
 import nl.codevs.dndinventory.discord.expansions.InventoryParameter;
 import nl.codevs.dndinventory.discord.expansions.ItemParameter;
+import nl.codevs.dndinventory.inventories.AnimalsInventory;
 import nl.codevs.dndinventory.inventories.Inventory;
 import nl.codevs.dndinventory.inventories.PlayerInventory;
 import nl.codevs.dndinventory.inventories.interfaces.ILevel;
@@ -19,6 +20,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.security.auth.login.LoginException;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public final class DnDInventory {
 
@@ -125,6 +127,84 @@ public final class DnDInventory {
         12
     );
 
+    public static PlayerInventory Manjizz = new PlayerInventory(
+            "Manjizz",
+            new ArrayList<>(),
+            Money.fromString("0"),
+            new StonePouch(),
+            ILevel.CharacterClass.SPECIALIST,
+            10000,
+            2,
+            16,
+            11,
+            16,
+            10,
+            18,
+            8,
+            14,
+            12
+    );
+
+    public static PlayerInventory Foraoise = new PlayerInventory(
+            "Foraoise",
+            new ArrayList<>(),
+            Money.fromString("0"),
+            new StonePouch(),
+            ILevel.CharacterClass.RANGER,
+            9500,
+            2,
+            23,
+            13,
+            13,
+            14,
+            11,
+            14,
+            12,
+            13
+    );
+
+    public static PlayerInventory Carlos = new PlayerInventory(
+            "Carlos",
+            new ArrayList<>(),
+            Money.fromString("0"),
+            new StonePouch(),
+            ILevel.CharacterClass.RANGER,
+            9550,
+            2,
+            41,
+            16,
+            13,
+            17,
+            10,
+            17,
+            12,
+            11
+    );
+
+    public static PlayerInventory Trevor = new PlayerInventory(
+            "Trevor",
+            new ArrayList<>(),
+            Money.fromString("0"),
+            new StonePouch(),
+            ILevel.CharacterClass.CLERIC,
+            7000,
+            2,
+            20,
+            11,
+            12,
+            15,
+            11,
+            18,
+            13,
+            6
+    );
+
+    public static AnimalsInventory mules = new AnimalsInventory(
+            "Animals",
+            new ArrayList<>(),
+            new ArrayList<>()
+    );
+
     /**
      * Main function.
      * @param args Java arguments
@@ -133,9 +213,16 @@ public final class DnDInventory {
     public static void main(final String[] args)
             throws IOException {
         Lazerus.addItems(
-                new Inventory.InventoryItem(Item.makeGetItem(ItemType.ARMOR, "Belt", Money.fromString("3sp"), 0, ""), 1)
+                new Inventory.InventoryItem(Item.makeGetItem(ItemType.CLOTHING, "Belt", Money.fromString("3sp"), 0, ""), 1)
         );
-        Lazerus.save(true);
+
+        for (int i = 0; i < 7; i++) {
+            mules.getAnimals().add(AnimalsInventory.Animal.MULE);
+        }
+        for (int i = 0; i < 6; i++) {
+            mules.getAnimals().add(AnimalsInventory.Animal.HORSE);
+        }
+        Inventory.saveAll(true);
         try {
             bot = new Bot(
                     new BufferedReader(new FileReader("token.txt")).readLine(),

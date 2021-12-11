@@ -402,10 +402,6 @@ public final class Money {
         while (matcher.find()) {
             resultList.add(matcher.toMatchResult());
         }
-        System.out.println("Input: " + cleanValue);
-        for (int i = 0; i < resultList.get(0).groupCount(); i++) {
-            System.out.println("Group " + i + ": " + resultList.get(0).group(i));
-        }
 
         // Ensure some were found
         if (resultList.isEmpty()) {

@@ -172,13 +172,12 @@ public final class ItemDatabase {
 
         // Convert to CSV
         StringBuilder out = new StringBuilder(EXPECTED_HEADER).append("\n");
-        for (Item item : DATABASE.values()) {
-            out.append(item.category).append(",")
-                    .append(item.name).append(",")
-                    .append(item.worth.getAsGP()).append(",")
-                    .append(item.weight).append(",")
-                    .append(item.details).append("\n");
-        }
+        DATABASE.values().stream().sorted().forEachOrdered(item -> out
+                .append(item.category).append(",")
+                .append(item.name).append(",")
+                .append(item.worth.getAsGP()).append(",")
+                .append(item.weight).append(",")
+                .append(item.details).append("\n"));
 
         try {
             // Write to file

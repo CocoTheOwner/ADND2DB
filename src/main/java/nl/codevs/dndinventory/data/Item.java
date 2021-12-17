@@ -62,7 +62,7 @@ public class Item implements Comparable<Item> {
             final double itemWeight,
             final String itemStats
     ) {
-        return makeGetItem(categoryName, itemName, itemWorth, itemWeight, itemStats, true, true);
+        return makeGetItem(categoryName, itemName, itemWorth, itemWeight, itemStats, true);
     }
 
     /**
@@ -73,7 +73,6 @@ public class Item implements Comparable<Item> {
      * @param itemWeight item weight
      * @param itemStats item stats
      * @param saveToDatabase false to not save to database
-     * @param checkExists returns an existing item if one exists in the database (recommended)
      */
     public static Item makeGetItem(
             final ItemType categoryName,
@@ -81,11 +80,10 @@ public class Item implements Comparable<Item> {
             final Money itemWorth,
             @Nullable final Double itemWeight,
             final String itemStats,
-            final boolean saveToDatabase,
-            final boolean checkExists
+            final boolean saveToDatabase
     ) {
         int hash = hashCode(categoryName, itemName, itemWorth, itemWeight, itemStats);
-        if (checkExists && ItemDatabase.get().containsKey(hash)) {
+        if (ItemDatabase.get().containsKey(hash)) {
             return ItemDatabase.get().get(hash);
         }
         Item result = new Item(categoryName, itemName, itemWorth, itemWeight, itemStats);

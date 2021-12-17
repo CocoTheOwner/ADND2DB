@@ -46,6 +46,7 @@ public final class ItemDatabase {
             AtomicBoolean valid = new AtomicBoolean(false);
             new BufferedReader(new FileReader(DATABASE_FILE)).lines().map(l -> {
                 if (l.equalsIgnoreCase(EXPECTED_HEADER)) {
+                    System.out.println("Invalid item entry: " + l);
                     valid.set(true);
                     return null;
                 }
